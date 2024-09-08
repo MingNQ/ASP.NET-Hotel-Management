@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\flag.jpg" />
+    <Content Remove="wwwroot\footer-logo.png" />
+    <Content Remove="wwwroot\logo.png" />
+    <Content Remove="wwwroot\play.png" />
+    <Content Remove="wwwroot\testimonial-logo.png" />
+    <Content Remove="wwwroot\video-bg.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\TemplateLayout\fonts\ElegantIcons.svg" />
+    <None Include="wwwroot\TemplateLayout\fonts\Flaticon.svg" />
+    <None Include="wwwroot\TemplateLayout\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\TemplateLayout\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\TemplateLayout\js\bootstrap.min.js" />
+    <None Include="wwwroot\TemplateLayout\js\jquery-3.3.1.min.js" />
+    <None Include="wwwroot\TemplateLayout\js\jquery-ui.min.js" />
+    <None Include="wwwroot\TemplateLayout\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\TemplateLayout\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\TemplateLayout\js\jquery.slicknav.js" />
+    <None Include="wwwroot\TemplateLayout\js\main.js" />
+    <None Include="wwwroot\TemplateLayout\js\owl.carousel.min.js" />
+  </ItemGroup>
+
+</Project>

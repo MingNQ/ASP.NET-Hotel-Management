@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "63WkXeT7VBBkFdSnFAXpm1ROMhk7KQZ/khe7HSEdZyT7EmkXNhElty1l3dwCcHbiTfnbbDbouI07P8v1NX5kOg==",
+  "success": true,
+  "projectFilePath": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\HotelManagement.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ming\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\Ming\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\Ming\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\Ming\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.28\\microsoft.netcore.app.host.win-x64.6.0.28.nupkg.sha512"
+  ],
+  "logs": []
+}

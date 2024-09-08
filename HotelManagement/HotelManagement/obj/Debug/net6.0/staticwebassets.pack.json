@@ -1,0 +1,601 @@
+{
+  "Files": [
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\HotelManagement.bundle.scp.css",
+      "PackagePath": "staticwebassets\\HotelManagement.bundle.scp.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\elegant-icons.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\elegant-icons.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\flaticon.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\flaticon.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\font-awesome.min.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\font-awesome.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\images\\ui-icons_444444_256x240.png",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\images\\ui-icons_444444_256x240.png"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\images\\ui-icons_555555_256x240.png",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\images\\ui-icons_555555_256x240.png"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\jquery-ui.min.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\jquery-ui.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\magnific-popup.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\magnific-popup.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\nice-select.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\nice-select.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\owl.carousel.min.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\owl.carousel.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\slicknav.min.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\slicknav.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\css\\style.css",
+      "PackagePath": "staticwebassets\\TemplateLayout\\css\\style.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\ElegantIcons.eot",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\ElegantIcons.eot"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\ElegantIcons.svg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\ElegantIcons.svg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\ElegantIcons.ttf",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\ElegantIcons.ttf"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\ElegantIcons.woff",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\ElegantIcons.woff"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\Flaticon.eot",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\Flaticon.eot"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\Flaticon.svg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\Flaticon.svg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\Flaticon.ttf",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\Flaticon.ttf"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\Flaticon.woff",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\Flaticon.woff"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\FontAwesome.otf",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\FontAwesome.otf"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\fonts\\fontawesome-webfont.woff2",
+      "PackagePath": "staticwebassets\\TemplateLayout\\fonts\\fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\about\\about-1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\about\\about-1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\about\\about-2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\about\\about-2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\about\\about-p1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\about\\about-p1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\about\\about-p2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\about\\about-p2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\about\\about-p3.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\about\\about-p3.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-10.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-10.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-3.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-3.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-4.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-4.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-5.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-5.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-6.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-6.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-7.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-7.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-8.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-8.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-9.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-9.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-details\\avatar\\avatar-1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-details\\avatar\\avatar-1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-details\\avatar\\avatar-2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-details\\avatar\\avatar-2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-details\\avatar\\avatar-3.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-details\\avatar\\avatar-3.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-details\\blog-details-1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-details\\blog-details-1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-details\\blog-details-2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-details\\blog-details-2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-details\\blog-details-3.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-details\\blog-details-3.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-details\\blog-details-hero.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-details\\blog-details-hero.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\blog\\blog-wide.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\blog\\blog-wide.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\flag.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\flag.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\footer-logo.png",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\footer-logo.png"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\gallery\\gallery-1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\gallery\\gallery-1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\gallery\\gallery-2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\gallery\\gallery-2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\gallery\\gallery-3.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\gallery\\gallery-3.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\gallery\\gallery-4.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\gallery\\gallery-4.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\hero\\hero-1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\hero\\hero-1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\hero\\hero-2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\hero\\hero-2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\hero\\hero-3.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\hero\\hero-3.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\logo.png",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\logo.png"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\play.png",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\play.png"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\avatar\\avatar-1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\avatar\\avatar-1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\avatar\\avatar-2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\avatar\\avatar-2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-3.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-3.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-4.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-4.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-5.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-5.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-6.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-6.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-b1.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-b1.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-b2.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-b2.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-b3.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-b3.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-b4.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-b4.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\room\\room-details.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\room\\room-details.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\services\\s-icon-1.png",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\services\\s-icon-1.png"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\testimonial-logo.png",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\testimonial-logo.png"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\img\\video-bg.jpg",
+      "PackagePath": "staticwebassets\\TemplateLayout\\img\\video-bg.jpg"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\TemplateLayout\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\js\\jquery-3.3.1.min.js",
+      "PackagePath": "staticwebassets\\TemplateLayout\\js\\jquery-3.3.1.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\js\\jquery-ui.min.js",
+      "PackagePath": "staticwebassets\\TemplateLayout\\js\\jquery-ui.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\js\\jquery.magnific-popup.min.js",
+      "PackagePath": "staticwebassets\\TemplateLayout\\js\\jquery.magnific-popup.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\js\\jquery.nice-select.min.js",
+      "PackagePath": "staticwebassets\\TemplateLayout\\js\\jquery.nice-select.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\js\\jquery.slicknav.js",
+      "PackagePath": "staticwebassets\\TemplateLayout\\js\\jquery.slicknav.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\js\\main.js",
+      "PackagePath": "staticwebassets\\TemplateLayout\\js\\main.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\TemplateLayout\\js\\owl.carousel.min.js",
+      "PackagePath": "staticwebassets\\TemplateLayout\\js\\owl.carousel.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "F:\\Users\\Ming\\source\\repos\\ASP.NET-Hotel-Management\\HotelManagement\\HotelManagement\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.HotelManagement.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.HotelManagement.props",
+      "PackagePath": "build\\HotelManagement.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.HotelManagement.props",
+      "PackagePath": "buildMultiTargeting\\HotelManagement.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.HotelManagement.props",
+      "PackagePath": "buildTransitive\\HotelManagement.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
