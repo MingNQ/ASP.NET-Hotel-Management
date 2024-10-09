@@ -18,6 +18,18 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.Use(async (context, next) =>
+{
+	if (context.Request.Path.StartsWithSegments("/admin") && !context.User.Identity.IsAuthenticated)
+    {
+        context.Response.Redirect("/Account/Login");
+
+        return;
+    }
+    await next.Invoke();
+});
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
