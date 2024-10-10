@@ -5,9 +5,11 @@ namespace HotelManagement.Models
 	public class Image
 	{
 		[Key]
-		public int ImageID { get; set; }
-		public string ImageUrl { get; set; }
+		public string ImageID { get; set; }
+		[Required]
+		public string? RoomID {  get; set; }
+		public string? ImageUrl { get; set; }
 
-		public ICollection<Room> Rooms { get; set; }
+		public virtual Room Room { get; set; } = null!;
 	}
 }

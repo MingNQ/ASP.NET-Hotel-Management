@@ -5,22 +5,16 @@ namespace HotelManagement.Models
 	public class Booking
 	{
 		[Key]
-		public int BookingID { get; set; }
+		public string BookingID { get; set; }
 
-		[Required]
-		public int CustomerID { get; set; }
-
-		[Required]
-		public int RoomID { get; set; }
+		public string? CustomerID { get; set; }
 
 		public DateTime DateCome { get; set; }
 		public DateTime DateGo { get; set; }
-		public int Quantity { get; set; }
-		public decimal Subtotal { get; set; }
+		public decimal Deposit { get; set; }
 
 		// Navigation properties
-		public Customer Customer { get; set; }
-		public Room Room { get; set; }
-		public RentForm RentForm { get; set; }
+		public virtual Customer Customer { get; set; } = null!;
+		public virtual RentForm RentForm { get; set; } = null!;
 	}
 }

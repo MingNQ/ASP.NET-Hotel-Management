@@ -1,37 +1,44 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HotelManagement.Models.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelManagement.Models
 {
 
 	public class Customer
 	{
+		public Customer() 
+		{
+			Bookings = new HashSet<Booking>();
+			Rates = new HashSet<Rate>();
+		}
+
 		[Key]
-		public int CustomerID { get; set; }
+		public string CustomerID { get; set; }
 
-		[Required]
-		public int AccountID { get; set; }
+		public int? AccountID { get; set; }
 
 		[Required]
 		[MaxLength(50)]
-		public string FirstName { get; set; }
+		public string? FirstName { get; set; }
 
 		[MaxLength(50)]
-		public string LastName { get; set; }
+		public string? LastName { get; set; }
 
-		public string Gender { get; set; }
+		public Gender Gender { get; set; }
 
 		[EmailAddress]
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		[Phone]
-		public string Phone { get; set; }
+		public string? Phone { get; set; }
 
-		public string Address { get; set; }
+		public string? Address { get; set; }
 
-		public string Membership { get; set; }
+		public Membership Membership { get; set; }
 
 		// Navigation properties
-		public Account Account { get; set; }
+		public virtual Account Account { get; set; } = null!;
 		public ICollection<Booking> Bookings { get; set; }
+		public ICollection<Rate> Rates { get; set; }
 	}
 }

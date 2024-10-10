@@ -4,12 +4,17 @@ namespace HotelManagement.Models
 {
 	public class Category
 	{
+		public Category() 
+		{
+			Rooms = new HashSet<Room>();
+		}
+
 		[Key]
-		public int CategoryID { get; set; }
-		public string TypeName { get; set; }
-		public int Capacity { get; set; }
+		public string CategoryID { get; set; }
+		public string? TypeName { get; set; }
+		public decimal Capacity { get; set; }
 		public decimal Price { get; set; }
 
-		public ICollection<Room> Rooms { get; set; }
+		public virtual ICollection<Room> Rooms { get; set; }
 	}
 }

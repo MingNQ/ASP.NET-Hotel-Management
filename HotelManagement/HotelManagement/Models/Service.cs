@@ -4,12 +4,16 @@ namespace HotelManagement.Models
 {
 	public class Service
 	{
+		public Service()
+		{
+			RoomServices = new HashSet<RoomService>();
+		}
+
 		[Key]
-		public int ServiceID { get; set; }
-		public string ServiceName { get; set; }
-		public string Description { get; set; }
+		public string ServiceID { get; set; }
+		public string? ServiceName { get; set; }
 		public decimal Price { get; set; }
 
-		public ICollection<Room> Rooms { get; set; }
+		public virtual ICollection<RoomService> RoomServices { get; set; }
 	}
 }

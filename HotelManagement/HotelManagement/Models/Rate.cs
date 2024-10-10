@@ -5,15 +5,15 @@ namespace HotelManagement.Models
 	public class Rate
 	{
 		[Key]
-		public int RateID { get; set; }
+		public string RateID { get; set; }
 
-		[Required]
-		public int CustomerID { get; set; }
+		public string? CustomerID { get; set; }
+		public decimal Point { get; set; }
 
-		public string Message { get; set; }
+		public string? Message { get; set; }
 		public DateTime DateCreate { get; set; }
 
 		// Navigation properties
-		public Customer Customer { get; set; }
+		public virtual Customer Customer { get; set; } = null!;
 	}
 }

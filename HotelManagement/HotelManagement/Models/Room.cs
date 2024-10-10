@@ -6,27 +6,24 @@ namespace HotelManagement.Models
 {
 	public class Room
 	{
+		public Room()
+		{
+			RoomServices = new HashSet<RoomService>();
+			RentForms = new HashSet<RentForm>();
+			Images = new HashSet<Image>();
+		}
+
 		[Key]
-		public int RoomID { get; set; }
+		public string RoomID { get; set; }
 
-		[Required]
-		public int FloorID { get; set; }
-
-		[Required]
-		public int CategoryID { get; set; }
-
-		public int? ImageID { get; set; }
-		public int? ServiceID { get; set; }
-		public string RoomNumber { get; set; }
-
-		public string Status { get; set; }
-		public string Note { get; set; }
+		public string? CategoryID { get; set; }
+		public string? Status { get; set; }
+		public string? Description { get; set; }
 
 		// Navigation properties
-		public Floor Floor { get; set; }
-		public Category Category { get; set; }
-		public Image Image { get; set; }
-		public ICollection<Service> Services { get; set; }
-		public ICollection<Booking> Bookings { get; set; }
+		public virtual Category Category { get; set; } = null!;
+		public virtual ICollection<RoomService> RoomServices { get; set; }
+		public virtual ICollection<RentForm> RentForms { get; set; }
+		public virtual ICollection<Image> Images { get; set; }
 	}
 }
