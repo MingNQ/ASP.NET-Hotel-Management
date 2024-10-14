@@ -8,6 +8,14 @@ builder.Services.AddDbContext<HotelDbContext>(options => options
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(1800);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -28,13 +36,15 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseSession();
+
 app.UseRouting();
 
 app.Use(async (context, next) =>
 {
-	if (context.Request.Path.StartsWithSegments("/admin") && !context.User.Identity.IsAuthenticated)
+    if (context.Request.Path.StartsWithSegments("/admin") && string.IsNullOrEmpty(context.Session.GetString("Username")))
     {
-        context.Response.Redirect("/Account/Login");
+        context.Response.Redirect("/account/login");
 
         return;
     }

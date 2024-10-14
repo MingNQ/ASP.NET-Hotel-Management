@@ -7,11 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="../TemplateLayout/AdminPage/img/logo/logo.png" rel="icon">
+    <link href="@(Url.Content("~/TemplateLayout/AdminPage/img/logo/logo.png"))" rel="icon">
     <title>RuangAdmin - Dashboard</title>
-    <link href="../TemplateLayout/AdminPage/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    @* <link href="../TemplateLayout/AdminPage/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="../TemplateLayout/AdminPage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../TemplateLayout/AdminPage/css/ruang-admin.min.css" rel="stylesheet">
+    <link href="../TemplateLayout/AdminPage/css/ruang-admin.min.css" rel="stylesheet"> *@
+    <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/fontawesome-free/css/all.min.css"))" rel="stylesheet" type="text/css">
+    <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap/css/bootstrap.min.css"))" rel="stylesheet" type="text/css">
+    <link href="@(Url.Content("~/TemplateLayout/AdminPage/css/ruang-admin.min.css"))" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -41,12 +44,12 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <script src="../TemplateLayout/AdminPage/vendor/jquery/jquery.min.js"></script>
-    <script src="../TemplateLayout/AdminPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../TemplateLayout/AdminPage/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="../TemplateLayout/AdminPage/js/ruang-admin.min.js"></script>
-    <script src="../TemplateLayout/AdminPage/vendor/chart.js/Chart.min.js"></script>
-    <script src="../TemplateLayout/AdminPage/js/demo/chart-area-demo.js"></script>
+    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/jquery/jquery.min.js"))"></script>
+    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap/js/bootstrap.bundle.min.js"))"></script>
+    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/jquery-easing/jquery.easing.min.js"))"></script>
+    <script src="@(Url.Content("~/TemplateLayout/AdminPage/js/ruang-admin.min.js"))"></script>
+    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/chart.js/Chart.min.js"))"></script>
+    <script src="@(Url.Content("~/TemplateLayout/AdminPage/js/demo/chart-area-demo.js"))"></script>
 </body>
 
 </html>

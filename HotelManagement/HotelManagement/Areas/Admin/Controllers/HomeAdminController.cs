@@ -3,12 +3,12 @@
 namespace HotelManagement.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	[Route("admin")]
-	[Route("admin/homeadmin")]
+	[Route("Admin")]
+	[Route("Admin/Homeadmin")]
 	public class HomeAdminController : Controller
 	{
 		[Route("")]
-		[Route("index")]
+		[Route("Index")]
 		public IActionResult Index()
 		{
 			return View();

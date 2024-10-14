@@ -5,6 +5,7 @@ namespace HotelManagement.Data
 {
 	public class HotelDbContext : DbContext
 	{
+		public HotelDbContext() : base() { }
 		public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options) { }
 
 		public DbSet<Account> Accounts { get; set; } = null!;
