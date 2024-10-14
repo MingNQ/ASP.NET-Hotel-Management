@@ -5,8 +5,7 @@
     },
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:HotelConnectionString",
-      "dynamicId": null
+      "connectionId": "ConnectionStrings:HotelConnectionString"
     }
   }
 }
