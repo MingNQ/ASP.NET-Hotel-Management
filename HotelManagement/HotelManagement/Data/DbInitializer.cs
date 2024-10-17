@@ -274,28 +274,59 @@ namespace HotelManagement.Data
 		{
 			var images = new Image[] 
 			{
-				new Image { ImageID = "IMG0001", RoomID = "R101", ImageUrl = "" },
-				new Image { ImageID = "IMG0002", RoomID = "R102", ImageUrl = "" },
-				new Image { ImageID = "IMG0003", RoomID = "R103", ImageUrl = "" },
-				new Image { ImageID = "IMG0004", RoomID = "R104", ImageUrl = "" },
+				new Image { ImageID = "IMG0001", RoomID = "R101", ImageUrl = "/img/Standard_Room1.jpg" },
+				new Image { ImageID = "IMG0002", RoomID = "R101", ImageUrl = "/img/Standard_Room2.jpg" },
 
-				new Image { ImageID = "IMG0005", RoomID = "R201", ImageUrl = "" },
-				new Image { ImageID = "IMG0006", RoomID = "R202", ImageUrl = "" },
-				new Image { ImageID = "IMG0007", RoomID = "R203", ImageUrl = "" },
-				new Image { ImageID = "IMG0008", RoomID = "R204", ImageUrl = "" },
+				new Image { ImageID = "IMG0003", RoomID = "R102", ImageUrl = "/img/Standard_Room3.jpg" },
+				new Image { ImageID = "IMG0004", RoomID = "R102", ImageUrl = "/img/Standard_Room4.jpg" },
 
-				new Image { ImageID = "IMG0009", RoomID = "R301", ImageUrl = "" },
-				new Image { ImageID = "IMG0010", RoomID = "R302", ImageUrl = "" },
-				new Image { ImageID = "IMG0011", RoomID = "R303", ImageUrl = "" },
-				new Image { ImageID = "IMG0012", RoomID = "R304", ImageUrl = "" },
+				new Image { ImageID = "IMG0005", RoomID = "R103", ImageUrl = "/img/Standard_TwinRoom1.jpg" },
+				new Image { ImageID = "IMG0006", RoomID = "R103", ImageUrl = "/img/Standard_TwinRoom2.jpg" },
 
-				new Image { ImageID = "IMG0013", RoomID = "R401", ImageUrl = "" },
-				new Image { ImageID = "IMG0014", RoomID = "R402", ImageUrl = "" },
-				new Image { ImageID = "IMG0015", RoomID = "R403", ImageUrl = "" },
-				new Image { ImageID = "IMG0016", RoomID = "R404", ImageUrl = "" },
+				new Image { ImageID = "IMG0007", RoomID = "R104", ImageUrl = "/img/Standard_TwinRoom3.jpg" },
+				new Image { ImageID = "IMG0008", RoomID = "R104", ImageUrl = "/img/Standard_TwinRoom4.jpg" },
 
-				new Image { ImageID = "IMG0017", RoomID = "R501", ImageUrl = "" },
-				new Image { ImageID = "IMG0018", RoomID = "R502", ImageUrl = "" },
+				new Image { ImageID = "IMG0009", RoomID = "R201", ImageUrl = "/img/Superior_Room1.jpg" },
+				new Image { ImageID = "IMG0010", RoomID = "R201", ImageUrl = "/img/Superior_Room2.jpg" },
+
+				new Image { ImageID = "IMG0011", RoomID = "R202", ImageUrl = "/img/Superior_TwinRoom1.jpg" },
+				new Image { ImageID = "IMG0012", RoomID = "R202", ImageUrl = "/img/Superior_TwinRoom2.jpg" },
+
+				new Image { ImageID = "IMG0013", RoomID = "R203", ImageUrl = "/img/Superior_TwinRoom3.jpg" },
+				new Image { ImageID = "IMG0014", RoomID = "R203", ImageUrl = "/img/Superior_TwinRoom4.jpg" },
+
+				new Image { ImageID = "IMG0015", RoomID = "R204", ImageUrl = "/img/Superior_TripleRoom1.jpg" },
+				new Image { ImageID = "IMG0016", RoomID = "R204", ImageUrl = "/img/Superior_TripleRoom2.jpg" },
+
+				new Image { ImageID = "IMG0017", RoomID = "R301", ImageUrl = "/img/Deluxe_Room1.jpg" },
+				new Image { ImageID = "IMG0018", RoomID = "R301", ImageUrl = "/img/Deluxe_Room2.jpg" },
+
+				new Image { ImageID = "IMG0019", RoomID = "R302", ImageUrl = "/img/Deluxe_TwinRoom1.jpg" },
+				new Image { ImageID = "IMG0020", RoomID = "R302", ImageUrl = "/img/Deluxe_TwinRoom2.jpg" },
+				
+				new Image { ImageID = "IMG0021", RoomID = "R303", ImageUrl = "/img/Deluxe_Room3.jpg" },
+				new Image { ImageID = "IMG0022", RoomID = "R303", ImageUrl = "/img/Deluxe_Room4.jpg" },
+				
+				new Image { ImageID = "IMG0023", RoomID = "R304", ImageUrl = "/img/Deluxe_TwinRoom3.jpg" },
+				new Image { ImageID = "IMG0024", RoomID = "R304", ImageUrl = "/img/Deluxe_TwinRoom4.jpg" },
+
+				new Image { ImageID = "IMG0025", RoomID = "R401", ImageUrl = "/img/Suite_Room1.jpg" },
+				new Image { ImageID = "IMG0026", RoomID = "R401", ImageUrl = "/img/Suite_Room2.jpg" },
+				
+				new Image { ImageID = "IMG0027", RoomID = "R402", ImageUrl = "/img/Suite_TwinRoom1.jpg" },
+				new Image { ImageID = "IMG0028", RoomID = "R402", ImageUrl = "/img/Suite_TwinRoom2.jpg" },
+				
+				new Image { ImageID = "IMG0029", RoomID = "R403", ImageUrl = "/img/Suite_TripleRoom1.jpg" },
+				new Image { ImageID = "IMG0030", RoomID = "R403", ImageUrl = "/img/Suite_TripleRoom2.jpg" },
+				
+				new Image { ImageID = "IMG0031", RoomID = "R404", ImageUrl = "/img/Suite_QueenRoom1.jpg" },
+				new Image { ImageID = "IMG0032", RoomID = "R404", ImageUrl = "/img/Suite_QueenRoom2.jpg" },
+
+				new Image { ImageID = "IMG0033", RoomID = "R501", ImageUrl = "/img/Standard_Room1.jpg" },
+				new Image { ImageID = "IMG0034", RoomID = "R501", ImageUrl = "/img/Standard_Room3.jpg" },
+
+				new Image { ImageID = "IMG0035", RoomID = "R502", ImageUrl = "/img/Standard_Room2.jpg" },
+				new Image { ImageID = "IMG0036", RoomID = "R502", ImageUrl = "/img/Standard_Room4.jpg" },
 			};
 
 			return images;
