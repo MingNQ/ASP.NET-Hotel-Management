@@ -1,0 +1,61 @@
+﻿@model IEnumerable<HotelManagement.Models.Room>
+
+@{
+    ViewData["Title"] = "Danh Sách Phòng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h3>DANH SÁCH PHÒNG</h3>
+<div class="ms-2 mx-2">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Mã Phòng</th>
+                <th>Mã Loại Phòng</th>
+                <th>Hình Ảnh</th>
+                <th>Đơn Giá</th>
+                <th>Trạng Thái</th>
+                <th>Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var s in Model)
+            {
+                <tr>
+                    <td>@s.RoomID</td>
+                    <td>@s.CategoryID</td>
+                    <td>
+                        @if (s.Images != null && s.Images.Any())
+                        {
+                            <div>
+                                @foreach (var img in s.Images)
+                                {
+                                    <div>@img.ImageID</div>
+                                    <!-- <div><img src="@img.ImageUrl" alt="Image" width="100" /></div> -->
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <span>Không có hình ảnh</span>
+                        }
+                    </td>
+                    <td>@s.Category.Price</td>
+                    <td>@s.Status</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id ="@s.RoomID"><abbr title="Edit"><img src="~/img/edit.png" width="20" height="20" /></abbr></a>
+                        <a asp-action="Detail" asp-route-id="@s.RoomID"><abbr title="Detail"><img src="/img/details.png" width="20" height="20" /></abbr></a>
+                        <a asp-action="Detail" asp-route-id="@s.RoomID">
+                            <abbr title="Delete">
+                                <img src="/img/delete.png" width="20" height="20" />
+                            </abbr>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-controller="Rooms" asp-action="Create" class="btn btn-primary">Thêm mới phòng</a>
+</div>
+
+
