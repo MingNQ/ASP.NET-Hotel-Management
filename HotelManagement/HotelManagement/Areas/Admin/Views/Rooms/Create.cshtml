@@ -7,7 +7,7 @@
 <div class="ms-2 mx-2">
     <h3>Create new Room</h3>
     <div asp-validation-summary="All" class="text-danger"></div>
-    <form asp-controller="Rooms" asp-action="Create" method="post" enctype="multipart/form-data" class="mt-3">
+    <form asp-area="Admin" asp-controller="Rooms" asp-action="Create" method="post" enctype="multipart/form-data" class="mt-3">
         <div style="margin-top: 7px" class="form-group row">
             <label asp-for="RoomID" class="col-sm-2 col-form-label">Room ID</label>
             <div class="col-sm-8">
@@ -19,7 +19,7 @@
         <div style="margin-top: 7px" class="form-group row">
             <label asp-for="CategoryID" class="col-sm-2 col-form-label">Category ID</label>
             <div class="col-sm-8">
-                <select asp-for="CategoryID" name="CategoryID" class="custom-select mr-sm-2" asp-items="@ViewBag.CategoryID"></select>
+                <select asp-for="CategoryID" class="custom-select mr-sm-2" asp-items="@ViewBag.CategoryID"></select>
             </div>
             @* <span asp-validation-for="CategoryID" class="text-danger col-sm-2"></span>  *@
         </div>

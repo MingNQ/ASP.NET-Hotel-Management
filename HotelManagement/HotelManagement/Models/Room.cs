@@ -11,17 +11,18 @@ namespace HotelManagement.Models
 			RoomServices = new HashSet<RoomService>();
 			RentForms = new HashSet<RentForm>();
 			Images = new HashSet<Image>();
+			//Category = new Category();
 		}
 
 		[Key]
 		public string RoomID { get; set; }
 
-		public string? CategoryID { get; set; }
+		public string CategoryID { get; set; }
 		public string? Status { get; set; }
 		public string? Description { get; set; }
 
 		// Navigation properties
-		public virtual Category Category { get; set; } = null!;
+		public virtual Category? Category { get; set; }
 		public virtual ICollection<RoomService> RoomServices { get; set; }
 		public virtual ICollection<RentForm> RentForms { get; set; }
 		public virtual ICollection<Image> Images { get; set; }

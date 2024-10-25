@@ -39,8 +39,8 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("Create")]
         [ValidateAntiForgeryToken]
+        [Route("Create")]
         public IActionResult Create([Bind("RoomID, CategoryID, Status")] Room room, IFormFile RoomImage)
         {
             if (ModelState.IsValid)
