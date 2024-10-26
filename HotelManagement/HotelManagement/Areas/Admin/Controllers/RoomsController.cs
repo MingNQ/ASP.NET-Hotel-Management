@@ -90,10 +90,11 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return NotFound();
             }
             var room = db.Rooms.Include(c => c.Category)
-                              .Include(i => i.Images)
-                              .Include(s => s.RoomServices)
-                              .Include(f => f.RentForms)
-                              .FirstOrDefault(r => r.RoomID == id);
+                       .Include(i => i.Images)
+                       .Include(s => s.RoomServices)
+                       .ThenInclude(rs => rs.Service) // Include Service for RoomService
+                       .Include(f => f.RentForms)
+                       .FirstOrDefault(r => r.RoomID == id);
             if (room == null)
             {
                 return NotFound();
@@ -294,57 +295,65 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Delete")]
         public IActionResult Delete(string id)
         {
-            if(id == null || db.Rooms == null)
+            if (id == null || db.Rooms == null)
             {
                 return NotFound();
             }
 
+            // Load Room cùng các bảng liên quan
             var room = db.Rooms.Include(c => c.Category)
                                .Include(i => i.Images)
                                .Include(s => s.RoomServices)
                                .Include(f => f.RentForms)
                                .FirstOrDefault(r => r.RoomID == id);
-            if(room == null)
+
+            if (room == null)
             {
                 return NotFound();
             }
-            if (room.RoomServices.Count() > 0)
+
+            // Kiểm tra nếu Room có RoomServices hoặc RentForms thì không cho xóa
+            if (room.RoomServices.Any())
             {
-                return Content("This room has room service, please remove the room service before deleting the room.");
+                return Content("Cannot delete room because it has associated room services.");
             }
-            if(room.RentForms.Count() > 0)
+
+            if (room.RentForms.Any())
             {
-                return Content("This room has room RentForm, can't delete!");
+                return Content("Cannot delete room because it has associated rent forms.");
             }
-            return View(room);
+
+            return View(room); // Chuyển đến view để xác nhận xóa
         }
+
+        [HttpPost]
         [Route("Delete")]
-        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(string id)
         {
             if (db.Rooms == null)
             {
-                return Problem("Entity set 'Rooms' is null");
+                return Problem("Entity set 'Rooms' is null.");
             }
-            // Tìm phòng cần xóa và bao gồm các ảnh liên quan
+
+            // Load Room cùng các ảnh liên quan
             var room = db.Rooms.Include(r => r.Images).FirstOrDefault(r => r.RoomID == id);
 
             if (room != null)
             {
-                // Xóa các bản ghi ảnh liên quan khỏi cơ sở dữ liệu
-                foreach (var image in room.Images)
-                {
-                    db.Images.Remove(image);
-                }
+                // Xóa tất cả ảnh liên quan
+                db.Images.RemoveRange(room.Images);
 
-                // Xóa phòng khỏi cơ sở dữ liệu
+                // Xóa Room
                 db.Rooms.Remove(room);
+
+                // Lưu thay đổi vào database
                 db.SaveChanges();
             }
-            db.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
+        
     }
 }
 

@@ -21,8 +21,8 @@
 <form method="get" asp-action="Index" class="mb-4 p-3 border rounded bg-light shadow-sm">
     <div class="row g-2 align-items-end">
         <div class="col-md-4">
-            <label for="CategoryID" class="form-label">CategoryID</label>
-            <select name="CategoryID" id="CategoryID" class="form-select">
+            <label for="CategoryID" class="form-label" style="margin-right: 10px;">CategoryID</label>
+            <select name="CategoryID" id="CategoryID" class="form-select" style="width: 250px;">
                 <option value="">All</option>
                 @foreach (var category in ViewBag.Categories)
                 {
@@ -31,14 +31,14 @@
             </select>
         </div>
         <div class="col-md-4">
-            <label for="Status" class="form-label">Status</label>
-            <select name="Status" id="Status" class="form-select">
+            <label for="Status" class="form-label" style="margin-right: 10px;">Status</label>
+            <select name="Status" id="Status" class="form-select" style="width: 200px;">
                 <option value="">All</option>
                 <option value="Vacant">Vacant</option>
                 <option value="Occupied">Occupied</option>
             </select>
         </div>
-        <div class="col-md-4 d-flex justify-content-start">
+        <div class="col-md-4 d-flex justify-content-around">
             <button type="submit" class="btn btn-primary me-3">Search</button>
             <a href="/admin/rooms/index" class="btn btn-secondary">Reset</a>
         </div>
@@ -51,7 +51,7 @@
             <tr>
                 <th>
                     <a href="/admin/rooms/index?SortColumn=RoomID&IconClass=@iconClass&page=@ViewBag.Page&CategoryID=@ViewBag.SelectedCategoryID&Status=@ViewBag.SelectedStatus">
-                        Mã Phòng
+                        RoomID
                     </a>
                     @if (ViewBag.SortColumn == "RoomID")
                     {
@@ -60,25 +60,25 @@
                 </th>
                 <th>
                     <a href="/admin/rooms/index?SortColumn=CategoryID&IconClass=@iconClass&page=@ViewBag.Page&CategoryID=@ViewBag.SelectedCategoryID&Status=@ViewBag.SelectedStatus">
-                        Mã Loại Phòng
+                        CategoryID
                     </a>
                     @if (ViewBag.SortColumn == "CategoryID")
                     {
                         <i class="fa @ViewBag.IconClass"></i>
                     }
                 </th>
-                <th>Hình Ảnh</th>
+                <th>Image</th>
                 <th>
                     <a href="/admin/rooms/index?SortColumn=Price&IconClass=@iconClass&page=@ViewBag.Page&CategoryID=@ViewBag.SelectedCategoryID&Status=@ViewBag.SelectedStatus">
-                        Đơn Giá
+                        Price
                     </a>
                     @if (ViewBag.SortColumn == "Price")
                     {
                         <i class="fa @ViewBag.IconClass"></i>
                     }
                 </th>
-                <th>Trạng Thái</th>
-                <th>Chức Năng</th>
+                <th>Status</th>
+                <th>Function</th>
             </tr>
         </thead>
 
@@ -104,7 +104,7 @@
                             <span>Không có hình ảnh</span>
                         }
                     </td>
-                    <td>@s.Category.Price</td>
+                    <td>@s.Category.Price.ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"))</td>
                     <td>@s.Status</td>
                     <td>
                         <a asp-action="Edit" asp-route-id ="@s.RoomID"><abbr title="Edit"><img src="~/img/edit.png" width="20" height="20" /></abbr></a>
