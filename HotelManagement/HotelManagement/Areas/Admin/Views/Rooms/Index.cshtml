@@ -5,15 +5,72 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h3>DANH SÁCH PHÒNG</h3>
+@{
+    string iconClass = "";
+    if (ViewBag.IconClass == "fa-sort-desc")
+    {
+        iconClass = "fa-sort-asc";
+    }
+    else
+    {
+        iconClass = "fa-sort-desc";
+    }
+}
+<h2>Room List</h2>
+<!-- Form Tìm Kiếm -->
+<form method="get" asp-action="Index" class="mb-4 p-3 border rounded bg-light shadow-sm">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-4">
+            <label for="CategoryID" class="form-label">CategoryID</label>
+            <select name="CategoryID" id="CategoryID" class="form-select">
+                <option value="">All</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.CategoryID">@category.CategoryID</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="Status" class="form-label">Status</label>
+            <select name="Status" id="Status" class="form-select">
+                <option value="">All</option>
+                <option value="Vacant">Vacant</option>
+                <option value="Occupied">Occupied</option>
+            </select>
+        </div>
+        <div class="col-md-4 d-flex justify-content-start">
+            <button type="submit" class="btn btn-primary me-3">Search</button>
+            <a href="/admin/rooms/index" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+</form>
 <div class="ms-2 mx-2">
+    <!-- Bảng Danh Sách Phòng -->
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Mã Phòng</th>
-                <th>Mã Loại Phòng</th>
+                <th>
+                    <a href="/admin/rooms/index?SortColumn=RoomID&IconClass=@iconClass&page=1">Mã Phòng</a>
+                    @if(ViewBag.SortColumn == "RoomID")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                </th>
+                <th>
+                    <a href="/admin/rooms/index?SortColumn=CategoryID&IconClass=@iconClass&page=1">Mã Loại Phòng</a>
+                    @if (ViewBag.SortColumn == "CategoryID")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                </th>
                 <th>Hình Ảnh</th>
-                <th>Đơn Giá</th>
+                <th>
+                    <a href="/admin/rooms/index?SortColumn=Price&IconClass=@iconClass&page=1">Đơn Giá</a>
+                    @if (ViewBag.SortColumn == "Price")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                </th>
                 <th>Trạng Thái</th>
                 <th>Chức Năng</th>
             </tr>
@@ -44,18 +101,59 @@
                     <td>@s.Status</td>
                     <td>
                         <a asp-action="Edit" asp-route-id ="@s.RoomID"><abbr title="Edit"><img src="~/img/edit.png" width="20" height="20" /></abbr></a>
-                        <a asp-action="Detail" asp-route-id="@s.RoomID"><abbr title="Detail"><img src="/img/details.png" width="20" height="20" /></abbr></a>
-                        <a asp-action="Detail" asp-route-id="@s.RoomID">
-                            <abbr title="Delete">
-                                <img src="/img/delete.png" width="20" height="20" />
-                            </abbr>
-                        </a>
+                        <a asp-action="Details" asp-route-id="@s.RoomID"><abbr title="Details"><img src="/img/details.png" width="20" height="20" /></abbr></a>
+                        <a asp-action="Delete" asp-route-id="@s.RoomID"><abbr title="Delete"><img src="/img/delete.png" width="20" height="20" /></abbr></a>
                     </td>
                 </tr>
             }
         </tbody>
+        <tr>
+            <td colspan="6">
+                @{
+                    int PrevPage = ViewBag.Page - 1;
+                    if(PrevPage <= 0)
+                    {
+                        PrevPage = 1;
+                    }
+                    int NextPage = ViewBag.Page + 1;
+                    if(NextPage > ViewBag.NoOfPages)
+                    {
+                        NextPage = ViewBag.NoOfPages;
+                    }
+                }
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@PrevPage">
+                            Prev
+                        </a>
+                    </li>
+                    @for(int i = 0; i <ViewBag.NoOfPages; i++)
+                    {
+                        if (i + 1 == ViewBag.Page)
+                        {
+                            <li class="page-item active">
+                                <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@(i+1)">
+                                    @(i + 1)
+                                </a>
+                            </li>
+                        }else{
+                            <li class="page-item">
+                                <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@(i+1)">
+                                    @(i + 1)
+                                </a>
+                            </li>
+                        }                       
+                    }
+                    <li class="page-item ">
+                        <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@NextPage">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
     </table>
-    <a asp-controller="Rooms" asp-action="Create" class="btn btn-primary">Thêm mới phòng</a>
+    <a asp-controller="Rooms" asp-action="Create" class="btn btn-primary">Create New Room</a>
 </div>
 
 

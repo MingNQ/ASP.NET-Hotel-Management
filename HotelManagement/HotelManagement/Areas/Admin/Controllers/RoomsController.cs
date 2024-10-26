@@ -21,14 +21,85 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         [Route("")]
         [Route("Index")]
-        public IActionResult Index()
+        public IActionResult Index(string SortColumn = "RoomID", string IconClass = "fa-sort-asc", int page = 1, string? CategoryID = null, string? Status = null)
         {
             var rooms = db.Rooms.Include(r => r.Category)
                                 .Include(i => i.Images)
-                                .ToList();
-            return View(rooms);
+                                .AsQueryable();
+
+            // Lưu giá trị của CategoryID và Status đã chọn vào ViewBag
+            ViewBag.SelectedCategoryID = CategoryID;
+            ViewBag.SelectedStatus = Status;
+
+            // Lọc theo CategoryID và Status
+            if (!string.IsNullOrEmpty(CategoryID))
+            {
+                rooms = rooms.Where(r => r.CategoryID == CategoryID);
+            }
+
+            if (!string.IsNullOrEmpty(Status))
+            {
+                rooms = rooms.Where(r => r.Status == Status);
+            }
+
+            // Sắp xếp
+            ViewBag.SortColumn = SortColumn;
+            ViewBag.IconClass = IconClass;
+            rooms = SortRooms(rooms, SortColumn, IconClass);
+
+            // Phân trang
+            int NoOfRecordPerPage = 5;
+            int NoOfPages = (int)Math.Ceiling((double)rooms.Count() / NoOfRecordPerPage);
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            rooms = rooms.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage);
+
+            // Lấy danh sách Categories cho dropdown
+            ViewBag.Categories = db.Categories.ToList();
+
+            return View(rooms.ToList());
         }
 
+
+        // Phương thức sắp xếp riêng, trả về IQueryable
+        private IQueryable<Room> SortRooms(IQueryable<Room> rooms, string SortColumn, string IconClass)
+        {
+            if (SortColumn == "RoomID")
+            {
+                rooms = IconClass == "fa-sort-asc" ? rooms.OrderBy(r => r.RoomID) : rooms.OrderByDescending(r => r.RoomID);
+            }
+            else if (SortColumn == "Price")
+            {
+                rooms = IconClass == "fa-sort-asc" ? rooms.OrderBy(r => r.Category.Price) : rooms.OrderByDescending(r => r.Category.Price);
+            }
+            else if (SortColumn == "CategoryID")
+            {
+                rooms = IconClass == "fa-sort-asc" ? rooms.OrderBy(r => r.CategoryID) : rooms.OrderByDescending(r => r.CategoryID);
+            }
+            return rooms;
+        }
+
+
+
+        [Route("Details")]
+        public IActionResult Details(string id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var room = db.Rooms.Include(c => c.Category)
+                              .Include(i => i.Images)
+                              .Include(s => s.RoomServices)
+                              .Include(f => f.RentForms)
+                              .FirstOrDefault(r => r.RoomID == id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+            return View(room); 
+        }
 
         [HttpGet]
         [Route("Create")]
@@ -195,8 +266,60 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             return (db.Rooms?.Any(e => e.RoomID == id)).GetValueOrDefault();
         }
+        [Route("Delete")]
+        public IActionResult Delete(string id)
+        {
+            if(id == null || db.Rooms == null)
+            {
+                return NotFound();
+            }
 
+            var room = db.Rooms.Include(c => c.Category)
+                               .Include(i => i.Images)
+                               .Include(s => s.RoomServices)
+                               .Include(f => f.RentForms)
+                               .FirstOrDefault(r => r.RoomID == id);
+            if(room == null)
+            {
+                return NotFound();
+            }
+            if (room.RoomServices.Count() > 0)
+            {
+                return Content("This room has room service, please remove the room service before deleting the room.");
+            }
+            if(room.RentForms.Count() > 0)
+            {
+                return Content("This room has room RentForm, can't delete!");
+            }
+            return View(room);
+        }
+        [Route("Delete")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(string id)
+        {
+            if (db.Rooms == null)
+            {
+                return Problem("Entity set 'Rooms' is null");
+            }
+            // Tìm phòng cần xóa và bao gồm các ảnh liên quan
+            var room = db.Rooms.Include(r => r.Images).FirstOrDefault(r => r.RoomID == id);
 
+            if (room != null)
+            {
+                // Xóa các bản ghi ảnh liên quan khỏi cơ sở dữ liệu
+                foreach (var image in room.Images)
+                {
+                    db.Images.Remove(image);
+                }
+
+                // Xóa phòng khỏi cơ sở dữ liệu
+                db.Rooms.Remove(room);
+                db.SaveChanges();
+            }
+            db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
 
