@@ -10,7 +10,7 @@ namespace HotelManagement.Models
 		}
 
 		[Key]
-		public string CategoryID { get; set; }
+		public string CategoryID { get; set; } 
 		public string? TypeName { get; set; }
 		public decimal Capacity { get; set; }
 		public decimal Price { get; set; }
