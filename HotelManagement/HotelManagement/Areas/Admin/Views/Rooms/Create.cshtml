@@ -24,7 +24,7 @@
                 <div class="col-sm-8">
                     <select asp-for="CategoryID" class="custom-select mr-sm-2" asp-items="@ViewBag.CategoryID"></select>
                 </div>
-                @* <span asp-validation-for="CategoryID" class="text-danger col-sm-2"></span>  *@
+                 <span asp-validation-for="CategoryID" class="text-danger col-sm-2"></span> 
             </div>
 
             <div style="margin-top: 7px" class="form-group row">
@@ -38,9 +38,9 @@
             </div>
 
             <div style="margin-top: 7px" class="form-group row">
-                <label class="col-sm-2 col-form-label">Select Room Image</label>
+                <label class="col-sm-2 col-form-label">Select Room Images</label>
                 <div class="col-sm-8">
-                    <input type="file" name="RoomImage" class="form-control" />
+                    <input type="file" name="RoomImages" class="form-control" multiple />
                 </div>
             </div>
 

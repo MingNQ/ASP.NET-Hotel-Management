@@ -50,14 +50,18 @@
         <thead>
             <tr>
                 <th>
-                    <a href="/admin/rooms/index?SortColumn=RoomID&IconClass=@iconClass&page=1">Mã Phòng</a>
-                    @if(ViewBag.SortColumn == "RoomID")
+                    <a href="/admin/rooms/index?SortColumn=RoomID&IconClass=@iconClass&page=@ViewBag.Page&CategoryID=@ViewBag.SelectedCategoryID&Status=@ViewBag.SelectedStatus">
+                        Mã Phòng
+                    </a>
+                    @if (ViewBag.SortColumn == "RoomID")
                     {
                         <i class="fa @ViewBag.IconClass"></i>
                     }
                 </th>
                 <th>
-                    <a href="/admin/rooms/index?SortColumn=CategoryID&IconClass=@iconClass&page=1">Mã Loại Phòng</a>
+                    <a href="/admin/rooms/index?SortColumn=CategoryID&IconClass=@iconClass&page=@ViewBag.Page&CategoryID=@ViewBag.SelectedCategoryID&Status=@ViewBag.SelectedStatus">
+                        Mã Loại Phòng
+                    </a>
                     @if (ViewBag.SortColumn == "CategoryID")
                     {
                         <i class="fa @ViewBag.IconClass"></i>
@@ -65,7 +69,9 @@
                 </th>
                 <th>Hình Ảnh</th>
                 <th>
-                    <a href="/admin/rooms/index?SortColumn=Price&IconClass=@iconClass&page=1">Đơn Giá</a>
+                    <a href="/admin/rooms/index?SortColumn=Price&IconClass=@iconClass&page=@ViewBag.Page&CategoryID=@ViewBag.SelectedCategoryID&Status=@ViewBag.SelectedStatus">
+                        Đơn Giá
+                    </a>
                     @if (ViewBag.SortColumn == "Price")
                     {
                         <i class="fa @ViewBag.IconClass"></i>
@@ -75,6 +81,7 @@
                 <th>Chức Năng</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach(var s in Model)
             {
@@ -120,32 +127,37 @@
                     {
                         NextPage = ViewBag.NoOfPages;
                     }
+                    // Lưu giá trị CategoryID và Status đã chọn vào biến tạm để chuyển qua URL
+                    string selectedCategoryID = ViewBag.SelectedCategoryID ?? "";
+                    string selectedStatus = ViewBag.SelectedStatus ?? "";
                 }
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@PrevPage">
+                        <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@PrevPage&CategoryID=@selectedCategoryID&Status=@selectedStatus">
                             Prev
                         </a>
                     </li>
-                    @for(int i = 0; i <ViewBag.NoOfPages; i++)
+                    @for (int i = 0; i < ViewBag.NoOfPages; i++)
                     {
                         if (i + 1 == ViewBag.Page)
                         {
                             <li class="page-item active">
-                                <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@(i+1)">
+                                <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@(i + 1)&CategoryID=@selectedCategoryID&Status=@selectedStatus">
                                     @(i + 1)
                                 </a>
                             </li>
-                        }else{
+                        }
+                        else
+                        {
                             <li class="page-item">
-                                <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@(i+1)">
+                                <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@(i + 1)&CategoryID=@selectedCategoryID&Status=@selectedStatus">
                                     @(i + 1)
                                 </a>
                             </li>
-                        }                       
+                        }
                     }
-                    <li class="page-item ">
-                        <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@NextPage">
+                    <li class="page-item">
+                        <a class="page-link" href="/admin/rooms/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@NextPage&CategoryID=@selectedCategoryID&Status=@selectedStatus">
                             Next
                         </a>
                     </li>
