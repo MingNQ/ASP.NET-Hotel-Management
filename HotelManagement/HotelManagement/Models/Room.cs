@@ -11,7 +11,6 @@ namespace HotelManagement.Models
 			RoomServices = new HashSet<RoomService>();
 			RentForms = new HashSet<RentForm>();
 			Images = new HashSet<Image>();
-			//Category = new Category();
 		}
 
 		[Key]
