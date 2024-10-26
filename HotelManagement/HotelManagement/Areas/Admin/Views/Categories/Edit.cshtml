@@ -1,0 +1,54 @@
+﻿@model HotelManagement.Models.Category
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">Edit</h2>
+    </div>
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-controller="Categories" asp-action="Edit" asp-route-id="@Model.CategoryID" method="post" class="mt-3">
+            <input type="hidden" asp-for="CategoryID" />
+            <div style="margin-top: 7px" class="form-group row">
+                <label asp-for="CategoryID" class="col-sm-2 col-form-label">Category ID</label>
+                <div class="col-sm-8">
+                    <input asp-for="CategoryID" class="form-control" placeholder="Category ID" readonly="readonly"/>
+                </div>
+                <span asp-validation-for="CategoryID" class="text-danger col-sm-2"></span>
+            </div>
+
+            <div style="margin-top: 7px" class="form-group row">
+                <label asp-for="TypeName" class="col-sm-2 col-form-label">Type Name</label>
+                <div class="col-sm-8">
+                    <input asp-for="TypeName" class="form-control" placeholder="TypeName" />
+                </div>
+                <span asp-validation-for="TypeName" class="text-danger col-sm-2"></span>
+            </div>
+
+            <div style="margin-top: 7px" class="form-group row">
+                <label asp-for="Capacity" class="col-sm-2 col-form-label">Capacity</label>
+                <div class="col-sm-8">
+                    <input asp-for="Capacity" class="form-control" placeholder="Capacity" />
+                </div>
+                <span asp-validation-for="Capacity" class="text-danger col-sm-2"></span>
+            </div>
+
+            <div style="margin-top: 7px" class="form-group row">
+                <label asp-for="Price" class="col-sm-2 col-form-label">Price</label>
+                <div class="col-sm-8">
+                    <input asp-for="Price" class="form-control" placeholder="Price" />
+                </div>
+                <span asp-validation-for="Price" class="text-danger col-sm-2"></span>
+            </div>
+
+            <<div style="margin-top:10px" class="form-group row">
+                <div class="col-sm-8 offset-sm-0">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+﻿@model IEnumerable<HotelManagement.Models.Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    string iconClass = "";
+    if (ViewBag.IconClass == "fa-sort-desc")
+    {
+        iconClass = "fa-sort-asc";
+    }
+    else
+    {
+        iconClass = "fa-sort-desc";
+    }
+}
+
+<h2>Category List</h2>
+
+<div class="ms-2 mx-2">
+    <!-- Bảng Danh Sách Category -->
+    <table class="table table-bordered table-hover">
+        <thead class="jus">
+            <tr>
+                <th>
+                    <a href="/admin/categories/index?SortColumn=CategoryID&IconClass=@iconClass&page=@ViewBag.Page">
+                        CategoryID
+                    </a>
+                    @if (ViewBag.SortColumn == "CategoryID")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                </th>
+                <th>
+                    <a href="/admin/categories/index?SortColumn=TypeName&IconClass=@iconClass&page=@ViewBag.Page">
+                        TypeName
+                    </a>
+                    @if (ViewBag.SortColumn == "TypeName")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                </th>
+                <th>
+                    <a href="/admin/categories/index?SortColumn=Price&IconClass=@iconClass&page=@ViewBag.Page">
+                        Price
+                    </a>
+                    @if (ViewBag.SortColumn == "Price")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                </th>
+                <th>
+                    <a href="/admin/categories/index?SortColumn=Capacity&IconClass=@iconClass&page=@ViewBag.Page">
+                        Capacity
+                    </a>
+                </th>
+                <th>Function</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var s in Model)
+            {
+                <tr>
+                    <td>@s.CategoryID</td>
+                    <td>@s.TypeName</td>
+                    <td>@s.Price.ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"))</td>
+                    <td>@s.Capacity</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@s.CategoryID"><abbr title="Edit"><img src="~/img/edit.png" width="20" height="20" /></abbr></a>
+                        <a asp-action="Delete" asp-route-id="@s.CategoryID"><abbr title="Delete"><img src="/img/delete.png" width="20" height="20" /></abbr></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tr>
+            <td colspan="6">
+                @{
+                    int PrevPage = ViewBag.Page - 1;
+                    if (PrevPage <= 0)
+                    {
+                        PrevPage = 1;
+                    }
+                    int NextPage = ViewBag.Page + 1;
+                    if (NextPage > ViewBag.NoOfPages)
+                    {
+                        NextPage = ViewBag.NoOfPages;
+                    }
+                }
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="/admin/categories/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@PrevPage">
+                            Prev
+                        </a>
+                    </li>
+                    @for (int i = 0; i < ViewBag.NoOfPages; i++)
+                    {
+                        if (i + 1 == ViewBag.Page)
+                        {
+                            <li class="page-item active">
+                                <a class="page-link" href="/admin/categories/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@(i + 1)">
+                                    @(i + 1)
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/admin/categories/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@(i + 1)">
+                                    @(i + 1)
+                                </a>
+                            </li>
+                        }
+                    }
+                    <li class="page-item">
+                        <a class="page-link" href="/admin/categories/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&page=@NextPage">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <a asp-controller="Categories" asp-action="Create" class="btn btn-primary">Create New Category</a>
+</div>
