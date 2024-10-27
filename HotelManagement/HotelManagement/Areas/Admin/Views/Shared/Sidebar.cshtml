@@ -5,23 +5,73 @@
         </div>
         <div class="sidebar-brand-text mx-3">Admin</div>
     </a>
+    <!-- Divider -->
     <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="Index">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+        <a class="tabA" href="@Url.Action("Index", "Home")">
+            <span class="nav-link">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Trang chủ</span>
+            </span>
         </a>
     </li>
+
+    <!-- Divider -->
     <hr class="sidebar-divider">
+
+    <!-- Heading -->
     <div class="sidebar-heading">
-        Category
+        Khách sạn
     </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-columns"></i>
-            <span>Room Management</span>
+        <a class="tabA collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <span class="nav-link">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Phòng và dịch vụ</span>
+            </span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="@Url.Action("Index","Rooms")">Phòng</a>
+                <a class="collapse-item" href="@Url.Action("Index", "Categories")">Loại phòng</a>
+                <a class="collapse-item" href="@Url.Action("Index", "Services")">Dịch vụ</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="tabA collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <span class="nav-link">
+                <i class="fa fa-sticky-note"></i>
+                <span>Đặt và thuê phòng</span>
+            </span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="@Url.Action("Index", "PhieuDatPhongs")">Phiếu đặt phòng</a>
+                <a class="collapse-item" href="@Url.Action("Index", "PhieuThuePhongs")">Phiếu thuê phòng</a>
+                <a class="collapse-item" href="@Url.Action("Index", "HoaDons")">Hóa đơn</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="tabA" href="@Url.Action("Index", "KiemTraPhongTrong")">
+            <span class="nav-link">
+                <i class="fas fa-calendar-check"></i>
+                <span>Kiểm tra phòng trống</span>
+            </span>
         </a>
     </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
     <li class="nav-item">
         <a class="nav-link" href="charts.html">
             <i class="fas fa-users text-info"></i>
