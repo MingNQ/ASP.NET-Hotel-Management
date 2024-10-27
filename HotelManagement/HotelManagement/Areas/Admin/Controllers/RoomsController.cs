@@ -107,33 +107,23 @@ namespace HotelManagement.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "TypeName");
+            ViewBag.Services = db.Services.ToList(); // Lấy danh sách dịch vụ
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public IActionResult Create([Bind("RoomID, CategoryID, Status")] Room room, List<IFormFile> RoomImages)
+        public IActionResult Create([Bind("RoomID, CategoryID, Status")] Room room, List<IFormFile> RoomImages, List<string> selectedServices)
         {
             if (ModelState.IsValid)
             {
                 Room oldRoom = db.Rooms.Find(room.RoomID);
                 if (oldRoom == null)
                 {
-                    // Kiểm tra CategoryID có hợp lệ không
-                    /*var category = db.Categories.Find(room.CategoryID);
-                    if (category == null)
-                    {
-                        ModelState.AddModelError("CategoryID", "Loại phòng không hợp lệ.");
-                        ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "TypeName", room.CategoryID);
-                        return View(room);
-                    }*/
-
-                    // Lưu thông tin Room trước
                     db.Rooms.Add(room);
                     db.SaveChanges();
 
-                    // Xử lý từng ảnh trong danh sách RoomImages
                     var lastImage = db.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
                     int lastNumber = lastImage != null ? int.Parse(lastImage.ImageID.Substring(3)) : 0;
 
@@ -141,7 +131,6 @@ namespace HotelManagement.Areas.Admin.Controllers
                     {
                         if (imageFile != null && imageFile.Length > 0)
                         {
-                            // Cập nhật ImageID và lưu đường dẫn ảnh
                             string newImageID = "IMG" + (lastNumber + 1).ToString("D4");
                             lastNumber++;
 
@@ -151,7 +140,6 @@ namespace HotelManagement.Areas.Admin.Controllers
                                 imageFile.CopyTo(stream);
                             }
 
-                            // Tạo và thêm ảnh mới vào database
                             var image = new Image
                             {
                                 ImageID = newImageID,
@@ -163,7 +151,18 @@ namespace HotelManagement.Areas.Admin.Controllers
                         }
                     }
 
-                    db.SaveChanges(); // Lưu các thay đổi vào cơ sở dữ liệu
+                    // Lưu danh sách dịch vụ đã chọn
+                    foreach (var serviceId in selectedServices)
+                    {
+                        var roomService = new RoomService
+                        {
+                            RoomID = room.RoomID,
+                            ServiceID = serviceId
+                        };
+                        db.RoomServices.Add(roomService);
+                    }
+
+                    db.SaveChanges(); // Lưu tất cả thay đổi vào cơ sở dữ liệu
 
                     return RedirectToAction("Index");
                 }
@@ -174,8 +173,10 @@ namespace HotelManagement.Areas.Admin.Controllers
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "TypeName");
+            ViewBag.Services = db.Services.ToList(); // Lấy lại danh sách dịch vụ nếu có lỗi
             return View(room);
         }
+
 
         [Route("Edit")]
         public IActionResult Edit(string id)
@@ -188,6 +189,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             var room = db.Rooms.Include(c => c.Category)
                               .Include(i => i.Images)
                               .Include(s => s.RoomServices)
+                              .ThenInclude(rs => rs.Service)// Include Service for RoomService
                               .Include(f => f.RentForms)
                               .FirstOrDefault(r => r.RoomID == id);
             if (room == null)
@@ -195,13 +197,16 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "TypeName", room.CategoryID);
+            ViewBag.Services = db.Services.ToList(); // Lấy danh sách tất cả dịch vụ
+            ViewBag.SelectedServices = room.RoomServices.Select(rs => rs.ServiceID).ToList(); // Dịch vụ hiện tại của phòng
+
             return View(room);
         }
 
         [HttpPost]
         [Route("Edit")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(string id, [Bind("RoomID, CategoryID, Status")] Room room, List<IFormFile> RoomImages)
+        public IActionResult Edit(string id, [Bind("RoomID, CategoryID, Status")] Room room, List<IFormFile> RoomImages, List<string> selectedServices)
         {
             if (id != room.RoomID)
             {
@@ -212,8 +217,10 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 try
                 {
-                    // Tìm phòng hiện tại trong database và bao gồm danh sách hình ảnh liên quan
-                    var existingRoom = db.Rooms.Include(r => r.Images).FirstOrDefault(r => r.RoomID == id);
+                    // Tìm phòng hiện tại trong database và bao gồm danh sách hình ảnh, dịch vụ liên quan
+                    var existingRoom = db.Rooms.Include(r => r.Images)
+                                       .Include(r => r.RoomServices)
+                                       .FirstOrDefault(r => r.RoomID == id);
 
                     if (existingRoom == null)
                     {
@@ -224,45 +231,80 @@ namespace HotelManagement.Areas.Admin.Controllers
                     existingRoom.CategoryID = room.CategoryID;
                     existingRoom.Status = room.Status;
 
-                    // Thiết lập ImageID cuối cùng, bắt đầu từ 0 nếu không có ảnh nào trong hệ thống
-                    var lastImage = db.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
-                    int lastNumber = lastImage != null ? int.Parse(lastImage.ImageID.Substring(3)) : 0;
-
-                    // Thêm mới hoặc cập nhật các ảnh
-                    int imageIndex = 0;
-                    foreach (var imageFile in RoomImages)
+                    if(RoomImages != null && RoomImages.Any())
                     {
-                        if (imageFile != null && imageFile.Length > 0)
+                        // Thiết lập ImageID cuối cùng, bắt đầu từ 0 nếu không có ảnh nào trong hệ thống
+                        var lastImage = db.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
+                        int lastNumber = lastImage != null ? int.Parse(lastImage.ImageID.Substring(3)) : 0;
+
+                        // Thêm mới hoặc cập nhật các ảnh
+                        int imageIndex = 0;
+                        foreach (var imageFile in RoomImages)
                         {
-                            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", imageFile.FileName);
-                            using (var stream = new FileStream(imagePath, FileMode.Create))
+                            if (imageFile != null && imageFile.Length > 0)
                             {
-                                imageFile.CopyTo(stream);
-                            }
-
-                            if (imageIndex < existingRoom.Images.Count)
-                            {
-                                // Cập nhật ImageUrl cho ảnh hiện có
-                                var existingImage = existingRoom.Images.ElementAt(imageIndex);
-                                existingImage.ImageUrl = "/img/" + imageFile.FileName;
-                            }
-                            else
-                            {
-                                // Tạo mới ImageID và thêm ảnh vào database
-                                lastNumber++;
-                                string newImageID = "IMG" + lastNumber.ToString("D4");
-
-                                var newImage = new Image
+                                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", imageFile.FileName);
+                                using (var stream = new FileStream(imagePath, FileMode.Create))
                                 {
-                                    ImageID = newImageID,
-                                    RoomID = room.RoomID,
-                                    ImageUrl = "/img/" + imageFile.FileName
-                                };
+                                    imageFile.CopyTo(stream);
+                                }
 
-                                db.Images.Add(newImage);
+                                if (imageIndex < existingRoom.Images.Count)
+                                {
+                                    // Cập nhật ImageUrl cho ảnh hiện có
+                                    var existingImage = existingRoom.Images.ElementAt(imageIndex);
+                                    existingImage.ImageUrl = "/img/" + imageFile.FileName;
+                                }
+                                else
+                                {
+                                    // Tạo mới ImageID và thêm ảnh vào database
+                                    lastNumber++;
+                                    string newImageID = "IMG" + lastNumber.ToString("D4");
+
+                                    var newImage = new Image
+                                    {
+                                        ImageID = newImageID,
+                                        RoomID = room.RoomID,
+                                        ImageUrl = "/img/" + imageFile.FileName
+                                    };
+
+                                    db.Images.Add(newImage);
+                                }
+                                imageIndex++;
                             }
-                            imageIndex++;
                         }
+                        // Xóa các ảnh dư thừa
+                        if (imageIndex < existingRoom.Images.Count)
+                        {
+                            var imagesToRemove = existingRoom.Images.Skip(imageIndex).ToList();
+                            db.Images.RemoveRange(imagesToRemove);
+                        }
+                    }
+
+                    // Cập nhật danh sách dịch vụ
+                    int serviceIndex = 0;
+                    foreach (var serviceId in selectedServices)
+                    {
+                        if (serviceIndex < existingRoom.RoomServices.Count)
+                        {
+                            var existingService = existingRoom.RoomServices.ElementAt(serviceIndex);
+                            existingService.ServiceID = serviceId;
+                        }
+                        else
+                        {
+                            existingRoom.RoomServices.Add(new RoomService
+                            {
+                                RoomID = room.RoomID,
+                                ServiceID = serviceId
+                            });
+                        }
+                        serviceIndex++;
+                    }
+
+                    if (serviceIndex < existingRoom.RoomServices.Count)
+                    {
+                        var servicesToRemove = existingRoom.RoomServices.Skip(serviceIndex).ToList();
+                        db.RoomServices.RemoveRange(servicesToRemove);
                     }
 
                     db.Update(existingRoom); // Cập nhật thông tin phòng
@@ -284,6 +326,8 @@ namespace HotelManagement.Areas.Admin.Controllers
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "TypeName", room.CategoryID);
+            ViewBag.Services = db.Services.ToList();
+            ViewBag.SelectedServices = selectedServices; // Truyền lại dịch vụ đã chọn nếu có lỗi
             return View(room);
         }
 
@@ -312,12 +356,6 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            // Kiểm tra nếu Room có RoomServices hoặc RentForms thì không cho xóa
-            if (room.RoomServices.Any())
-            {
-                return Content("Cannot delete room because it has associated room services.");
-            }
-
             if (room.RentForms.Any())
             {
                 return Content("Cannot delete room because it has associated rent forms.");
@@ -336,13 +374,18 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return Problem("Entity set 'Rooms' is null.");
             }
 
-            // Load Room cùng các ảnh liên quan
-            var room = db.Rooms.Include(r => r.Images).FirstOrDefault(r => r.RoomID == id);
+            // Load Room cùng các ảnh và dịch vụ liên quan
+            var room = db.Rooms.Include(r => r.Images)
+                               .Include(r => r.RoomServices)
+                               .FirstOrDefault(r => r.RoomID == id);
 
             if (room != null)
             {
                 // Xóa tất cả ảnh liên quan
                 db.Images.RemoveRange(room.Images);
+
+                // Xóa tất cả dịch vụ liên quan
+                db.RoomServices.RemoveRange(room.RoomServices);
 
                 // Xóa Room
                 db.Rooms.Remove(room);
@@ -350,10 +393,9 @@ namespace HotelManagement.Areas.Admin.Controllers
                 // Lưu thay đổi vào database
                 db.SaveChanges();
             }
-
             return RedirectToAction(nameof(Index));
         }
-        
+
     }
 }
 

@@ -22,10 +22,13 @@
             <div style="margin-top: 7px" class="form-group row">
                 <label asp-for="TypeName" class="col-sm-2 col-form-label">Type Name</label>
                 <div class="col-sm-8">
-                    <input asp-for="TypeName" class="form-control" placeholder="TypeName" />
+                    <select asp-for="TypeName" class="form-control" asp-items="@(new SelectList(ViewBag.TypeName))">
+                        <option value="">-- Select Type --</option>
+                    </select>
                 </div>
                 <span asp-validation-for="TypeName" class="text-danger col-sm-2"></span>
             </div>
+
             
             <div style="margin-top: 7px" class="form-group row">
                 <label asp-for="Capacity" class="col-sm-2 col-form-label">Capacity</label>

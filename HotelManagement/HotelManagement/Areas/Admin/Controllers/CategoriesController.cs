@@ -35,7 +35,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             categories = categories.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage);
             return View(categories.ToList());
         }
-        // Phương thức sắp xếp riêng, trả về List
+        // Phương thức sắp xếp riêng trả về IQueryable
         private IQueryable<Category> SortRooms(IQueryable<Category> categories, string SortColumn, string IconClass)
         {
             if (SortColumn == "CategoryID")
@@ -60,6 +60,8 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
+            ViewBag.TypeName = new List<string> { "Standard Single", "Standard Twin", "Superior Single", "Superior Twin", "Superior Triple",
+        "Deluxe Single", "Deluxe Twin", "Suite Single", "Suite Twin", "Suite Triple", "Suite Queen"};
             return View();
         }
 
@@ -97,6 +99,8 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewBag.TypeName = new List<string> { "Standard Single", "Standard Twin", "Superior Single", "Superior Twin", "Superior Triple",
+        "Deluxe Single", "Deluxe Twin", "Suite Single", "Suite Twin", "Suite Triple", "Suite Queen"};
             return View(category);
         }
 
@@ -140,10 +144,17 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = db.Categories.Find(id);
+            var category = db.Categories.Include(r => r.Rooms).FirstOrDefault(c => c.CategoryID == id);
+
             if(category == null)
             {
                 return NotFound();
+            }
+
+            if(category.Rooms.Count() > 0)
+            {
+                return Content("This Category has some rooms, can't delete!");
+
             }
             return View(category);
         }
