@@ -2,9 +2,9 @@
 {
 	public enum Membership
 	{
-		Bronze, // Đồng
-		Silver, // Bạc
-		Gold, //  Vàng
-		Diamond // Kim cương
+		Bronze = 0, // Đồng
+		Silver = 1, // Bạc
+		Gold = 2, //  Vàng
+		Diamond = 3 // Kim cương
 	}
 }
