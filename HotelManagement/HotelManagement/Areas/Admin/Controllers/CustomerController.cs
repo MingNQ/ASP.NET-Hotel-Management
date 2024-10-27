@@ -16,12 +16,28 @@ namespace HotelManagement.Areas.Admin.Controllers
             db = context;
         }
 
-        //hien thi danh sach khach hang
+        // Hiển thị danh sách khách hàng với khả năng tìm kiếm
+        [HttpGet]
         [Route("Index")]
-        public IActionResult Index()
+        public IActionResult Index(string searchPhone)
         {
-            var customers = db.Customers.Include(m => m.Account).ToList();
-            return View(customers);
+            var customers = db.Customers.Include(m => m.Account).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchPhone))
+            {
+                customers = customers.Where(c => c.Phone.Contains(searchPhone));
+            }
+
+            var customerList = customers.ToList();
+
+            // Kiểm tra nếu không có khách hàng nào thỏa mãn điều kiện tìm kiếm
+            if (!customerList.Any() && !string.IsNullOrEmpty(searchPhone))
+            {
+                ViewData["NoResultsMessage"] = $"No customer found with phone number: {searchPhone}";
+            }
+
+            ViewData["searchPhone"] = searchPhone;
+            return View(customerList);
         }
 
         //Hien thi form tao moi khach hang

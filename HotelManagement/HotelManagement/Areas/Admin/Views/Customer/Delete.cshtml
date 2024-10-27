@@ -51,12 +51,19 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Address)
         </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Membership)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Membership)
+        </dd>
     </dl>
 
     <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="CustomerID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 
