@@ -1,0 +1,72 @@
+﻿@model IEnumerable<HotelManagement.Models.Service>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    string iconClass = "";
+    if (ViewBag.IconClass == "fa-sort-desc")
+    {
+        iconClass = "fa-sort-asc";
+    }
+    else
+    {
+        iconClass = "fa-sort-desc";
+    }
+}
+
+<h2>Service List</h2>
+
+<div class="ms-2 mx-2">
+    <table class="table table-bordered table-hover">
+        <thead class="jus">
+            <tr>
+                <th>
+                    <a href="/admin/services/index?SortColumn=ServiceID&IconClass=@iconClass">
+                        ServiceID
+                    </a>
+                    @if (ViewBag.SortColumn == "ServiceID")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                </th>
+                <th>
+                    <a href="/admin/services/index?SortColumn=ServiceName&IconClass=@iconClass">
+                        ServiceName
+                    </a>
+                    @if (ViewBag.SortColumn == "ServiceName")
+                    {
+                        <i class="@ViewBag.IconClass"></i>
+                    }
+                </th>
+                <th>
+                    <a href="/admin/services/index?SortColumn=Price&IconClass=@iconClass">
+                        Price
+                    </a>
+                    @if (ViewBag.SortColumn == "Price")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                </th>
+                <th>Function</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach(var s in Model)
+            {
+                <tr>
+                    <td>@s.ServiceID</td>
+                    <td>@s.ServiceName</td>
+                    <td>@s.Price.ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"))</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@s.ServiceID"><abbr title="Edit"><img src="~/img/edit.png" width="20" height="20" /></abbr></a>
+                        <a asp-action="Delete" asp-route-id="@s.ServiceID"><abbr title="Delete"><img src="/img/delete.png" width="20" height="20" /></abbr></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-controller="Services" asp-action="Create" class="btn btn-primary">Create New Service</a>
+</div>
