@@ -11,10 +11,8 @@ namespace HotelManagement.Areas.Admin.Controllers
     [Area("Admin")]
     [Route("Staff")]
     public class StaffController : Controller
-
     {
-
-        HotelDbContext db= new HotelDbContext();
+        private HotelDbContext db;
         public StaffController(HotelDbContext db1)
         {
             db = db1;
@@ -25,7 +23,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("index")]
         public IActionResult Index(string searchPhone)
         {
-            var staff = db.Staffs.Include(m => m.Account).AsQueryable();
+            var staff = db.Staffs.AsQueryable();
 
             if (!string.IsNullOrEmpty(searchPhone))
             {
@@ -61,7 +59,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [HttpPost]
         [Route("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("FirstName,LastName,Gender,Email,Phone,Address")] Staff staff)
+        public IActionResult Create([Bind("StaffID,FirstName,LastName,Gender,Email,Phone,Address")] Staff staff)
         {
             if (ModelState.IsValid)
             {

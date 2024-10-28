@@ -34,7 +34,7 @@ namespace HotelManagement.Models
 		public Role Role { get; set; }
 
 		// Navigation properties
-		public virtual Account Account { get; set; } = null!;
+		public virtual Account? Account { get; set; }
 		public virtual ICollection<Invoice> Invoices { get; set; }
 	}
 }
