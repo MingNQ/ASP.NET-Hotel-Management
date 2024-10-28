@@ -1,7 +1,8 @@
 ﻿@using HotelManagement.Models
 @{
+    ViewData["Title"] = "Staff";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-    }
+}
 
 @model IEnumerable<Staff>
 <h1>Staff List</h1>
@@ -20,44 +21,42 @@
     <div class="alert alert-warning">@ViewData["NoResultsMessage"]</div>
 }
 <div class="ms-2 mx-2">
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>StaffID</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Phone</th>
-           
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var i in Model)
-        {
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@i.StaffID</td>
-                <td>@i.FirstName</td>
-                <td>@i.LastName</td>
-                <td>@i.Address</td>
-                <td>@i.Email</td>
-                <td>@i.Phone</td>
-  
-                <td>
+                <th>StaffID</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
 
-                    <a asp-controller="Staff" asp-action="Edit" asp-route-idStaff="@i.StaffID" class="btn btn-primary">Edit</a>
-
-                </td>
-                <td>
-
-                    <a asp-controller="Staff" asp-action="Delete" asp-route-idStaff="@i.StaffID" class="btn btn-primary">Delete</a>
-
-                </td>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>@i.StaffID</td>
+                    <td>@i.FirstName</td>
+                    <td>@i.LastName</td>
+                    <td>@i.Address</td>
+                    <td>@i.Email</td>
+                    <td>@i.Phone</td>
+
+                    <td>
+
+                        <a asp-controller="Staff" asp-action="Edit" asp-route-idStaff="@i.StaffID" class="btn btn-primary">Edit</a>
+
+                    </td>
+                    <td>
+
+                        <a asp-controller="Staff" asp-action="Delete" asp-route-idStaff="@i.StaffID" class="btn btn-primary">Delete</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
     <a asp-area="Admin" asp-controller="Staff" asp-action="Create" class="btn btn-primary">Create New Staff</a>
-
-
 </div>
