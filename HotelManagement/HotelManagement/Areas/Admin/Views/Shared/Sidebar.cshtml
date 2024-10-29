@@ -57,7 +57,7 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="@Url.Action("Index", "PhieuDatPhongs")">Phiếu đặt phòng</a>
-                <a class="collapse-item" href="@Url.Action("Index", "PhieuThuePhongs")">Phiếu thuê phòng</a>
+                <a class="collapse-item" asp-controller="Rent" asp-action="Index">Phiếu thuê phòng</a>
                 <a class="collapse-item" href="@Url.Action("Index", "HoaDons")">Hóa đơn</a>
             </div>
         </div>

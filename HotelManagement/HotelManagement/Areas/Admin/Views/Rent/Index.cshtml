@@ -1,0 +1,57 @@
+﻿@using HotelManagement.Models
+
+@{
+	ViewData["Tittle"] = "Rent Form";
+	Layout = "_LayoutAdmin";
+}
+@model IEnumerable<RentForm>
+
+<h2>Rent Forms</h2>
+
+<div class="col-lg-12">
+	<div class="card mb-4">
+		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+			<h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+		</div>
+		<div class="table-responsive p-3">
+			<table class="table align-items-center table-flush" id="dataTable">
+				<thead class="thead-light">
+					<tr>
+						<th>RentForm ID</th>
+						<th>Booking ID</th>
+						<th>Room ID</th>
+						<th>Create Date</th>
+						<th>Date Check-In</th>
+						<th>Date Check-Out</th>
+						<th>Sale</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var rent in Model)
+					{
+						<tr>
+							<td>@rent.RentFormID</td>
+							<td>@rent.BookingID</td>
+							<td>@rent.RoomID</td>
+							<td>@Html.DisplayFor(Model => rent.DateCreate)</td>
+							<td>@Html.DisplayFor(Model => rent.DateCheckIn)</td>
+							<td>@Html.DisplayFor(Model => rent.DateCheckOut)</td>
+							<td>@Html.DisplayFor(Model => rent.Sale)</td>
+							<td>
+								<a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@rent.RentFormID">Edit</a>
+								<a class="btn btn-sm btn-info" asp-controller="Rent" asp-action="Details" asp-route-id="@rent.RentFormID">Details</a>
+								<a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@rent.RentFormID">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div style="margin: 20px 0">
+		<a class="btn btn-lg btn-primary" asp-action="Create">Create Rent Form</a>
+	</div>
+</div>
+
+
