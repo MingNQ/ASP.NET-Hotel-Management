@@ -58,9 +58,21 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         [HttpGet]
 		[Route("Edit")]
-        public IActionResult Edit(string rentFormID)
+        public IActionResult Edit(string id)
         {
-            return View();
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var rentForm = db.RentForms.Where(r => r.RentFormID  == id).FirstOrDefault();
+
+			if (rentForm == null)
+			{
+                return NotFound();
+            }
+
+            return View(rentForm);
         }
 
 

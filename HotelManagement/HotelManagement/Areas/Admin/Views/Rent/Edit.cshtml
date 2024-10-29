@@ -10,48 +10,51 @@
 <h4>RentForm</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RentFormID" class="control-label"></label>
-                <input asp-for="RentFormID" class="form-control" />
-                <span asp-validation-for="RentFormID" class="text-danger"></span>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="RentFormID" class="control-label" for="exampleFormControlReadonly"></label>
+                        <input asp-for="RentFormID" class="form-control" type="text" id="exampleFormControlReadonly" readonly="">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BookingID" class="control-label"></label>
+                        <input asp-for="BookingID" class="form-control"/>
+                        <span asp-validation-for="BookingID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RoomID" class="control-label"></label>
+                        <input asp-for="RoomID" class="form-control" />
+                        <span asp-validation-for="RoomID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateCreate" class="control-label"></label>
+                        <input asp-for="DateCreate" class="form-control" value="@ViewBag.DateCreate"/>
+                        <span asp-validation-for="DateCreate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateCheckIn" class="control-label"></label>
+                        <input asp-for="DateCheckIn" class="form-control" />
+                        <span asp-validation-for="DateCheckIn" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateCheckOut" class="control-label"></label>
+                        <input asp-for="DateCheckOut" class="form-control" />
+                        <span asp-validation-for="DateCheckOut" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Sale" class="control-label"></label>
+                        <input asp-for="Sale" class="form-control" />
+                        <span asp-validation-for="Sale" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Back to List</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="BookingID" class="control-label"></label>
-                <input asp-for="BookingID" class="form-control" />
-                <span asp-validation-for="BookingID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoomID" class="control-label"></label>
-                <input asp-for="RoomID" class="form-control" />
-                <span asp-validation-for="RoomID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreate" class="control-label"></label>
-                <input asp-for="DateCreate" class="form-control" />
-                <span asp-validation-for="DateCreate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCheckIn" class="control-label"></label>
-                <input asp-for="DateCheckIn" class="form-control" />
-                <span asp-validation-for="DateCheckIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCheckOut" class="control-label"></label>
-                <input asp-for="DateCheckOut" class="form-control" />
-                <span asp-validation-for="DateCheckOut" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sale" class="control-label"></label>
-                <input asp-for="Sale" class="form-control" />
-                <span asp-validation-for="Sale" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Back to List</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
