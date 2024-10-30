@@ -25,23 +25,38 @@
                         <span asp-validation-for="BookingID" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="RoomID" class="control-label"></label>
-                        <input asp-for="RoomID" class="form-control" />
+                        <label asp-for="Room" class="control-label"></label>
+                        <select asp-for="RoomID" class="select2-single form-control" name="state" id="select2Single" asp-items="@ViewBag.RoomVacant"></select>
                         <span asp-validation-for="RoomID" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="DateCreate" class="control-label"></label>
-                        <input asp-for="DateCreate" class="form-control" value="@ViewBag.DateCreate"/>
+                    <div class="form-group" id="simple-date1">
+                        <label asp-for="DateCreate" for="simpleDataInput"></label>
+                        <div class="input-group date">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control" asp-for="DateCreate" id="simpleDataInput">
+                        </div>
                         <span asp-validation-for="DateCreate" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="DateCheckIn" class="control-label"></label>
-                        <input asp-for="DateCheckIn" class="form-control" />
+                    <div class="form-group" id="simple-date1">
+                        <label asp-for="DateCheckIn" for="simpleDataInput"></label>
+                        <div class="input-group date">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control" asp-for="DateCheckIn" id="simpleDataInput">
+                        </div>
                         <span asp-validation-for="DateCheckIn" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="DateCheckOut" class="control-label"></label>
-                        <input asp-for="DateCheckOut" class="form-control" />
+                    <div class="form-group" id="simple-date1">
+                        <label asp-for="DateCheckOut" for="simpleDataInput"></label>
+                        <div class="input-group date">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control" asp-for="DateCheckOut" id="simpleDataInput">
+                        </div>
                         <span asp-validation-for="DateCheckOut" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -58,3 +73,20 @@
         </div>
     </div>
 </div>
+@section Styles {
+    <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css"))" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"))"></script>
+    <script>
+        $(document).ready(function () {
+            $('#simple-date1 .input-group.date').datepicker({
+                format: 'dd/mm/yyyy',
+                todayBtn: 'linked',
+                todayHighlight: true,
+                autoclose: true,
+            });
+        });
+    </script>
+}

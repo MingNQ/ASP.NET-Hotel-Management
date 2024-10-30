@@ -1,6 +1,7 @@
 ﻿using HotelManagement.Data;
 using HotelManagement.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagement.Areas.Admin.Controllers
@@ -37,6 +38,9 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
+            var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
+            ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
             return View(rentForm);
 		}
 
@@ -44,6 +48,9 @@ namespace HotelManagement.Areas.Admin.Controllers
 		[Route("Create")]
 		public IActionResult Create()
 		{
+			var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
+			ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
+
 			return View();
 		}
 

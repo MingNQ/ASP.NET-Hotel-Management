@@ -9,12 +9,10 @@
     <meta name="author" content="">
     <link href="@(Url.Content("~/TemplateLayout/AdminPage/img/logo/logo.png"))" rel="icon">
     <title>RuangAdmin - Dashboard</title>
-    @* <link href="../TemplateLayout/AdminPage/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="../TemplateLayout/AdminPage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../TemplateLayout/AdminPage/css/ruang-admin.min.css" rel="stylesheet"> *@
     <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/fontawesome-free/css/all.min.css"))" rel="stylesheet" type="text/css">
     <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap/css/bootstrap.min.css"))" rel="stylesheet" type="text/css">
     <link href="@(Url.Content("~/TemplateLayout/AdminPage/css/ruang-admin.min.css"))" rel="stylesheet">
+    @RenderSection("Styles", required:false)
     <!-- Custom styles for this template-->
     <style>
         .tabA {
