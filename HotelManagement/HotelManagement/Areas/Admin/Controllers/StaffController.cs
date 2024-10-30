@@ -59,7 +59,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [HttpPost]
         [Route("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("StaffID,FirstName,LastName,Gender,Email,Phone,Address")] Staff staff)
+        public IActionResult Create([Bind("StaffID,FirstName,LastName,Gender,Email,Phone,Address,Role")] Staff staff)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [HttpPost]
         [Route("Edit")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(string idStaff, [Bind("StaffID,FirstName,LastName,Gender,Email,Phone,Address")] Staff staff)
+        public IActionResult Edit(string idStaff, [Bind("StaffID,FirstName,LastName,Gender,Email,Phone,Address,Role")] Staff staff)
         {
             if (idStaff
                 != staff.StaffID)

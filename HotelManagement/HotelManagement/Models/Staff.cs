@@ -19,10 +19,12 @@ namespace HotelManagement.Models
 		[MaxLength(50)]
 		public string? FirstName { get; set; }
 
-		[MaxLength(50)]
+        [Required]
+        [MaxLength(50)]
 		public string? LastName { get; set; }
 
-		public Gender Gender { get; set; }
+        [Required]
+        public Gender Gender { get; set; }
 		public string? Address { get; set; }
 
 		[EmailAddress]
@@ -31,7 +33,8 @@ namespace HotelManagement.Models
 		[Phone]
 		public string? Phone { get; set; }
 
-		public Role Role { get; set; }
+        [Required]
+        public Role Role { get; set; }
 
 		// Navigation properties
 		public virtual Account? Account { get; set; }
