@@ -9,7 +9,7 @@ using System.Net;
 namespace HotelManagement.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Staff")]
+    [Route("Admin/Staff")]
     public class StaffController : Controller
     {
         private HotelDbContext db;
@@ -20,6 +20,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 
 
         [HttpGet]
+        [Route("")]
         [Route("index")]
         public IActionResult Index(string searchPhone)
         {

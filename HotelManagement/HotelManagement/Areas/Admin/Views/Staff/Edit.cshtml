@@ -1,4 +1,5 @@
 ﻿@using HotelManagement.Models
+@using HotelManagement.Models.Common
 ﻿@{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -15,11 +16,11 @@
 
 
         <div class="form-group row mb-3">
-            <label asp-for="Account" class="col-sm-2 col-form-label"></label>
+            <label asp-for="StaffID" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Account" class="form-control" placeholder="Nhập Tài Khoản" />
+                <input asp-for="StaffID" class="form-control" placeholder="Staff ID" />
             </div>
-            <span asp-validation-for="Account" class="text-danger"></span>
+            <span asp-validation-for="StaffID" class="text-danger"></span>
         </div>
 
         <div class="form-group row" style="margin-top: 7px;">
@@ -79,6 +80,18 @@
                 <input asp-for="Address" class="form-control" placeholder="Address" />
             </div>
             <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row" style="margin-top: 7px;">
+            <label asp-for="Role" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+            <select id="Role" name="Role">
+                @foreach (var role in Enum.GetValues(typeof(Role)))
+                {
+                    <option value="@role">@role</option>
+                }
+            </select>
+            </div>
         </div>
 
         <div class="form-group row" style="margin-top: 10px;">

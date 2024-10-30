@@ -11,7 +11,7 @@ namespace HotelManagement.Models
 		}
 
 		[Key]
-		public string StaffID { get; set; }
+		public string? StaffID { get; set; }
 
 		public int? AccountID { get; set; }
 
@@ -25,11 +25,12 @@ namespace HotelManagement.Models
 
         [Required]
         public Gender Gender { get; set; }
+		[Required]
 		public string? Address { get; set; }
-
+		[Required]
 		[EmailAddress]
 		public string? Email { get; set; }
-
+		[Required]
 		[Phone]
 		public string? Phone { get; set; }
 
