@@ -9,7 +9,6 @@ namespace HotelManagement.Areas.Admin.Controllers
     [Route("Admin/Customer")]
     public class CustomerController : Controller
     {
-
         private HotelDbContext db;
         public CustomerController(HotelDbContext context)
         {
@@ -21,7 +20,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("")]
         [Route("Index")]
         public IActionResult Index(string searchPhone, int page = 1)
-        { 
+        {
             int pageSize = 5;
             var customers = db.Customers.Include(m => m.Account).AsQueryable();
 
@@ -30,7 +29,6 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 customers = customers.Where(c => c.Phone.Contains(searchPhone));
             }
-
 
             int totalCustomers = customers.Count();
 
@@ -52,7 +50,6 @@ namespace HotelManagement.Areas.Admin.Controllers
             return View(customerList);
         }
 
-
         //Hien thi form tao moi khach hang
         [Route("Create")]
         public IActionResult Create()
@@ -70,7 +67,6 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 //lay khach hang cuoi cung trong danh sach de tao ID moi
                 var lastCustomer = db.Customers.OrderByDescending(c => c.CustomerID).FirstOrDefault();
-
                 //kiem tra neu co khach hang, neeus khoong thi gan ID dau tien la CUS00001
                 int nextIDNumber = 1;
 
@@ -182,11 +178,25 @@ namespace HotelManagement.Areas.Admin.Controllers
         public IActionResult DeleteConfirmed(string id)
         {
             var customer = db.Customers.Find(id);
-            if(customer != null)
+            if(customer == null)
             {
-                db.Customers.Remove(customer);               
+                return NotFound();               
             }
+
+            //kiem tra customer co ton tai o cac bang lien quan khong
+            bool hasBookings = db.Bookings.Any(b => b.CustomerID == id);
+            bool hasRates = db.Rates.Any(r => r.CustomerID == id);
+
+            if (hasBookings || hasRates)
+            {
+                //thong bao neu co tham chieu o bang khac
+                TempData["DeleteErrorMessage"] = "This customer cannot be deleted because there is related data in other tables.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            db.Customers.Remove(customer);
             db.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
     }
