@@ -407,10 +407,6 @@ namespace HotelManagement.Data
 				new RoomService { RoomID = "R202", ServiceID = "S0003" },
 				new RoomService { RoomID = "R202", ServiceID = "S0004" },
 
-				new RoomService { RoomID = "R202", ServiceID = "S0002" },
-				new RoomService { RoomID = "R202", ServiceID = "S0003" },
-				new RoomService { RoomID = "R202", ServiceID = "S0004" },
-
 				new RoomService { RoomID = "R203", ServiceID = "S0002" },
 				new RoomService { RoomID = "R203", ServiceID = "S0003" },
 				new RoomService { RoomID = "R203", ServiceID = "S0004" },

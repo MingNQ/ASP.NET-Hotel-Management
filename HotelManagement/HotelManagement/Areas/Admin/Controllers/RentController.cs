@@ -34,14 +34,20 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-			var rentForm = db.RentForms.Where(r => r.RentFormID == id).Include(r => r.Staff).FirstOrDefault();
+			var rentForm = db.RentForms.
+								Include(r => r.Staff).
+								Include(r => r.Room).
+									ThenInclude(r => r.Category).
+								Include(r => r.Room.RoomServices).
+									ThenInclude(rs => rs.Service).
+								FirstOrDefault(r => r.RentFormID == id);
             if (rentForm == null)
             {
                 return NotFound();
             }
 
-            var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
-            ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
+			ViewBag.RoomServices = rentForm.Room.RoomServices;
+
             return View(rentForm);
 		}
 
@@ -80,6 +86,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
+            ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
             return View(rentForm);
         }
 

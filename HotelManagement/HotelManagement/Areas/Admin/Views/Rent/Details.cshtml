@@ -72,48 +72,21 @@
         <table class="table align-items-center table-flush">
             <thead class="thead-light">
                 <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Item</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th>Room</th>
+                    <th>Category</th>
+                    <th>Service</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><a href="#">RA0449</a></td>
-                    <td>Udin Wayang</td>
-                    <td>Nasi Padang</td>
-                    <td><span class="badge badge-success">Delivered</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">RA5324</a></td>
-                    <td>Jaenab Bajigur</td>
-                    <td>Gundam 90' Edition</td>
-                    <td><span class="badge badge-warning">Shipping</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">RA8568</a></td>
-                    <td>Rivat Mahesa</td>
-                    <td>Oblong T-Shirt</td>
-                    <td><span class="badge badge-danger">Pending</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">RA1453</a></td>
-                    <td>Indri Junanda</td>
-                    <td>Hat Rounded</td>
-                    <td><span class="badge badge-info">Processing</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">RA1998</a></td>
-                    <td>Udin Cilok</td>
-                    <td>Baby Powder</td>
-                    <td><span class="badge badge-success">Delivered</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                    <td>@Html.DisplayFor(model => model.RoomID)</td>
+                    <td>@Html.DisplayFor(model => model.Room.Category.TypeName)</td>
+                    <td>
+                        @foreach (var roomService in ViewBag.RoomServices)
+                        {
+                            <p>@roomService.Service.ServiceName</p>
+                        }
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -121,6 +94,6 @@
 </div>
 
 <div class="d-grid gap-2 d-md-block mt-3 mb-5">
-    <a class="btn btn-primary" asp-action="Edit">Edit</a>
+    <a class="btn btn-primary" asp-controller="Rent" asp-action="Edit" asp-route-id="@Model.RentFormID">Edit</a>
     <a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Back To List</a>
 </div>
