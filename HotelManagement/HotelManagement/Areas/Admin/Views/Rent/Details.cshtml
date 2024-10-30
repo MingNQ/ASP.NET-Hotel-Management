@@ -11,51 +11,116 @@
     <h4>RentForm</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RentFormID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RentFormID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BookingID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoomID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RoomID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCheckIn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCheckIn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCheckOut)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCheckOut)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sale)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sale)
-        </dd>
+        <div class="col">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RentFormID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RentFormID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.BookingID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.BookingID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RoomID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RoomID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StaffID)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Staff?.FirstName @Model.Staff?.LastName
+            </dd>
+        </div>
+        <div class="col">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateCreate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateCreate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateCheckIn)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateCheckIn)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateCheckOut)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateCheckOut)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Sale)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Sale)
+            </dd>
+            
+        </div>
     </dl>
 </div>
-<div class="d-grid gap-2 d-md-block">
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Item</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="#">RA0449</a></td>
+                    <td>Udin Wayang</td>
+                    <td>Nasi Padang</td>
+                    <td><span class="badge badge-success">Delivered</span></td>
+                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#">RA5324</a></td>
+                    <td>Jaenab Bajigur</td>
+                    <td>Gundam 90' Edition</td>
+                    <td><span class="badge badge-warning">Shipping</span></td>
+                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#">RA8568</a></td>
+                    <td>Rivat Mahesa</td>
+                    <td>Oblong T-Shirt</td>
+                    <td><span class="badge badge-danger">Pending</span></td>
+                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#">RA1453</a></td>
+                    <td>Indri Junanda</td>
+                    <td>Hat Rounded</td>
+                    <td><span class="badge badge-info">Processing</span></td>
+                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#">RA1998</a></td>
+                    <td>Udin Cilok</td>
+                    <td>Baby Powder</td>
+                    <td><span class="badge badge-success">Delivered</span></td>
+                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="d-grid gap-2 d-md-block mt-3 mb-5">
     <a class="btn btn-primary" asp-action="Edit">Edit</a>
     <a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Back To List</a>
 </div>

@@ -8,7 +8,8 @@ namespace HotelManagement.Models
 		public Staff()
 		{
 			Invoices = new HashSet<Invoice>();
-		}
+			RentForms = new HashSet<RentForm>();
+        }
 
 		[Key]
 		public string StaffID { get; set; }
@@ -36,5 +37,6 @@ namespace HotelManagement.Models
 		// Navigation properties
 		public virtual Account Account { get; set; } = null!;
 		public virtual ICollection<Invoice> Invoices { get; set; }
+		public virtual ICollection<RentForm> RentForms { get; set; }
 	}
 }

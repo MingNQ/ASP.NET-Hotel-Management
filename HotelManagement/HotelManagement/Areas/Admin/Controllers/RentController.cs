@@ -3,6 +3,7 @@ using HotelManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -21,7 +22,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 		[Route("Index")]
 		public IActionResult Index()
 		{
-			var listRentForm = db.RentForms.ToList();
+			var listRentForm = db.RentForms.Include(r => r.Staff).ToList();
 
 			return View(listRentForm);
 		}
@@ -33,7 +34,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-			var rentForm = db.RentForms.Where(r => r.RentFormID == id).FirstOrDefault();
+			var rentForm = db.RentForms.Where(r => r.RentFormID == id).Include(r => r.Staff).FirstOrDefault();
             if (rentForm == null)
             {
                 return NotFound();

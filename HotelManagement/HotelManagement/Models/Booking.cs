@@ -11,7 +11,9 @@ namespace HotelManagement.Models
 
 		public DateTime DateCome { get; set; }
 		public DateTime DateGo { get; set; }
+		public int NumberPeople { get; set; }
 		public decimal Deposit { get; set; }
+		public bool Status { get; set; }
 
 		// Navigation properties
 		public virtual Customer Customer { get; set; } = null!;

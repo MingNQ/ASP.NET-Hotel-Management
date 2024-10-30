@@ -81,7 +81,15 @@ namespace HotelManagement.Data
 				var rates = InitRate();
 				foreach (var rate in rates) context.Rates.Add(rate);
 				context.SaveChanges();
-			}
+
+				// BookingDetail
+				var bookingDetails = InitBookingDetails();
+                foreach (var bookingDetail in bookingDetails)
+                {
+                    var sql = "INSERT INTO BookingDetail (BookingID, CategoryID, NumberRoom) VALUES ({0}, {1}, {2})";
+                    context.Database.ExecuteSqlRaw(sql, bookingDetail.BookingID, bookingDetail.CategoryID, bookingDetail.NumberRoom);
+                }
+            }
 		}
 
 		#region Initial Model
@@ -143,11 +151,11 @@ namespace HotelManagement.Data
 		{
 			var bookings = new Booking[]
 			{
-				new Booking { BookingID = "BK00001", CustomerID = "CUS00001", DateCome = DateTime.Parse("2022-01-09"), DateGo = DateTime.Parse("2022-01-12"), Deposit = 5000000 },
-				new Booking { BookingID = "BK00002", CustomerID = "CUS00002", DateCome = DateTime.Parse("2022-03-09"), DateGo = DateTime.Parse("2022-03-12"), Deposit = 0 },
-				new Booking { BookingID = "BK00003", CustomerID = "CUS00003", DateCome = DateTime.Parse("2022-04-09"), DateGo = DateTime.Parse("2022-04-12"), Deposit = 6000000 },
-				new Booking { BookingID = "BK00004", CustomerID = "CUS00004", DateCome = DateTime.Parse("2022-05-09"), DateGo = DateTime.Parse("2022-05-12"), Deposit = 4000000 },
-				new Booking { BookingID = "BK00005", CustomerID = "CUS00005", DateCome = DateTime.Parse("2022-02-09"), DateGo = DateTime.Parse("2022-02-12"), Deposit = 2000000 },
+				new Booking { BookingID = "BK00001", CustomerID = "CUS00001", NumberPeople = 2, DateCome = DateTime.Parse("2022-01-09"), DateGo = DateTime.Parse("2022-01-12"), Status = true, Deposit = 5000000 },
+				new Booking { BookingID = "BK00002", CustomerID = "CUS00002", NumberPeople = 3, DateCome = DateTime.Parse("2022-03-09"), DateGo = DateTime.Parse("2022-03-12"), Status = true, Deposit = 0 },
+				new Booking { BookingID = "BK00003", CustomerID = "CUS00003", NumberPeople = 4, DateCome = DateTime.Parse("2022-04-09"), DateGo = DateTime.Parse("2022-04-12"), Status = true, Deposit = 6000000 },
+				new Booking { BookingID = "BK00004", CustomerID = "CUS00004", NumberPeople = 2, DateCome = DateTime.Parse("2022-05-09"), DateGo = DateTime.Parse("2022-05-12"), Status = true, Deposit = 4000000 },
+				new Booking { BookingID = "BK00005", CustomerID = "CUS00005", NumberPeople = 5, DateCome = DateTime.Parse("2022-02-09"), DateGo = DateTime.Parse("2022-02-12"), Status = true, Deposit = 2000000 },
 			};
 
 			return bookings;
@@ -232,11 +240,11 @@ namespace HotelManagement.Data
 		{
 			var rentForms = new RentForm[]
 			{
-				new RentForm { RentFormID = "RF00001", BookingID = "BK00001", RoomID = "R201", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-01-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00002", BookingID = "BK00002", RoomID = "R302", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-02-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00003", BookingID = "BK00003", RoomID = "R202", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-03-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00004", BookingID = "BK00004", RoomID = "R401", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-04-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00005", BookingID = "BK00005", RoomID = "R103", DateCreate = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-05-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00001", BookingID = "BK00001", RoomID = "R201", StaffID = "S0001", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-01-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00002", BookingID = "BK00002", RoomID = "R302", StaffID = "S0001", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-02-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00003", BookingID = "BK00003", RoomID = "R202", StaffID = "S0003", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-03-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00004", BookingID = "BK00004", RoomID = "R401", StaffID = "S0003", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-04-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00005", BookingID = "BK00005", RoomID = "R103", StaffID = "S0003", DateCreate = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-05-12 00:00:00.000"), Sale = 0.1m },
 			};
 
 			return rentForms;
@@ -453,6 +461,20 @@ namespace HotelManagement.Data
 			};
 
 			return roomService;
+		}
+
+		public static BookingDetail[] InitBookingDetails()
+		{
+			var bookingDetails = new BookingDetail[]
+			{
+				new BookingDetail { BookingID = "BK00001", CategoryID = "Superior01", NumberRoom = 1 },
+				new BookingDetail { BookingID = "BK00002", CategoryID = "Deluxe02", NumberRoom = 1 },
+				new BookingDetail { BookingID = "BK00003", CategoryID = "Superior01", NumberRoom = 1 },
+				new BookingDetail { BookingID = "BK00004", CategoryID = "Suite01", NumberRoom = 1 },
+				new BookingDetail { BookingID = "BK00005", CategoryID = "Standard02", NumberRoom = 1 },
+			};
+
+			return bookingDetails;
 		}
 
 		#endregion
