@@ -15,7 +15,7 @@
 		<div class="form-group row" style="margin-top: 7px;">
 			<label asp-for="StaffID" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-10">
-				<input asp-for="StaffID" class="form-control" placeholder="Staff ID" />
+				<input asp-for="StaffID" class="form-control" placeholder="Staff ID" value="@ViewBag.StaffID" readonly=""/>
 			</div>
 			<span asp-validation-for="StaffID" class="text-danger"></span>
 		</div>

@@ -11,7 +11,7 @@ namespace HotelManagement.Models
 		}
 
 		[Key]
-		public string? StaffID { get; set; }
+		public string StaffID { get; set; }
 
 		public int? AccountID { get; set; }
 

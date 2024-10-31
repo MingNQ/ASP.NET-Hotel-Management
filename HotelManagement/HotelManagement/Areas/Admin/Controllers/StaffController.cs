@@ -3,6 +3,7 @@ using HotelManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Net;
 
 
@@ -53,7 +54,18 @@ namespace HotelManagement.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.StaffID = new SelectList(db.Staffs, "StaffID");
+            int nunID = 0;
+            string staffID = "";
+            while (true)
+            {
+                int numID = (int)new Random().NextInt64(10000);
+                staffID = "S" + numID.ToString("D4");
+
+                if (!StaffExists(staffID))
+                {  break; }
+            }    
+            ViewBag.staffID = staffID;
+
             return View();
         }
 
