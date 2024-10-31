@@ -54,10 +54,15 @@ namespace HotelManagement.Areas.Admin.Controllers
             if (lastService != null)
             {
                 int lastNumber = int.Parse(lastService.ServiceID.Substring(1)) + 1;
-                newServiceID = "R" + lastNumber.ToString("D4");
+                newServiceID = "S" + lastNumber.ToString("D4");
             }
-            ViewBag.NewServiceID = newServiceID;
-            return View();
+            //ViewBag.NewServiceID = newServiceID;
+            var service = new Service
+            {
+                ServiceID = newServiceID
+            };
+            //return View();
+            return View(service);
         }
 
         [HttpPost]
@@ -67,11 +72,12 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                //service.ServiceID = ViewBag.NewServiceID;
                 db.Services.Add(service);
                 db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
+            //ViewBag.NewServiceID = ViewBag.NewServiceID;
             return View(service);
         }
 
