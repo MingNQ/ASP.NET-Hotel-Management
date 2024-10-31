@@ -87,11 +87,15 @@
 						<div class="card-body">
 							<div class="form-group">
 								<label class="control-label">Category</label>
-								<select class="select2-single form-control" id="select2Single" asp-items="@ViewBag.Categories"></select>
+								<select id="categorySelect" class="select2-single form-control" asp-items="@ViewBag.Categories">
+									<option value="" disabled selected hidden>Select Category</option>
+								</select>
 							</div>
 							<div class="form-group">
 								<label asp-for="RoomID" class="control-label">Room Vacant</label>
-								<select asp-for="RoomID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.RoomVacant"></select>
+								<select id="roomSelect" asp-for="RoomID" class="select2-single form-control">
+									<option value="" disabled selected hidden>Select Room</option>
+								</select>
 								<span asp-validation-for="RoomID" class="text-danger"></span>
 							</div>
 							<div>
@@ -133,9 +137,10 @@
 				todayHighlight: true,
 				autoclose: true,
 			});
+
+			
 		});
-	</script>
-	<script>
+
 		const customerDiscounts = @Html.Raw(Json.Serialize(ViewBag.CustomerMemberShip));
 		document.getElementById("customerSelect").addEventListener("change", function () {
 			const selectedCustomerId = this.value;
@@ -158,5 +163,25 @@
 
 			document.getElementById("discountDisplay").value = discount;
 		});
+
+		$('#categorySelect').change(function () {
+			const categoryId = $(this).val();
+			$.ajax({
+				url: '/Admin/Rent/GetRoomByCategory',
+				type: 'GET',
+				data: { categoryId: categoryId },
+				success: function (rooms) {
+					const roomSelect = $('#roomSelect');
+					roomSelect.empty().append('<option value="" disabled selected hidden>Select Room</option>');
+					$.each(rooms, function (index, room) {
+						roomSelect.append(`<option value="${room.roomID}">${room.roomName}</option>`);
+					});
+				},
+				error: function () {
+					alert('Failed to load rooms. Please try again.');
+				}
+			});
+		});
+
 	</script>
 }

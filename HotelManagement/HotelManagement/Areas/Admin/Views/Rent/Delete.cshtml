@@ -79,6 +79,7 @@
     </dl>
     
     <form asp-action="Delete">
+        <input type="hidden" asp-for="@Model.RentFormID"/>
         <input type="submit" value="Delete" class="btn btn-danger"/>
         <a class="btn btn-secondary" style="margin-left:20px" asp-action="Index">Cancel</a>
     </form>

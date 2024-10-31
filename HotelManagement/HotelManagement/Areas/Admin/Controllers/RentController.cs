@@ -13,6 +13,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 	public class RentController : Controller
 	{
 		private HotelDbContext db;
+		private int pageSize = 4;
 
 		public RentController(HotelDbContext context)
 		{
@@ -21,15 +22,28 @@ namespace HotelManagement.Areas.Admin.Controllers
 
 		[Route("")]
 		[Route("Index")]
-		public IActionResult Index()
+		public IActionResult Index(int page = 1, string sortColumn = "DateCreate", bool isDesc = false)
 		{
 			var listRentForm = db.RentForms.
-                            Include(r => r.Customer).
-                            Include(r => r.Staff).
-                            OrderByDescending(r => r.DateCreate).
-                            ToList();
+							Include(r => r.Customer).
+							Include(r => r.Staff).AsQueryable();
 
-			return View(listRentForm);
+			listRentForm = sortColumn switch
+			{
+				"DateCreate" => isDesc ? listRentForm.OrderByDescending(r => r.DateCreate) : listRentForm.OrderBy(r => r.DateCreate),
+				"DateCheckIn" => isDesc ? listRentForm.OrderByDescending(r => r.DateCheckIn) : listRentForm.OrderBy(r => r.DateCheckIn),
+				"DateCheckOut" => isDesc ? listRentForm.OrderByDescending(r => r.DateCheckOut) : listRentForm.OrderBy(r => r.DateCheckOut),
+				_ => listRentForm
+			};
+
+			var currPageRental = listRentForm.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+			ViewBag.TotalPages = (int)Math.Ceiling(listRentForm.Count() / (double)pageSize);
+			ViewBag.CurrentPage = page;
+			ViewBag.SortColumn = sortColumn;
+			ViewBag.IsDescending = isDesc;
+
+			return View(currPageRental);
 		}
 
 		[Route("Details")]
@@ -95,7 +109,6 @@ namespace HotelManagement.Areas.Admin.Controllers
                 FullName = s.FirstName + " " + s.LastName
             }).ToList(), "StaffID", "FullName");
             ViewBag.Customers = new SelectList(customers, "CustomerID", "FullName");
-            ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
 			ViewBag.RentFormID = rentFormID;
             ViewBag.Services = services;
             ViewBag.CustomerMemberShip = customers.ToDictionary(c => c.CustomerID, c => c.Membership);
@@ -110,12 +123,49 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+				try
+				{
+					string newBookingID = "BK";
+					while (db.Bookings.Any(b => b.BookingID == rent.BookingID))
+					{
+						newBookingID += new Random().NextInt64(100000).ToString("D5");
+						rent.BookingID = newBookingID;
+					}
+
+					var room = db.Rooms.FirstOrDefault(r => r.RoomID == rent.RoomID);
+					if (room != null)
+					{
+						room.Status = "Occupied";
+						db.Entry(room).State = EntityState.Modified;
+					}
+
+					//db.Add(rent);
+					db.SaveChanges();
+
+					return RedirectToAction(nameof(Index));
+				}
+				catch
+				{
+					if (!ExistRentform(rent.RentFormID))
+					{
+						return NotFound();
+					}
+					else
+					{
+						throw;
+					}
+				}
             }
 
             var rooms = db.Rooms.Where(r => r.Status == "Vacant").
 								Include(r => r.Category).
 								ToList();
+			var customers = db.Customers.Select(c => new
+			{
+				CustomerID = c.CustomerID,
+				FullName = c.FirstName + " " + c.LastName,
+				Membership = c.Membership
+			}).ToList();
 
 			// Get information for Rent Form
 			ViewBag.Categories = new SelectList(db.Categories.ToList(), "CategoryID", "TypeName");
@@ -130,11 +180,30 @@ namespace HotelManagement.Areas.Admin.Controllers
 				CustomerID = c.CustomerID,
 				FullName = c.FirstName + " " + c.LastName
 			}).ToList(), "CustomerID", "FullName");
-			ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
             ViewBag.RentFormID = rent.RentFormID;
             ViewBag.Services = db.Services.ToList();
+			ViewBag.CustomerMemberShip = customers.ToDictionary(c => c.CustomerID, c => c.Membership);
 
-            return View();
+			return View();
+		}
+
+		/// <summary>
+		/// Get List Room By Category
+		/// </summary>
+		/// <param name="categoryID"></param>
+		/// <returns></returns>
+		[Route("GetRoomByCategory")]
+		public IActionResult GetRoomByCategory(string categoryID)
+		{
+			var rooms = db.Rooms
+						.Where(r => r.CategoryID == categoryID && r.Status == "Vacant")
+						.Select(r => new
+						{
+							RoomID = r.RoomID,
+							RoomName = r.RoomID
+						})
+						.ToList();
+			return Json(rooms);
 		}
 
         [HttpGet]
@@ -279,11 +348,19 @@ namespace HotelManagement.Areas.Admin.Controllers
             return View(rentForm);
 		}
 
-		[HttpPost]
+		[HttpPost, ActionName("Delete")]
 		[Route("Delete")]
+		[ValidateAntiForgeryToken]
 		public IActionResult DeleteConfirm(string rentFormID)
 		{
-			return View();
+			var rentForm = db.RentForms.Find(rentFormID);
+
+			if (rentForm == null)
+			{
+				return NotFound();
+			}
+
+			return RedirectToAction(nameof(Index));
 		}
 
 		/// <summary>
