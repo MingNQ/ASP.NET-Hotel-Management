@@ -12,12 +12,11 @@
 
 <div class="row">
 	<div class="col">
-		<div asp-validation-summary="All" class="text-danger"></div>
 		<form asp-controller="Rent" asp-action="Create" method="post">
 			<div asp-validation-summary="All" class="text-danger"></div>
 			<div class="row">
 				<div class="col-lg-6">
-					<div class="card">
+					<div class="card mb-4">
 						<div class="card-body">
 							<div class="form-group">
 								<label asp-for="RentFormID" class="control-label" for="exampleFormControlReadonly"></label>
@@ -27,11 +26,6 @@
 								<label asp-for="BookingID" class="control-label"></label>
 								<select asp-for="BookingID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.BookingList"></select>
 								<span asp-validation-for="BookingID" class="text-danger"></span>
-							</div>
-							<div class="form-group">
-								<label asp-for="RoomID" class="control-label">Room Vacant</label>
-								<select asp-for="RoomID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.RoomVacant"></select>
-								<span asp-validation-for="RoomID" class="text-danger"></span>
 							</div>
 							<div class="form-group" id="simple-date1">
 								<label asp-for="DateCreate" for="simpleDataInput"></label>
@@ -65,14 +59,14 @@
 							</div>
 							<div class="form-group">
 								<label asp-for="Sale" class="control-label"></label>
-								<input asp-for="Sale" class="form-control" />
+								<input id="discountDisplay" asp-for="Sale" class="form-control" />
 								<span asp-validation-for="Sale" class="text-danger"></span>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<div class="card">
+					<div class="card mb-4">
 						<div class="card-body">
 							<div class="form-group">
 								<label asp-for="StaffID" class="control-label">Staff Create</label>
@@ -81,8 +75,34 @@
 							</div>
 							<div class="form-group">
 								<label asp-for="CustomerID" class="control-label">Customer</label>
-								<select asp-for="CustomerID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.Customers"></select>
+								<select id="customerSelect" asp-for="CustomerID" class="select2-single form-control" asp-items="@ViewBag.Customers">
+									<option value="" disabled selected hidden>Select a customer</option>
+								</select>
 								<span asp-validation-for="CustomerID" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="form-group">
+								<label class="control-label">Category</label>
+								<select class="select2-single form-control" id="select2Single" asp-items="@ViewBag.Categories"></select>
+							</div>
+							<div class="form-group">
+								<label asp-for="RoomID" class="control-label">Room Vacant</label>
+								<select asp-for="RoomID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.RoomVacant"></select>
+								<span asp-validation-for="RoomID" class="text-danger"></span>
+							</div>
+							<div>
+								<label class="control-label">Service</label>
+								@foreach (var service in ViewBag.Services)
+								{
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="SelectedServices" value="@service.ServiceID" id="@service.ServiceID">
+										<label class="form-check-label" for="@service.ServiceID">@service.ServiceName</label>
+									</div>
+								}
 							</div>
 						</div>
 					</div>
@@ -113,6 +133,30 @@
 				todayHighlight: true,
 				autoclose: true,
 			});
+		});
+	</script>
+	<script>
+		const customerDiscounts = @Html.Raw(Json.Serialize(ViewBag.CustomerMemberShip));
+		document.getElementById("customerSelect").addEventListener("change", function () {
+			const selectedCustomerId = this.value;
+			const memberShip = customerDiscounts[selectedCustomerId];
+			let discount = 0;
+			switch (memberShip) {
+				case 0:
+					discount = 0;
+					break;
+				case 1:
+					discount = 0.1;
+					break;
+				case 2:
+					discount = 0.15;
+					break;
+				case 3:
+					discount = 0.2;
+					break;
+			}
+
+			document.getElementById("discountDisplay").value = discount;
 		});
 	</script>
 }

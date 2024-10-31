@@ -9,9 +9,13 @@ namespace HotelManagement.Models
 
 		public string? BookingID { get; set; }
 
+		[Required]
 		public string? RoomID { get; set; }
 
+		[Required]
 		public string? StaffID { get; set; }
+
+		[Required]
 		public string? CustomerID { get; set; }
 
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]

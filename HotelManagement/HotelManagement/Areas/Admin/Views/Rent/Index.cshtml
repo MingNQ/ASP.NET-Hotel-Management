@@ -9,12 +9,15 @@
 <h2>Rent Forms</h2>
 
 <div class="col-lg-12">
+	<button type="button" class="btn btn-outline-secondary mb-4 mr-2" onclick="sortData('create')">Sort by Create Date</button>
+	<button type="button" class="btn btn-outline-secondary mb-4 mr-2" onclick="sortData('check-in')">Sort by Check-In Date</button>
+	<button type="button" class="btn btn-outline-secondary mb-4 mr-2" onclick="sortData('check-out')">Sort by Check-Out Date</button>
 	<div class="card mb-4">
 		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-			<h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Rental List</h6>
 		</div>
 		<div class="table-responsive p-3">
-			<table class="table align-items-center table-flush" id="dataTable">
+			<table class="table align-items-center table-flush" id="rentalList">
 				<thead class="thead-light">
 					<tr>
 						<th>RentForm ID</th>
@@ -38,9 +41,9 @@
 							<td>@rent.RentFormID</td>
 							<td>@rent.BookingID</td>
 							<td>@rent.RoomID</td>
-							<td>@Html.DisplayFor(Model => rent.DateCreate)</td>
-							<td>@Html.DisplayFor(Model => rent.DateCheckIn)</td>
-							<td>@Html.DisplayFor(Model => rent.DateCheckOut)</td>
+							<td class="create-date">@Html.DisplayFor(Model => rent.DateCreate)</td>
+							<td class="check-in-date">@Html.DisplayFor(Model => rent.DateCheckIn)</td>
+							<td class="check-out-date">@Html.DisplayFor(Model => rent.DateCheckOut)</td>
 							<td>@rent.Sale.ToString("p2")</td>
 							<td>@Html.DisplayFor(Model => customerName)</td>
 							<td>@Html.DisplayFor(Model => staffName)</td>
@@ -53,6 +56,47 @@
 					}
 				</tbody>
 			</table>
+			<div class="row">
+				<div class="col-sm-12 col-md-7">
+					<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+						<ul class="pagination">
+							<li class="paginate_button page-item previous disabled" id="dataTable_previous">
+								<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+							</li>
+							<li class="paginate_button page-item active">
+								<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+							</li>
+							<li class="paginate_button page-item ">
+								<a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+							</li>
+							<li class="paginate_button page-item ">
+								<a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
+							</li>
+							<li class="paginate_button page-item ">
+								<a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			@* <nav aria-label="...">
+				<ul class="pagination">
+					<li class="page-item disabled">
+						<span class="page-link">Previous</span>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item active">
+						<span class="page-link">
+							2
+							<span class="sr-only">(current)</span>
+						</span>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				</ul>
+			</nav> *@
 		</div>
 	</div>
 	<div style="margin: 20px 0">
@@ -60,4 +104,21 @@
 	</div>
 </div>
 
+@section Scripts {
+	<script>
+		var isDesc = false
+		function sortData(column) {
+			const table = document.getElementById("rentalList")
+			const rows = Array.from(table.rows).slice(1);
 
+			rows.sort((a, b) => {
+				const aDate = new Date(a.querySelector(`.${column}-date`).textContent);
+				const bDate = new Date(b.querySelector(`.${column}-date`).textContent);
+				return isDesc ? bDate - aDate : aDate - bDate;
+			});
+			isDesc = !isDesc
+			rows.forEach(row => table.appendChild(row));
+		}
+
+	</script>
+}
