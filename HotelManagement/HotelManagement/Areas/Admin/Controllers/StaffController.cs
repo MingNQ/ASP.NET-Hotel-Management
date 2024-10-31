@@ -81,7 +81,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.StaffID = new SelectList(db.Staffs, "StaffID");
+            ViewBag.StaffID = staff.StaffID;
             return View();
         }
 
@@ -99,7 +99,8 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            return View(staff);
+			ViewBag.StaffID = staff.StaffID;
+			return View(staff);
         }
 
         [HttpPost]
@@ -133,7 +134,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                     }
                 }
             }
-            return View(staff);
+			ViewBag.StaffID = staff.StaffID;
+			return View(staff);
         }
 
         private bool StaffExists(string idStaff)
