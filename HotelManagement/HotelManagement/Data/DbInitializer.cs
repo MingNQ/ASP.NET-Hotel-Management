@@ -240,11 +240,11 @@ namespace HotelManagement.Data
 		{
 			var rentForms = new RentForm[]
 			{
-				new RentForm { RentFormID = "RF00001", BookingID = "BK00001", RoomID = "R201", StaffID = "S0001", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-01-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00002", BookingID = "BK00002", RoomID = "R302", StaffID = "S0001", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-02-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00003", BookingID = "BK00003", RoomID = "R202", StaffID = "S0003", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-03-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00004", BookingID = "BK00004", RoomID = "R401", StaffID = "S0003", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-04-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00005", BookingID = "BK00005", RoomID = "R103", StaffID = "S0003", DateCreate = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-05-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00001", BookingID = "BK00001", RoomID = "R201", StaffID = "S0001", CustomerID = "CUS00001", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-01-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00002", BookingID = "BK00002", RoomID = "R302", StaffID = "S0001", CustomerID = "CUS00002", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-02-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00003", BookingID = "BK00003", RoomID = "R202", StaffID = "S0003", CustomerID = "CUS00003", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-03-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00004", BookingID = "BK00004", RoomID = "R401", StaffID = "S0003", CustomerID = "CUS00004", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-04-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00005", BookingID = "BK00005", RoomID = "R103", StaffID = "S0003", CustomerID = "CUS00005", DateCreate = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-05-12 00:00:00.000"), Sale = 0.1m },
 			};
 
 			return rentForms;

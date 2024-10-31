@@ -13,11 +13,12 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <form asp-action="Edit" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-controller="Rent" asp-action="Create" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="RentFormID" class="control-label" for="exampleFormControlReadonly"></label>
-                        <input asp-for="RentFormID" class="form-control" type="text" id="exampleFormControlReadonly" readonly="">
+                        <input asp-for="RentFormID" class="form-control" type="text" id="exampleFormControlReadonly" value="@ViewBag.RentFormID" readonly="">
                     </div>
                     <div class="form-group">
                         <label asp-for="BookingID" class="control-label"></label>
@@ -80,16 +81,9 @@
 
 @section Scripts {
     <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"))"></script>
-    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/vendor/select2/dist/js/select2.min.js"))"></script>
+    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/js/select2.min.js"))"></script>
     <script>
         $(document).ready(function () {
-            $('.select2-single').select2();
-            // Select2 Single  with Placeholder
-            $('.select2-single-placeholder').select2({
-                placeholder: "Select a Province",
-                allowClear: true
-            });
-            
             $('#simple-date1 .input-group.date').datepicker({
                 format: 'dd/mm/yyyy',
                 todayBtn: 'linked',

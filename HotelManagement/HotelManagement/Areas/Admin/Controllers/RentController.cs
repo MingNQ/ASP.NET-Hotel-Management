@@ -56,18 +56,37 @@ namespace HotelManagement.Areas.Admin.Controllers
 		public IActionResult Create()
 		{
 			var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
-			ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
+			string rentFormID = "RF000001";
 
-			return View();
+
+			while (true)
+			{
+				int numberID = (int)new Random().NextInt64(1000000);
+				rentFormID = "RF" + numberID.ToString("D5");
+
+				if (!db.RentForms.Any(r => r.RentFormID == rentFormID))
+					break;
+			}
+			ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
+			ViewBag.RentFormID = rentFormID;
+            return View();
 		}
 
 
 		[HttpPost]
 		[Route("Create")]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create([Bind("BookingID, RoomID, DateCreate, DateCheckIn, DateCheckOut, Sale")]RentForm rent)
-		{
-			return View();
+		public IActionResult Create([Bind("RentFormID","BookingID, RoomID, DateCreate, DateCheckIn, DateCheckOut, Sale")]RentForm rent)
+        {
+			if (ModelState.IsValid)
+			{
+				return RedirectToAction("Create", "Rooms");
+			}
+
+            var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
+            ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
+            ViewBag.RentFormID = rent.RentFormID;
+            return View();
 		}
 
         [HttpGet]
@@ -92,11 +111,11 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
 
-        [HttpPost]
+		[HttpPost]
 		[Route("Edit")]
 		[ValidateAntiForgeryToken]
-		public IActionResult Edit(string rentFormID, [Bind("BookingID, RoomID, DateCreate, DateCheckIn, DateCheckOut, Sale")] RentForm rent)
-        {
+		public IActionResult Edit(string rentFormID, string bookingID, [Bind("RoomID, DateCreate, DateCheckIn, DateCheckOut, Sale")] RentForm rent)
+		{
             return View();
         }
 

@@ -12,6 +12,7 @@ namespace HotelManagement.Models
 		public string? RoomID { get; set; }
 
 		public string? StaffID { get; set; }
+		public string? CustomerID { get; set; }
 
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime DateCreate { get; set; }
@@ -24,8 +25,9 @@ namespace HotelManagement.Models
 		public decimal Sale { get; set; }
 
 		// Navigation properties
-		public virtual Booking Booking { get; set; } = null!;
-		public virtual Room Room { get; set; } = null!;
+		public virtual Booking? Booking { get; set; } 
+		public virtual Room? Room { get; set; }
 		public virtual Staff? Staff { get; set; }
+		public virtual Customer? Customer { get; set; }
 	}
 }
