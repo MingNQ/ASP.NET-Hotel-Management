@@ -1,0 +1,35 @@
+﻿@model HotelManagement.Models.Booking
+
+@{
+    ViewData["Title"] = "Delete Booking";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Confirm delete Booking</h2>
+
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Booking ID</dt>
+        <dd class="col-sm-10">@Model.BookingID</dd>
+        <dt class="col-sm-2">Customer ID</dt>
+        <dd class="col-sm-10">@Model.CustomerID</dd>
+        <dt class="col-sm-2">Date Come</dt>
+        <dd class="col-sm-10">@Model.DateCome.ToShortDateString()</dd>
+        <dt class="col-sm-2">Date Go</dt>
+        <dd class="col-sm-10">@Model.DateGo.ToShortDateString()</dd>
+        <dt class="col-sm-2">Number of People</dt>
+        <dd class="col-sm-10">@Model.NumberPeople</dd>
+        <dt class="col-sm-2">Deposit</dt>
+        <dd class="col-sm-10">@Model.Deposit</dd>
+    </dl>
+
+    <h4>Are you sure to delete this Booking?</h4>
+
+    <form asp-action="DeleteConfirmed" asp-controller="Booking" method="post">
+        <input type="hidden" name="id" value="@Model.BookingID"/>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
