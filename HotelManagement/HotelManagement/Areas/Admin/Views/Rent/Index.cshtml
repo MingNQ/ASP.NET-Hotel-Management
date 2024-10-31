@@ -20,10 +20,11 @@
 						<th>RentForm ID</th>
 						<th>Booking ID</th>
 						<th>Room ID</th>
-						<th>Create Date</th>
+						<th>Date Create</th>
 						<th>Date Check-In</th>
 						<th>Date Check-Out</th>
 						<th>Sale</th>
+						<th>Customer</th>
 						<th>Staff</th>
 						<th>Action</th>
 					</tr>
@@ -32,6 +33,7 @@
 					@foreach (var rent in Model)
 					{
 						string staffName = rent.Staff?.FirstName + " " + rent.Staff?.LastName;
+						string customerName = rent.Customer?.FirstName + " " + rent.Customer?.LastName;
 						<tr>
 							<td>@rent.RentFormID</td>
 							<td>@rent.BookingID</td>
@@ -40,6 +42,7 @@
 							<td>@Html.DisplayFor(Model => rent.DateCheckIn)</td>
 							<td>@Html.DisplayFor(Model => rent.DateCheckOut)</td>
 							<td>@rent.Sale.ToString("p2")</td>
+							<td>@Html.DisplayFor(Model => customerName)</td>
 							<td>@Html.DisplayFor(Model => staffName)</td>
 							<td>
 								<a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@rent.RentFormID">Edit</a>

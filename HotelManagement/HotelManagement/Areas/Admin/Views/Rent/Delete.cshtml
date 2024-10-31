@@ -12,52 +12,74 @@
     <h4>RentForm</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RentFormID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RentFormID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BookingID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoomID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RoomID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCheckIn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCheckIn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCheckOut)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCheckOut)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sale)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sale)
-        </dd>
+        <div class="col">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.RentFormID):
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Html.DisplayFor(model => model.RentFormID)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.BookingID):
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Html.DisplayFor(model => model.BookingID)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.RoomID):
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Html.DisplayFor(model => model.RoomID)
+            </dd>
+            <dt class="col-sm-3">
+                Customer:
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Model.Customer?.FirstName @Model.Customer?.LastName
+            </dd>
+            <dt class="col-sm-3">
+                Staff Create:
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Model.Staff?.FirstName @Model.Staff?.LastName
+            </dd>
+        </div>
+        <div class="col">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DateCreate):
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Html.DisplayFor(model => model.DateCreate)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DateCheckIn):
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Html.DisplayFor(model => model.DateCheckIn)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DateCheckOut):
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Html.DisplayFor(model => model.DateCheckOut)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.RoomID)
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Html.DisplayFor(model => model.RoomID)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Sale)
+            </dt>
+            <dd class="col-sm-9 ml-2">
+                @Model.Sale.ToString("p2")
+            </dd>
+        </div>
     </dl>
     
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-danger"/>
-        <a class="btn btn-secondary" style="margin-left:20px" asp-action="Index">Back to List</a>
+        <a class="btn btn-secondary" style="margin-left:20px" asp-action="Index">Cancel</a>
     </form>
 </div>

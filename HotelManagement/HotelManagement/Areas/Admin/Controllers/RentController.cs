@@ -22,7 +22,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 		[Route("Index")]
 		public IActionResult Index()
 		{
-			var listRentForm = db.RentForms.Include(r => r.Staff).ToList();
+			var listRentForm = db.RentForms.Include(r => r.Customer).Include(r => r.Staff).ToList();
 
 			return View(listRentForm);
 		}
@@ -34,7 +34,10 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-			var rentForm = db.RentForms.
+
+            // Get information for Rent Form
+            var rentForm = db.RentForms.
+								Include(r => r.Customer).
 								Include(r => r.Staff).
 								Include(r => r.Room).
 									ThenInclude(r => r.Category).
@@ -45,7 +48,6 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
 			ViewBag.RoomServices = rentForm.Room.RoomServices;
 
             return View(rentForm);
@@ -55,36 +57,59 @@ namespace HotelManagement.Areas.Admin.Controllers
 		[Route("Create")]
 		public IActionResult Create()
 		{
+			// Generate RentForm ID
 			var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
 			string rentFormID = "RF000001";
-
 
 			while (true)
 			{
 				int numberID = (int)new Random().NextInt64(1000000);
 				rentFormID = "RF" + numberID.ToString("D5");
 
-				if (!db.RentForms.Any(r => r.RentFormID == rentFormID))
+				if (!ExistRentform(rentFormID))
 					break;
 			}
-			ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
+
+            // Get information for Rent Form
+            ViewBag.BookingList = new SelectList(db.Bookings.ToList(), "BookingID", "BookingID");
+            ViewBag.Staffs = new SelectList(db.Staffs.Select(s => new
+            {
+                StaffID = s.StaffID,
+                FullName = s.FirstName + " " + s.LastName
+            }).ToList(), "StaffID", "FullName");
+            ViewBag.Customers = new SelectList(db.Customers.Select(c => new
+            {
+                CustomerID = c.CustomerID,
+                FullName = c.FirstName + " " + c.LastName
+            }).ToList(), "CustomerID", "FullName");
+            ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
 			ViewBag.RentFormID = rentFormID;
             return View();
 		}
 
-
 		[HttpPost]
 		[Route("Create")]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create([Bind("RentFormID","BookingID, RoomID, DateCreate, DateCheckIn, DateCheckOut, Sale")]RentForm rent)
+		public IActionResult Create([Bind("RentFormID, BookingID, RoomID, StaffID, CustomerID, DateCreate, DateCheckIn, DateCheckOut, Sale")]RentForm rent)
         {
-			if (ModelState.IsValid)
-			{
-				return RedirectToAction("Create", "Rooms");
-			}
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
             var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
-            ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
+			ViewBag.BookingList = new SelectList(db.Bookings.ToList(), "BookingID", "BookingID");
+			ViewBag.Staffs = new SelectList(db.Staffs.Select(s => new
+			{
+				StaffID = s.StaffID,
+				FullName = s.FirstName + " " + s.LastName
+			}).ToList(), "StaffID", "FullName");
+			ViewBag.Customers = new SelectList(db.Customers.Select(c => new
+			{
+				CustomerID = c.CustomerID,
+				FullName = c.FirstName + " " + c.LastName
+			}).ToList(), "CustomerID", "FullName");
+			ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
             ViewBag.RentFormID = rent.RentFormID;
             return View();
 		}
@@ -98,7 +123,8 @@ namespace HotelManagement.Areas.Admin.Controllers
 				return NotFound();
 			}
 
-			var rentForm = db.RentForms.Where(r => r.RentFormID  == id).FirstOrDefault();
+			// Get information for Rent Form
+			var rentForm = db.RentForms.Where(r => r.RentFormID  == id).Include(r => r.Staff).Include(r => r.Customer).FirstOrDefault();
 
 			if (rentForm == null)
 			{
@@ -114,16 +140,121 @@ namespace HotelManagement.Areas.Admin.Controllers
 		[HttpPost]
 		[Route("Edit")]
 		[ValidateAntiForgeryToken]
-		public IActionResult Edit(string rentFormID, string bookingID, [Bind("RoomID, DateCreate, DateCheckIn, DateCheckOut, Sale")] RentForm rent)
+		public IActionResult Edit(string id, [Bind("RentFormID, RoomID, DateCreate, DateCheckIn, DateCheckOut, Sale")] RentForm rent)
 		{
-            return View();
+            if (id != rent.RentFormID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+				try
+				{
+					var existingRent = db.RentForms.Find(id);
+					if (existingRent == null)
+					{
+						return NotFound();
+					}
+
+					if (existingRent.DateCheckOut > DateTime.Now)
+					{
+                        // Change Status Room
+                        if (existingRent.RoomID != rent.RoomID)
+                        {
+                            var oldRoom = db.Rooms.FirstOrDefault(r => r.RoomID == existingRent.RoomID);
+
+                            // Update Status 
+                            if (oldRoom != null)
+                            {
+                                oldRoom.Status = "Vacant";
+                                db.Entry(oldRoom).State = EntityState.Modified;
+                            }
+
+                            var newRoom = db.Rooms.FirstOrDefault(r => r.RoomID == rent.RoomID);
+                            if (newRoom != null)
+                            {
+                                newRoom.Status = "Occupied";
+                                db.Entry(newRoom).State = EntityState.Modified;
+                            }
+                        }
+                        else
+                        {
+                            // Update Status Room if wrong
+                            var room = db.Rooms.FirstOrDefault(r => r.RoomID == existingRent.RoomID);
+                            if (room != null && room.Status == "Vacant")
+                            {
+                                room.Status = "Occupied";
+                                db.Entry(room).State = EntityState.Modified;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var room = db.Rooms.FirstOrDefault(r => r.RoomID == existingRent.RoomID);
+                        if (room != null && room.Status == "Occupied")
+                        {
+                            room.Status = "Vacant";
+                            db.Entry(room).State = EntityState.Modified;
+                        }
+                    }
+					
+					// Update RentForm
+                    existingRent.RoomID = rent.RoomID;
+                    existingRent.DateCheckIn = rent.DateCheckIn;
+                    existingRent.DateCheckOut = rent.DateCheckOut;
+                    existingRent.Sale = rent.Sale;
+
+                    db.Entry(existingRent).Property(r => r.RoomID).IsModified = true;
+                    db.Entry(existingRent).Property(r => r.DateCheckIn).IsModified = true;
+                    db.Entry(existingRent).Property(r => r.DateCheckOut).IsModified = true;
+                    db.Entry(existingRent).Property(r => r.Sale).IsModified = true;
+
+                    db.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ExistRentform(rent.RentFormID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+			// If error load page again
+            var rentForm = db.RentForms.Where(r => r.RentFormID == rent.RentFormID).Include(r => r.Staff).Include(r => r.Customer).FirstOrDefault();
+
+            if (rentForm == null)
+            {
+                return NotFound();
+            }
+
+            var rooms = db.Rooms.Where(r => r.Status == "Vacant").ToList();
+            ViewBag.RoomVacant = new SelectList(rooms, "RoomID", "RoomID");
+            return View(rentForm);
         }
 
 		[HttpGet]
 		[Route("Delete")]
-		public IActionResult Delete(string rentFormID)
+		public IActionResult Delete(string id)
 		{
-			return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Get information for Rent Form
+            var rentForm = db.RentForms.Where(r => r.RentFormID == id).Include(r => r.Staff).Include(r => r.Customer).FirstOrDefault();
+            if (rentForm == null)
+            {
+                return NotFound();
+            }
+
+            return View(rentForm);
 		}
 
 		[HttpPost]
@@ -131,6 +262,16 @@ namespace HotelManagement.Areas.Admin.Controllers
 		public IActionResult DeleteConfirm(string rentFormID)
 		{
 			return View();
+		}
+
+		/// <summary>
+		/// Check If Exist Rent Form
+		/// </summary>
+		/// <param name="id">Rent Form ID</param>
+		/// <returns></returns>
+		private bool ExistRentform(string id)
+		{
+			return db.RentForms.Any(r => r.RoomID == id);
 		}
     }
 }

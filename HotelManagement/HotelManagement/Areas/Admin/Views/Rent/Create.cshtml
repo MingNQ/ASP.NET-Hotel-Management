@@ -1,95 +1,118 @@
 ﻿@model HotelManagement.Models.RentForm
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	ViewData["Title"] = "Create";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h1>Create</h1>
 
 <h4>RentForm</h4>
 <hr />
+
 <div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <form asp-controller="Rent" asp-action="Create" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="RentFormID" class="control-label" for="exampleFormControlReadonly"></label>
-                        <input asp-for="RentFormID" class="form-control" type="text" id="exampleFormControlReadonly" value="@ViewBag.RentFormID" readonly="">
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="BookingID" class="control-label"></label>
-                        <input asp-for="BookingID" class="form-control" />
-                        <span asp-validation-for="BookingID" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="RoomID" class="control-label"></label>
-                        <select asp-for="RoomID" class="select2-single form-control" name="state" id="select2Single" asp-items="@ViewBag.RoomVacant"></select>
-                        <span asp-validation-for="RoomID" class="text-danger"></span>
-                    </div>
-                    <div class="form-group" id="simple-date1">
-                        <label asp-for="DateCreate" for="simpleDataInput"></label>
-                        <div class="input-group date">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                            </div>
-                            <input type="text" class="form-control" asp-for="DateCreate" id="simpleDataInput">
-                            <span asp-validation-for="DateCreate" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group" id="simple-date1">
-                        <label asp-for="DateCheckIn" for="simpleDataInput"></label>
-                        <div class="input-group date">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                            </div>
-                            <input type="text" class="form-control" asp-for="DateCheckIn" id="simpleDataInput">
-                            <span asp-validation-for="DateCheckIn" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group" id="simple-date1">
-                        <label asp-for="DateCheckOut" for="simpleDataInput"></label>
-                        <div class="input-group date">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                            </div>
-                            <input type="text" class="form-control" asp-for="DateCheckOut" id="simpleDataInput">
-                            <span asp-validation-for="DateCheckOut" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Sale" class="control-label"></label>
-                        <input asp-for="Sale" class="form-control" />
-                        <span asp-validation-for="Sale" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                        <a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Back to List</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="col">
+		<div asp-validation-summary="All" class="text-danger"></div>
+		<form asp-controller="Rent" asp-action="Create" method="post">
+			<div asp-validation-summary="All" class="text-danger"></div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group">
+								<label asp-for="RentFormID" class="control-label" for="exampleFormControlReadonly"></label>
+								<input asp-for="RentFormID" class="form-control" type="text" id="exampleFormControlReadonly" value="@ViewBag.RentFormID" readonly="">
+							</div>
+							<div class="form-group">
+								<label asp-for="BookingID" class="control-label"></label>
+								<select asp-for="BookingID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.BookingList"></select>
+								<span asp-validation-for="BookingID" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="RoomID" class="control-label">Room Vacant</label>
+								<select asp-for="RoomID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.RoomVacant"></select>
+								<span asp-validation-for="RoomID" class="text-danger"></span>
+							</div>
+							<div class="form-group" id="simple-date1">
+								<label asp-for="DateCreate" for="simpleDataInput"></label>
+								<div class="input-group date">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+									</div>
+									<input type="text" class="form-control" asp-for="DateCreate" id="simpleDataInput" value="@DateTime.Now.ToShortDateString()">
+								</div>
+								<span asp-validation-for="DateCreate" class="text-danger"></span>
+							</div>
+							<div class="form-group" id="simple-date1">
+								<label asp-for="DateCheckIn" for="simpleDataInput"></label>
+								<div class="input-group date">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+									</div>
+									<input type="text" class="form-control" asp-for="DateCheckIn" id="simpleDataInput">
+								</div>
+								<span asp-validation-for="DateCheckIn" class="text-danger"></span>
+							</div>
+							<div class="form-group" id="simple-date1">
+								<label asp-for="DateCheckOut" for="simpleDataInput"></label>
+								<div class="input-group date">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+									</div>
+									<input type="text" class="form-control" asp-for="DateCheckOut" id="simpleDataInput">
+								</div>
+								<span asp-validation-for="DateCheckOut" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="Sale" class="control-label"></label>
+								<input asp-for="Sale" class="form-control" />
+								<span asp-validation-for="Sale" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group">
+								<label asp-for="StaffID" class="control-label">Staff Create</label>
+								<select asp-for="StaffID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.Staffs"></select>
+								<span asp-validation-for="StaffID" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="CustomerID" class="control-label">Customer</label>
+								<select asp-for="CustomerID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.Customers"></select>
+								<span asp-validation-for="CustomerID" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="d-grid gap-2 d-md-block mt-3 mb-5">
+				<input type="submit" class="btn btn-primary" value="Create" />
+				<a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Cancel</a>
+			</div>
+		</form>
+	</div>
 </div>
+
 @section Styles {
-    <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css"))" rel="stylesheet" />
-    <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/css/select2.min.css"))" rel="stylesheet" type="text/css">
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css"))" rel="stylesheet" />
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/css/select2.min.css"))" rel="stylesheet" type="text/css">
 }
 
 @section Scripts {
-    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"))"></script>
-    <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/js/select2.min.js"))"></script>
-    <script>
-        $(document).ready(function () {
-            $('#simple-date1 .input-group.date').datepicker({
-                format: 'dd/mm/yyyy',
-                todayBtn: 'linked',
-                todayHighlight: true,
-                autoclose: true,
-            });
-        });
-    </script>
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"))"></script>
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/js/select2.min.js"))"></script>
+	<script>
+		$(document).ready(function () {
+			$('#simple-date1 .input-group.date').datepicker({
+				format: 'mm/dd/yyyy',
+				todayBtn: 'linked',
+				todayHighlight: true,
+				autoclose: true,
+			});
+		});
+	</script>
 }

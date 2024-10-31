@@ -13,11 +13,12 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <form asp-action="Edit" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <form asp-controller="Rent" asp-action="Edit" asp-route-id ="@Model.RentFormID" method="post">
+                    <input type="hidden" asp-for="RentFormID" />
                     <div class="form-group">
-                        <label asp-for="RentFormID" class="control-label" for="exampleFormControlReadonly"></label>
-                        <input asp-for="RentFormID" class="form-control" type="text" id="exampleFormControlReadonly" readonly="">
+                        <label asp-for="RentFormID" class="control-label"></label>
+                        <input asp-for="RentFormID" class="form-control" type="text" readonly="">
                     </div>
                     <div class="form-group">
                         <label asp-for="BookingID" class="control-label"></label>
@@ -25,9 +26,21 @@
                         <span asp-validation-for="BookingID" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Room" class="control-label"></label>
-                        <select asp-for="RoomID" class="select2-single form-control" name="state" id="select2Single" asp-items="@ViewBag.RoomVacant"></select>
+                        <label asp-for="RoomID" class="control-label">Room</label>
+                        <select asp-for="RoomID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.RoomVacant">
+                            <option selected>@Model.RoomID</option>
+                        </select>
                         <span asp-validation-for="RoomID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StaffID" class="control-label">Staff Create</label>
+                        <input asp-for="StaffID" class="form-control" value="@Model.Staff?.FirstName @Model.Staff?.LastName" readonly="" />
+                        <span asp-validation-for="StaffID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerID" class="control-label">Customer</label>
+                        <input asp-for="CustomerID" class="form-control" value="@Model.Customer?.FirstName @Model.Customer?.LastName" readonly="" />
+                        <span asp-validation-for="CustomerID" class="text-danger"></span>
                     </div>
                     <div class="form-group" id="simple-date1">
                         <label asp-for="DateCreate" for="simpleDataInput"></label>
@@ -66,7 +79,7 @@
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-primary" />
-                        <a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Back to List</a>
+                        <a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Cancel</a>
                     </div>
                 </form>
             </div>
