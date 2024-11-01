@@ -10,7 +10,7 @@
     <h1>Create New Customer</h1>
     <div asp-validation-summary="All" class="text-danger"></div>
     
-    <form asp-action="Create" method="post" class="mt-3">
+    <form asp-action="Create" asp-route-navigate="@ViewBag.Navigate" method="post" class="mt-3">
         <div class="form-group row" style="margin-top: 7px;">
             <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">

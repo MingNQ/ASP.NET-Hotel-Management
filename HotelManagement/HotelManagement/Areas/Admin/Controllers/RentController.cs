@@ -22,12 +22,25 @@ namespace HotelManagement.Areas.Admin.Controllers
 
 		[Route("")]
 		[Route("Index")]
-		public IActionResult Index(int page = 1, string sortColumn = "DateCreate", bool isDesc = false)
+		public IActionResult Index(string keyWord, int page = 1, string sortColumn = "DateCreate", bool isDesc = false)
 		{
+			// Get List 
 			var listRentForm = db.RentForms.
 							Include(r => r.Customer).
 							Include(r => r.Staff).AsQueryable();
 
+			// Search by KeyWord
+			if (!String.IsNullOrEmpty(keyWord))
+			{
+				listRentForm = listRentForm.Where(r => r.RentFormID.Contains(keyWord) ||
+														r.RoomID.Contains(keyWord) ||
+														r.Staff.FirstName.Contains(keyWord) ||
+														r.Staff.LastName.Contains(keyWord) ||
+														r.Customer.LastName.Contains(keyWord) ||
+														r.Customer.FirstName.Contains(keyWord));
+			}
+
+			// Sort by Date
 			listRentForm = sortColumn switch
 			{
 				"DateCreate" => isDesc ? listRentForm.OrderByDescending(r => r.DateCreate) : listRentForm.OrderBy(r => r.DateCreate),
@@ -42,6 +55,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 			ViewBag.CurrentPage = page;
 			ViewBag.SortColumn = sortColumn;
 			ViewBag.IsDescending = isDesc;
+			ViewBag.KeyWord = keyWord;
 
 			return View(currPageRental);
 		}
@@ -101,7 +115,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 			}
 
 			// Get information for Rent Form
-			ViewBag.Categories = new SelectList(rooms.Select(r => new { r.CategoryID, r.Category?.TypeName }).ToList(), "CategoryID", "TypeName");
+			ViewBag.Categories = new SelectList(db.Categories.ToList(), "CategoryID", "TypeName");
 			ViewBag.BookingList = new SelectList(db.Bookings.ToList(), "BookingID", "BookingID");
             ViewBag.Staffs = new SelectList(db.Staffs.Select(s => new
             {
@@ -139,7 +153,17 @@ namespace HotelManagement.Areas.Admin.Controllers
 						db.Entry(room).State = EntityState.Modified;
 					}
 
-					//db.Add(rent);
+					var bookingID = rent.BookingID;
+					if (bookingID != null)
+					{
+						db.Add(new Booking 
+						{ 
+							BookingID = bookingID, 
+							CustomerID = rent.CustomerID
+						});
+					}
+
+					db.Add(rent);
 					db.SaveChanges();
 
 					return RedirectToAction(nameof(Index));
@@ -359,6 +383,14 @@ namespace HotelManagement.Areas.Admin.Controllers
 			{
 				return NotFound();
 			}
+
+			if (db.Invoices.Any(r => r.BookingID == rentForm.BookingID))
+			{
+				return Content("Error! Can't delete this Rent Form.");
+			}
+
+			db.RentForms.Remove(rentForm);
+			db.SaveChanges();
 
 			return RedirectToAction(nameof(Index));
 		}
