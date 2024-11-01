@@ -96,7 +96,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 					}
 					return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateException ex)
+                catch (DbUpdateException)
                 {
                     // Xử lý ngoại lệ liên quan đến cơ sở dữ liệu
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, contact your system administrator.");

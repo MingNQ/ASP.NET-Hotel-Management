@@ -1,0 +1,72 @@
+﻿@{
+	ViewData["Tittle"] = "Rooms";
+	Layout = "_Layout";
+}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Our Rooms</h2>
+                    <div class="bt-option">
+                        <a asp-controller="Home">Home</a>
+                        <span>Rooms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Rooms Section Begin -->
+<section class="rooms-section spad">
+    <div class="container">
+        <div class="row">
+            @foreach(var room in ViewBag.Categories)
+            {
+                int capacity = int.Parse(room.CategoryID.ToString().Substring(room.CategoryID.ToString().Length - 2));
+                string price = string.Format("{0:N0} VND", room.Price);
+                string imgUrl = "../TemPlateLayout/MainWebPage/img/room/room-" + new Random().NextInt64(1, 6).ToString() + ".jpg";
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="room-item">
+                        <img src="@imgUrl" alt="Room Image">
+                        <div class="ri-text">
+                            <h4>@room.TypeName</h4>
+                            <h3>@price<span>/Pernight</span></h3>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="r-o">Size:</td>
+                                        <td>@room.Capacity ft</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Capacity:</td>
+                                        <td>Max persion @(capacity + 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Services:</td>
+                                        <td>
+                                            Wifi, Television, Bathroom,...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a asp-controller="Room" asp-action="Details" asp-route-id="@room.CategoryID" class="primary-btn">More Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-12">
+                <div class="room-pagination">
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Rooms Section End -->

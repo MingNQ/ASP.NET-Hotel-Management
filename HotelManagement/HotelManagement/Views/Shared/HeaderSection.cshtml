@@ -17,7 +17,7 @@
                             <a href="#"><i class="fa fa-instagram"></i></a>
                         </div>
                         <a href="#" class="bk-btn">Booking Now</a>
-                        <div class="language-option">
+                        @* <div class="language-option">
                             <img src="../TemPlateLayout/MainWebPage/img/flag.jpg" alt="">
                             <span>EN <i class="fa fa-angle-down"></i></span>
                             <div class="flag-dropdown">
@@ -25,7 +25,7 @@
                                     <li><a href="#">VIE</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> *@
                     </div>
                 </div>
             </div>
@@ -45,20 +45,21 @@
                     <div class="nav-menu">
                         <nav class="mainmenu">
                             <ul>
-                                <li class="active"><a asp-controller="Home">Home</a></li>
-                                <li><a href="./rooms.html">Rooms</a></li>
-                                <li><a href="./about-us.html">About Us</a></li>
-                                <li>
-                                    <a href="./pages.html">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./room-details.html">Room Details</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                        <li><a href="#">Family Room</a></li>
-                                        <li><a href="#">Premium Room</a></li>
-                                    </ul>
+                                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "active" : "")">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
                                 </li>
-                                <li><a href="./blog.html">News</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
+                                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Room" ? "active" : "")">
+                                    <a asp-controller="Room" asp-action="Index">Rooms</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Home" asp-action="About">About Us</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Home" asp-action="Blank">News</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Home" asp-action="Blank">Contact</a>
+                                </li>
                             </ul>
                         </nav>
                         <div class="nav-right search-switch">
