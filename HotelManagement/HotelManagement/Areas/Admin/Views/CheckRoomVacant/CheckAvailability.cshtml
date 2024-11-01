@@ -1,0 +1,70 @@
+﻿@model IEnumerable<HotelManagement.Models.Room>
+@{
+    ViewData["Title"] = "Danh Sách Phòng Trống";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h3>Danh Sách Phòng Trống</h3>
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="CheckAvailability" asp-route-sortColumn="RoomID" asp-route-sortDirection="@(ViewBag.SortDirection == "asc" ? "desc" : "asc")" asp-route-page="@(ViewBag.Page)" asp-route-dateCome="@ViewBag.DateCome" asp-route-dateGo="@ViewBag.DateGo">
+                        Room ID
+                        @if (ViewBag.SortColumn == "RoomID")
+                        {
+                            <i class="fa @(ViewBag.SortDirection == "asc" ? "fa-sort-asc" : "fa-sort-desc")"></i>
+                        }
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="CheckAvailability" asp-route-sortColumn="Category" asp-route-sortDirection="@(ViewBag.SortDirection == "asc" ? "desc" : "asc")" asp-route-page="@(ViewBag.Page)" asp-route-dateCome="@ViewBag.DateCome" asp-route-dateGo="@ViewBag.DateGo">
+                        Category
+                        @if (ViewBag.SortColumn == "Category")
+                        {
+                            <i class="fa @(ViewBag.SortDirection == "asc" ? "fa-sort-asc" : "fa-sort-desc")"></i>
+                        }
+                    </a>
+                </th>
+                <th>Status</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in Model)
+            {
+                <tr>
+                    <td>@room.RoomID</td>
+                    <td>@room.Category.TypeName</td>
+                    <td>@room.Status</td>
+                    <td>@room.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Phân trang -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="CheckAvailability" asp-route-page="@(ViewBag.Page - 1)" asp-route-sortColumn="@ViewBag.SortColumn" asp-route-sortDirection="@ViewBag.SortDirection" asp-route-dateCome="@ViewBag.DateCome" asp-route-dateGo="@ViewBag.DateGo">Previous</a>
+            </li>
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                    <a class="page-link" asp-action="CheckAvailability" asp-route-page="@i" asp-route-sortColumn="@ViewBag.SortColumn" asp-route-sortDirection="@ViewBag.SortDirection" asp-route-dateCome="@ViewBag.DateCome" asp-route-dateGo="@ViewBag.DateGo">@i</a>
+                </li>
+            }
+            <li class="page-item @(ViewBag.Page == ViewBag.TotalPages ? "disabled" : "")">
+                <a class="page-link" asp-action="CheckAvailability" asp-route-page="@(ViewBag.Page + 1)" asp-route-sortColumn="@ViewBag.SortColumn" asp-route-sortDirection="@ViewBag.SortDirection" asp-route-dateCome="@ViewBag.DateCome" asp-route-dateGo="@ViewBag.DateGo">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+}
+else if (Model != null)
+{
+    <p>Không có phòng trống trong khoảng thời gian đã chọn.</p>
+}
+<a asp-action="Index" asp-controller="CheckRoomVacant" class="btn btn-secondary mb-3">Back</a>
