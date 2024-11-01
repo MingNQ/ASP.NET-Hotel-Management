@@ -27,7 +27,10 @@
             <div class="form-group row" style="margin-top:7px">
                 <label asp-for="CustomerID" class="col-sm-2 col-form-label">Customer ID</label>
                 <div class="col-sm-8">
-                    <input asp-for="CustomerID" class="form-control" placeholder="Customer ID" />
+                    <select asp-for="CustomerID" class="form-control" asp-items="@ViewBag.CustomerList">
+                        <option value="">--Select CustomerID--</option>
+                    </select>
+                    
                 </div>
                 <span asp-validation-for="CustomerID" class="text-danger col-sm-2"></span>
             </div>
@@ -60,10 +63,10 @@
             </div>
 
             <!-- Deposit -->
-            <div class="form-group row" style="margin-top:7px">
+            <div style="margin-top: 7px" class="form-group row">
                 <label asp-for="Deposit" class="col-sm-2 col-form-label">Deposit</label>
                 <div class="col-sm-8">
-                    <input asp-for="Deposit" type="number" min="0" step="0.01" class="form-control" placeholder="Deposit" />
+                    <input asp-for="Deposit" class="form-control" placeholder="Deposit" />
                 </div>
                 <span asp-validation-for="Deposit" class="text-danger col-sm-2"></span>
             </div>

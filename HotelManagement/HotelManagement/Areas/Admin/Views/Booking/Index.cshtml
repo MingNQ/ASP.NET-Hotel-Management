@@ -100,8 +100,8 @@
                 <tr>
                     <td>@s.BookingID</td>
                     <td>@s.CustomerID</td>
-                    <td>@s.DateCome</td>
-                    <td>@s.DateGo</td>
+                    <td>@s.DateCome.ToString("dd/MM/yyyy")</td>
+                    <td>@s.DateGo.ToString("dd/MM/yyyy")</td>
                     <td>@s.NumberPeople</td>
                     <td>@s.Deposit</td>
                     <td>@s.Status</td>
@@ -132,7 +132,7 @@
                             Prev
                         </a>
                     </li>
-                    @for (int i = 0; i < ViewBag.NoOfPage; i++)
+                    @for (int i = 0; i < ViewBag.NoOfPages; i++)
                     {
                         if (i + 1 == ViewBag.Page)
                         {

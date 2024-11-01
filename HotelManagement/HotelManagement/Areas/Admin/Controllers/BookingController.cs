@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using HotelManagement.Data;
 using HotelManagement.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HotelManagement.Controllers
 {
@@ -27,7 +28,7 @@ namespace HotelManagement.Controllers
             {
                 var lastNumber = int.Parse(lastBooking.BookingID.Substring(prefix.Length));
                 var newNumber = lastNumber + 1;
-                return $"{prefix}{newNumber:D4}";
+                return $"{prefix}{newNumber:D5}";
             }
         }
         [HttpGet]
@@ -36,6 +37,13 @@ namespace HotelManagement.Controllers
         {
             var newBoookingID = GenerateBookingID();
             ViewBag.NewBookingID = newBoookingID;
+
+            var CustomerList = db.Customers.Select(c => new SelectListItem
+            {
+                Value = c.CustomerID.ToString(),
+                Text = c.CustomerID.ToString()
+            }).ToList();
+            ViewBag.CustomerList = CustomerList;
             return View();
         }
 
@@ -44,6 +52,15 @@ namespace HotelManagement.Controllers
         [Route("Create")]
         public IActionResult Create(Booking booking)
         {
+            if(booking.DateGo < booking.DateCome)
+            {
+                ModelState.AddModelError("DateGo", "DateGo must be greater than DateCome");
+            }    
+            if(string.IsNullOrEmpty(booking.BookingID) || booking.CustomerID == "--Select CustomerID--" || booking.CustomerID == null)
+            {
+                ModelState.AddModelError("CustomerID", "CustomerID is Required");
+            }    
+           
             if (ModelState.IsValid)
             {
                 var existingBooking = db.Bookings.FirstOrDefault(b => b.BookingID == booking.BookingID);
@@ -58,6 +75,12 @@ namespace HotelManagement.Controllers
                     ModelState.AddModelError("BookingID", "Booking ID already exists.");
                 }
             }
+            var CustomerList = db.Customers.Select(c => new SelectListItem
+            {
+                Value = c.CustomerID.ToString(),
+                Text = c.CustomerID.ToString()
+            }).ToList();
+            ViewBag.CustomerList = CustomerList;
             var newBoookingID = GenerateBookingID();
             ViewBag.NewBookingID = newBoookingID;
             return View(booking);
@@ -134,6 +157,10 @@ namespace HotelManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(string id, Booking booking)
         {
+            if (booking.DateGo < booking.DateCome)
+            {
+                ModelState.AddModelError("DateGo", "DateGo must be greater than DateCome");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -203,7 +230,7 @@ namespace HotelManagement.Controllers
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "Can not delete this Booking ID " + ex.Message;
+                TempData["ErrorMessage"] = "Can Not Delete this Booking ID ";
                 return RedirectToAction("Delete",new {id});
             }
         }
