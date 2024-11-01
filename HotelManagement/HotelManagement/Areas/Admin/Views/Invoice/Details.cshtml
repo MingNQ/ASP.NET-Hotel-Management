@@ -1,0 +1,124 @@
+﻿@using System.Globalization
+@{
+    ViewData["Title"] = "Invoice Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Invoice Detail</h2>
+
+<div class="container">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Invoice Information</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Invoice ID</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.InvoiceID</dd>
+
+                <dt class="col-sm-3">Date Created</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.DateCreate.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-3">Booking ID</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.BookingID</dd>
+
+                <dt class="col-sm-3">Check-In Date</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.DateCheckIn.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-3">Check-Out Date</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.DateCheckOut.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-3">Staff Name</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.StaffName</dd>
+
+                <dt class="col-sm-3">Customer Name</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.CustomerName</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Rented Rooms</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Room ID</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Deposit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@ViewBag.Invoice.RentedRooms.RoomID</td>
+                        <td>@ViewBag.Invoice.RentedRooms.Category.TypeName</td>
+                        <td>@ViewBag.Invoice.CategoryPrice.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</td>
+                        <td>@ViewBag.Invoice.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Used Services</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Room ID</th>
+                        <th scope="col">Service Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total Service Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var service in ViewBag.Invoice.UsedServices)
+                    {
+                        <tr>
+                            <td>@ViewBag.Invoice.RentedRooms.RoomID</td>
+                            <td>@service.Service.ServiceName</td>
+                            <td>@service.Service.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</td>
+                            <td>@service.Service.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</td> 
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Payment Summary</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Number of Days</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.NumberOfDays</dd>
+
+                <dt class="col-sm-3">Room Price</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.CategoryPrice.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</dd>
+
+                <dt class="col-sm-3">Total Service Price</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.TotalServicePrice.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</dd>
+
+                <dt class="col-sm-3">Discount</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.Sale.ToString("P0")</dd>
+
+                <dt class="col-sm-3">Deposit</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</dd>
+
+                <dt class="col-sm-3">Amount to Pay</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.TotalAmountToPay.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div class="text-end mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</div>

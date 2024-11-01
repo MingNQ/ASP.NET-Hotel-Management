@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Create Invoice";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Create Invoice</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label>Invoice ID</label>
+        <input type="text" name="InvoiceID" value="@ViewBag.NewInvoiceID" readonly class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Date Created</label>
+        <input type="date" name="DateCreate" value="@ViewBag.DateCreate.ToString("yyyy-MM-dd")" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Booking ID</label>
+        <select name="BookingID" class="form-control">
+            @foreach (var booking in ViewBag.BookingIDs)
+            {
+                <option value="@booking.BookingID">@booking.BookingID</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Staff</label>
+        <select name="StaffID" class="form-control">
+            @foreach (var staff in ViewBag.StaffList)
+            {
+                <option value="@staff.StaffID">@staff.StaffName</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Invoice</button>
+</form>
