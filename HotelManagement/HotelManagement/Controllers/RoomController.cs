@@ -36,21 +36,33 @@ namespace HotelManagement.Controllers
             return View(room);
         }
 
-        public IActionResult Preview(string roomId)
+        [HttpGet]
+        public IActionResult RoomAvailable(string id, DateTime dateCome, DateTime dateGo)
         {
-            if (roomId == null)
+            if (dateCome >= dateGo)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Ngày đến phải nhỏ hơn ngày đi.");
+                return View();
             }
 
-            var room = db.Rooms.Where(r => r.RoomID == roomId).Include(r => r.Images).FirstOrDefault();
+            var unavailableRoomIds = db.RentForms
+                .Where(r => (dateCome < r.DateCheckOut && dateGo > r.DateCheckIn))
+                .Select(r => r.RoomID)
+                .ToList();
 
-            if (room == null)
+            var availableRooms = db.Rooms
+                .Where(r => !unavailableRoomIds.Contains(r.RoomID) && r.Status == "Vacant")
+                .Include(r => r.Category)
+                .Include(r => r.Images)
+                .ToList();
+
+            if (!string.IsNullOrEmpty(id))
             {
-                return NotFound();
+                availableRooms = availableRooms.Where(r => r.CategoryID == id).ToList();
             }
 
-            return View(room);
+            ViewBag.Rooms = availableRooms;
+            return View();
         }
     }
 }

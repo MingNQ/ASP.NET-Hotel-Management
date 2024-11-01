@@ -20,16 +20,14 @@
             <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
                 <div class="booking-form">
                     <h3>Booking Your Hotel</h3>
-                    <form action="#">
+                    <form asp-controller="Room" asp-action="RoomAvailable" method="get">
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
-                            <input type="text" class="date-input" id="date-in">
-                            <i class="icon_calendar"></i>
+                            <input type="date" name="dateCome" required>
                         </div>
                         <div class="check-date">
                             <label for="date-out">Check Out:</label>
-                            <input type="text" class="date-input" id="date-out">
-                            <i class="icon_calendar"></i>
+                            <input type="date" name="dateGo" required>
                         </div>
                         <div class="select-option">
                             <label for="guest">Guests:</label>

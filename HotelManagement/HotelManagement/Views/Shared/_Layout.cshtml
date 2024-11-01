@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="~/TemPlateLayout/MainWebPage/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="~/TemPlateLayout/MainWebPage/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/TemPlateLayout/MainWebPage/css/style.css" type="text/css">
+    @RenderSection("Styles", required: false)
 </head>
 
 <body>
@@ -57,6 +58,7 @@
     <script src="~/TemPlateLayout/MainWebPage/js/jquery.slicknav.js"></script>
     <script src="~/TemPlateLayout/MainWebPage/js/owl.carousel.min.js"></script>
     <script src="~/TemPlateLayout/MainWebPage/js/main.js"></script>
+    @RenderSection("Scripts", required:false)
 </body>
 
 </html>
