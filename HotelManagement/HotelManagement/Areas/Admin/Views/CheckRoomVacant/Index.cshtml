@@ -1,0 +1,20 @@
+﻿@model IEnumerable<HotelManagement.Models.Room>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Check Room Availability</h2>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-action="CheckAvailability" asp-controller="CheckRoomVacant" method="get">
+    <div class="form-group">
+        <label for="dateCome">Ngày đến:</label>
+        <input type="date" id="dateCome" name="dateCome" class="form-control" required value="@ViewBag.DateCome?.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="form-group">
+        <label for="dateGo">Ngày đi:</label>
+        <input type="date" id="dateGo" name="dateGo" class="form-control" required value="@ViewBag.DateGo?.ToString("yyyy-MM-dd")" />
+    </div>
+    <button type="submit" class="btn btn-primary">Kiểm tra phòng trống</button>
+</form>
+

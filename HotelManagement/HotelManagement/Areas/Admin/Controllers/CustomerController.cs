@@ -1,4 +1,4 @@
-﻿using HotelManagement.Data;
+using HotelManagement.Data;
 using HotelManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +55,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         public IActionResult Create(bool navigate = false)
         {
             ViewBag.Navigate = navigate;
+
             return View();
         }
 
@@ -90,11 +91,13 @@ namespace HotelManagement.Areas.Admin.Controllers
                 {
                     db.Add(customer);
                     db.SaveChanges();
-					if (navigate)
-					{
-						return RedirectToAction("Create", "Rent");
-					}
-					return RedirectToAction(nameof(Index));
+
+                    if (navigate)
+                    {
+                      return RedirectToAction("Create", "Rent");
+                    }
+                    return RedirectToAction(nameof(Index));
+
                 }
                 catch (DbUpdateException ex)
                 {
@@ -102,13 +105,10 @@ namespace HotelManagement.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, contact your system administrator.");
                 }
             }
-
-            
-
             // Nếu có lỗi trong ModelState, trả lại view với các thông tin đã nhập
             return View(customer);
         }
-
+        
         [Route("Edit")]
         public IActionResult Edit(string id)
         {

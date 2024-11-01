@@ -60,8 +60,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
-            ViewBag.TypeName = new List<string> { "Standard Single", "Standard Twin", "Superior Single", "Superior Twin", "Superior Triple",
-        "Deluxe Single", "Deluxe Twin", "Suite Single", "Suite Twin", "Suite Triple", "Suite Queen"};
+            ViewBag.TypeName = new List<string> { "Standard Single", "Standard Twin", "Superior Single", "Superior Twin", "Superior Triple", "Deluxe Single", "Deluxe Twin", "Suite Single", "Suite Twin", "Suite Triple", "Suite Queen"};
             return View();
         }
 
@@ -84,6 +83,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                     ModelState.AddModelError("CategoryID", "CategoryID đã tồn tại.");
                 }
             }
+            ViewBag.TypeName = new List<string> { "Standard Single", "Standard Twin", "Superior Single", "Superior Twin", "Superior Triple", "Deluxe Single", "Deluxe Twin", "Suite Single", "Suite Twin", "Suite Triple", "Suite Queen" };
             return View(category);
         }
 

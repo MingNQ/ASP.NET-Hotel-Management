@@ -106,6 +106,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
+            var lastRoom = db.Rooms.OrderByDescending(r => r.RoomID).FirstOrDefault();
+            string newRoomID = "R001";
+            if(lastRoom != null)
+            {
+                int lastNumber = int.Parse(lastRoom.RoomID.Substring(1)) + 1;
+                newRoomID = "R" + lastNumber.ToString("D3");
+            }
+            ViewBag.NewRoomID = newRoomID; 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "TypeName");
             ViewBag.Services = db.Services.ToList(); // Lấy danh sách dịch vụ
             return View();
@@ -114,62 +122,54 @@ namespace HotelManagement.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public IActionResult Create([Bind("RoomID, CategoryID, Status")] Room room, List<IFormFile> RoomImages, List<string> selectedServices)
+        public IActionResult Create([Bind("RoomID,CategoryID, Status")] Room room, List<IFormFile> RoomImages, List<string> selectedServices)
         {
             if (ModelState.IsValid)
             {
-                Room oldRoom = db.Rooms.Find(room.RoomID);
-                if (oldRoom == null)
+                db.Rooms.Add(room);
+                db.SaveChanges();
+
+                var lastImage = db.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
+                int lastNumber = lastImage != null ? int.Parse(lastImage.ImageID.Substring(3)) : 0;
+
+                foreach (var imageFile in RoomImages)
                 {
-                    db.Rooms.Add(room);
-                    db.SaveChanges();
-
-                    var lastImage = db.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
-                    int lastNumber = lastImage != null ? int.Parse(lastImage.ImageID.Substring(3)) : 0;
-
-                    foreach (var imageFile in RoomImages)
+                    if (imageFile != null && imageFile.Length > 0)
                     {
-                        if (imageFile != null && imageFile.Length > 0)
+                        string newImageID = "IMG" + (lastNumber + 1).ToString("D4");
+                        lastNumber++;
+
+                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", imageFile.FileName);
+                        using (var stream = new FileStream(imagePath, FileMode.Create))
                         {
-                            string newImageID = "IMG" + (lastNumber + 1).ToString("D4");
-                            lastNumber++;
-
-                            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", imageFile.FileName);
-                            using (var stream = new FileStream(imagePath, FileMode.Create))
-                            {
-                                imageFile.CopyTo(stream);
-                            }
-
-                            var image = new Image
-                            {
-                                ImageID = newImageID,
-                                RoomID = room.RoomID,
-                                ImageUrl = "/img/" + imageFile.FileName
-                            };
-
-                            db.Images.Add(image);
+                            imageFile.CopyTo(stream);
                         }
-                    }
 
-                    // Lưu danh sách dịch vụ đã chọn
-                    foreach (var serviceId in selectedServices)
-                    {
-                        var roomService = new RoomService
+                        var image = new Image
                         {
+                            ImageID = newImageID,
                             RoomID = room.RoomID,
-                            ServiceID = serviceId
+                            ImageUrl = "/img/" + imageFile.FileName
                         };
-                        db.RoomServices.Add(roomService);
+
+                        db.Images.Add(image);
                     }
-
-                    db.SaveChanges(); // Lưu tất cả thay đổi vào cơ sở dữ liệu
-
-                    return RedirectToAction("Index");
                 }
-                else
+
+                // Lưu danh sách dịch vụ đã chọn
+                foreach (var serviceId in selectedServices)
                 {
-                    ModelState.AddModelError("RoomID", "RoomId đã tồn tại.");
+                    var roomService = new RoomService
+                    {
+                        RoomID = room.RoomID,
+                        ServiceID = serviceId
+                    };
+                    db.RoomServices.Add(roomService);
                 }
+
+                db.SaveChanges(); // Lưu tất cả thay đổi vào cơ sở dữ liệu
+
+                return RedirectToAction("Index");
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "TypeName");
