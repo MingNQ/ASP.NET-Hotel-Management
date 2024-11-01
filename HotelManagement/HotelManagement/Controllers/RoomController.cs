@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagement.Controllers
 {
+    [Route("/Room")]
     public class RoomController : Controller
     {
         private HotelDbContext db;
@@ -14,15 +15,30 @@ namespace HotelManagement.Controllers
         {
             this.db = db;
         }
-
-        public IActionResult Index()
+        [Route("")]
+        [Route("Index")]
+        public IActionResult Index(int page = 1)
         {
-            ViewBag.Categories = db.Categories.Include(c => c.Rooms).ToList();
+          
+
+            //ViewBag.Categories = db.Categories.Include(c => c.Rooms).ToList();
             ViewBag.Services = db.Services.ToList();
 
+            int NoOfRecordPerPage = 5;
+            int totalRoom = db.Categories.Count();
+            int NoOfPages = (int)Math.Ceiling((double)totalRoom/ NoOfRecordPerPage);
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+
+            var categories = db.Categories.Include(c => c.Rooms)
+                                          .Skip(NoOfRecordToSkip)
+                                          .Take(NoOfRecordPerPage)
+                                          .ToList();
+            ViewBag.Categories = categories;
             return View();
         }
-
         public IActionResult Details(string id)
         {
             if (id == null)

@@ -44,7 +44,7 @@
                                     </tr>
                                     <tr>
                                         <td class="r-o">Capacity:</td>
-                                        <td>Max persion @(capacity + 1)</td>
+                                        <td>Max person @(capacity + 1)</td>
                                     </tr>
                                     <tr>
                                         <td class="r-o">Services:</td>
@@ -59,14 +59,47 @@
                     </div>
                 </div>
             }
-            <div class="col-lg-12">
-                <div class="room-pagination">
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>
-                </div>
+        </div>
+        <!-- Phân trang-->
+        <div class="row">
+            <div class="col-md-12">
+                @{
+                    int prevPage = ViewBag.Page - 1;
+                    if (prevPage <= 0)
+                    {
+                        prevPage = 1;
+                    }
+                    int nextPage = ViewBag.Page + 1;
+                    if (nextPage > ViewBag.NoOfPages)
+                    {
+                        nextPage = ViewBag.NoOfPages;
+                    }
+                }
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="/room/index?page=@prevPage" style="color:rgb(223, 169, 116)">
+                            Prev
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.Page)">
+                            <a class="page-link" href="/room/index?page=@i" style=" color:rgb(223, 169, 116)">@i</a>
+                        </li>
+                    }
+                    <li class="page-item">
+                        <a class="page-link" href="/room/index?page=@nextPage" style="color:rgb(223, 169, 116)">
+                            Next
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
 <!-- Rooms Section End -->
+<style>
+    .pagination{
+        background-color: transparent;
+    }
+</style>
