@@ -40,7 +40,7 @@
                                     <i class="icon_star"></i>
                                     <i class="icon_star-half_alt"></i>
                                 </div>
-                                <a asp-controller="Booking" asp-action="Index">Booking Now</a>
+                                <a asp-controller="Booking" asp-action="Index" asp-route-categoryId="@Model.CategoryID">Booking Now</a>
                             </div>
                         </div>
                         <h2>@string.Format("{0:N0} VND", Model.Price)<span>/Pernight</span></h2>
@@ -52,10 +52,11 @@
                                 </tr>
                                 <tr>
                                     <td class="r-o">Capacity:</td>
+                                    @{
+                                        int capacity = int.Parse(Model.CategoryID.ToString().Substring(Model.CategoryID.ToString().Length - 2));
+                                    }
                                     <td>
-                                        Max persion @{
-                                            int capacity = int.Parse(Model.CategoryID.ToString().Substring(Model.CategoryID.ToString().Length - 2));
-                                        }
+                                        Max person @(capacity + 1)
                                     </td>
                                 </tr>
                                 <tr>

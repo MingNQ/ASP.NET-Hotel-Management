@@ -35,10 +35,12 @@
 										<div class="col-lg-6 mb-3">
 											<label for="">First Name</label>
 											<input asp-for="@Model.Customer.FirstName" type="text" class="form-control" placeholder="First name">
+											<span asp-validation-for="@Model.Customer.FirstName" class="text-danger"></span>
 										</div>
 										<div class="col-lg-6">
 											<label for="">Last Name</label>
 											<input asp-for="@Model.Customer.LastName" type="text" class="form-control" placeholder="Last name">
+											<span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
 										</div>
 									</div>
 								</div>
@@ -57,14 +59,17 @@
 								<div class="form-group ">
 									<label for="">Phone</label>
 									<input asp-for="@Model.Customer.Phone" type="text" class="form-control" placeholder="Phone Number">
+									<span asp-validation-for="@Model.Customer.Phone" class="text-danger"></span>
 								</div>
 								<div class="form-group ">
 									<label for="">Email</label>
 									<input asp-for="@Model.Customer.Email" type="email" class="form-control" placeholder="Email">
+									<span asp-validation-for="@Model.Customer.Email" class="text-danger"></span>
 								</div>
 								<div class="form-group ">
 									<label for="">Address</label>
 									<input asp-for="@Model.Customer.Address" type="text" class="form-control" placeholder="District, City...">
+									<span asp-validation-for="@Model.Customer.Address" class="text-danger"></span>
 								</div>
 							</div>
 						</div>
@@ -78,31 +83,38 @@
 							<div class="card-body">
 								<div class="form-group">
 									<label class="control-label">Category</label>
-									@if (ViewBag.CategoryID != null)
+									@if (ViewBag.Category != null)
 									{
-										<input asp-for="@Model.BookingDetail.CategoryID" class="form-control" type="text" value="@ViewBag.CategoryID" readonly="">
+										<input name="cid" class="form-control" type="text" value="@ViewBag.Category.TypeName" readonly="">
 									} 
 									else
 									{
-										<select asp-for="@Model.BookingDetail.CategoryID" id="categorySelect" class="select2-single form-control" asp-items="@ViewBag.Categories">
+										<select name="cid" id="categorySelect" class="select2-single form-control" asp-items="@ViewBag.Categories">
 											<option value="" disabled selected hidden>Select Category</option>
 										</select>
 									}
 								</div>
-								@if(ViewBag.RoomID != null)
+								<div class="form-group">
+								@if(ViewBag.Room != null)
 								{
-									<div class="form-group">
 										<label class="control-label">Room Vacant</label>
-										<input name="RoomID" class="form-control" type="text" value="@ViewBag.RoomID" readonly="">
-									</div>
+										<input name="rid" class="form-control" type="text" value="@ViewBag.Room.RoomID" readonly="">
 								}
+								else
+								{
+									<label class="control-label">Room Vacant</label>
+									<select name="rid"  id="categorySelect" class="select2-single form-control" required asp-items="@ViewBag.Rooms">
+										<option value="" disabled selected hidden>Select Room</option>
+									</select>
+								}
+								</div>
 								<div class="form-group" id="simple-date1">
 									<label class="control-label">Date Come</label>
 									<div class="input-group date">
 										<div class="input-group-prepend">
 											<span class="input-group-text"><i class="fas fa-calendar"></i></span>
 										</div>
-										<input asp-for="@Model.Booking.DateCome" type="text" class="form-control" id="simpleDataInput">
+										<input asp-for="@Model.Booking.DateCome" type="text" class="form-control" id="simpleDataInput" value="@ViewBag.DateCome">
 									</div>
 									<span class="text-danger"></span>
 								</div>
@@ -112,17 +124,13 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text"><i class="fas fa-calendar"></i></span>
 										</div>
-										<input asp-for="@Model.Booking.DateGo" type="text" class="form-control" id="simpleDataInput">
+										<input asp-for="@Model.Booking.DateGo" type="text" class="form-control" id="simpleDataInput" value="@ViewBag.DateGo">
 									</div>
 									<span class="text-danger"></span>
 								</div>
 								<div class="form-group">
 									<label for="touchSpin1">People</label>
-									<input asp-for="@Model.Booking.NumberPeople" id="touchSpin1" type="text" class="form-control">
-								</div>
-								<div class="form-group">
-									<label>Deposit</label>
-									<input asp-for="@Model.Booking.Deposit" type="text" class="form-control">
+									<input asp-for="@Model.Booking.NumberPeople" id="touchSpin1" type="text" class="form-control" value="@ViewBag.NumPeople" >
 								</div>
 							</div>
 						</div>
@@ -162,11 +170,11 @@
 			});
 
 			$('#touchSpin1').TouchSpin({
-				min: 0,
+				min: 1,
 				max: 100,
 				boostat: 5,
 				maxboostedstep: 10,
-				initval: 0
+				initval: 1
 			});
 		});
 	</script>

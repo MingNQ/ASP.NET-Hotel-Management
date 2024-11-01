@@ -16,57 +16,90 @@ namespace HotelManagement.Controllers
             this.db = db;
         }
 
-        public IActionResult Index(string categoryId, string roomId)
+        public IActionResult Index(string categoryId, string roomId, DateTime dateCome, DateTime dateGo, int numPeople)
         {
             if (categoryId != null)
-                ViewBag.CategoryID = db.Categories.Where(c => c.CategoryID == categoryId).FirstOrDefault();
-            if (roomId != null) 
-                ViewBag.RoomID = db.Rooms.Where(r => r.RoomID == roomId).FirstOrDefault();
+            {
+                var category = db.Categories.Where(c => c.CategoryID == categoryId).Include(c => c.Rooms).FirstOrDefault();
+				ViewBag.Rooms = new SelectList(category.Rooms.Where(r => r.Status == "Vacant").ToList(), "RoomID", "RoomID");
+				ViewBag.Category = db.Categories.Where(c => c.CategoryID == categoryId).FirstOrDefault();
+            }
+            if (roomId != null)
+            {
+                var room = db.Rooms.Where(r => r.RoomID == roomId).Include(r => r.Category).FirstOrDefault();
+                ViewBag.Category = room.Category;
+				ViewBag.Room = room;
+			}
 
 			ViewBag.Categories = new SelectList(db.Categories.ToList(), "CategoryID", "TypeName");
+            ViewBag.DateCome = dateCome;
+            ViewBag.DateGo = dateGo;
+            ViewBag.NumPeople = numPeople;
 
 			return View();
         }
 
         [HttpPost]
         public IActionResult Book(string rid, BookingViewModel model)
-        {
-            if (ModelState.IsValid)
+		{
+            var rooms = db.Rooms.Include(r => r.Category).ToList();
+            Room room = null;
+			if (rid != null)
+			{
+				room = rooms.FirstOrDefault(r => r.RoomID == rid);
+				ViewBag.Category = room.Category;
+				ViewBag.Room = room;
+			}
+
+			// Generate Customer ID
+			string customerID = "";
+			string bookingID = "";
+
+			while (true)
+			{
+				customerID = GenerateID("CUS");
+
+				if (!db.Customers.Any(c => c.CustomerID == customerID))
+				{
+					model.Customer.CustomerID = customerID;
+					break;
+				}
+
+			}
+
+			while (true)
+			{
+				bookingID = GenerateID("BK");
+
+				if (!db.Bookings.Any(b => b.BookingID == bookingID))
+				{
+					model.Booking.BookingID = bookingID;
+
+                    // Remove state 
+                    ModelState.Remove("Booking.BookingID");
+					break;
+				}
+			}
+
+            // Check valid 
+			if (ModelState.IsValid)
             {
                 try
                 {
-                    // Generate Customer ID
-                    string customerID = "";
-                    string bookingID = "";
-
-                    while (true)
-                    {
-                        customerID = GenerateID("CUS");
-
-                        if (!db.Customers.Any(c => c.CustomerID == customerID))
-                        {
-                            model.Customer.CustomerID = customerID;
-                            break;
-                        }
-
-                    }
-
-                    while (true)
-                    {
-                        bookingID = GenerateID("BK");
-
-                        if (!db.Bookings.Any(b => b.BookingID == bookingID))
-                        {
-                            break;
-                        }
-                    }
-
-                    db.Add(new Booking
+					db.Add(new Booking
+					{
+						BookingID = bookingID,
+						CustomerID = customerID,
+						DateCome = model.Booking.DateCome,
+						DateGo = model.Booking.DateGo,
+						NumberPeople = model.Booking.NumberPeople,
+					});
+					db.Add(new BookingDetail
                     {
                         BookingID = bookingID,
-                        CustomerID = customerID,
+                        CategoryID = room.CategoryID,
+                        NumberRoom = 1
                     });
-                    db.Bookings.Add(model.Booking);
                     db.Customers.Add(model.Customer);
                     db.SaveChanges();
 
@@ -78,15 +111,9 @@ namespace HotelManagement.Controllers
                 }
             }
 
-            if (model.BookingDetail.CategoryID != null)
-                ViewBag.CategoryID = db.Categories.Where(c => c.CategoryID == model.BookingDetail.CategoryID).FirstOrDefault();
-            if (rid != null)
-                ViewBag.RoomID = db.Rooms.Where(r => r.RoomID == rid).FirstOrDefault();
-
             ViewBag.Categories = new SelectList(db.Categories.ToList(), "CategoryID", "TypeName");
 
             return View("Index");
-
         }
 
         /// <summary>

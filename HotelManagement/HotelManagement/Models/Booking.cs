@@ -16,7 +16,7 @@ namespace HotelManagement.Models
 		public bool Status { get; set; }
 
 		// Navigation properties
-		public virtual Customer Customer { get; set; } = null!;
-		public virtual RentForm RentForm { get; set; } = null!;
+		public virtual Customer? Customer { get; set; } 
+		public virtual RentForm? RentForm { get; set; } 
 	}
 }

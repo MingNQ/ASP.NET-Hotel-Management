@@ -24,11 +24,15 @@
 <section class="rooms-section spad">
     <div class="container">
         <div class="row">
+            @{
+                int idx = 0;
+            }
             @foreach(var room in ViewBag.Categories)
             {
+                idx++;
                 int capacity = int.Parse(room.CategoryID.ToString().Substring(room.CategoryID.ToString().Length - 2));
                 string price = string.Format("{0:N0} VND", room.Price);
-                string imgUrl = "../TemPlateLayout/MainWebPage/img/room/room-" + new Random().NextInt64(1, 6).ToString() + ".jpg";
+                string imgUrl = "../TemPlateLayout/MainWebPage/img/room/room-" + idx.ToString() + ".jpg";
 
                 <div class="col-lg-4 col-md-6">
                     <div class="room-item">
@@ -77,7 +81,7 @@
                 }
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a class="page-link" href="/room/index?page=@prevPage" style="color:rgb(223, 169, 116)">
+                        <a class="page-link @(ViewBag.Page == 1 ? "disabled" : "")" href="/room/index?page=@prevPage" style="color:rgb(223, 169, 116)">
                             Prev
                         </a>
                     </li>
@@ -88,7 +92,7 @@
                         </li>
                     }
                     <li class="page-item">
-                        <a class="page-link" href="/room/index?page=@nextPage" style="color:rgb(223, 169, 116)">
+                        <a class="page-link @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")" href="/room/index?page=@nextPage" style="color:rgb(223, 169, 116)">
                             Next
                         </a>
                     </li>
@@ -98,8 +102,17 @@
     </div>
 </section>
 <!-- Rooms Section End -->
-<style>
-    .pagination{
-        background-color: transparent;
-    }
-</style>
+@section Styles 
+{
+    <style>
+        .pagination {
+            background-color: transparent;
+        }
+
+        .pagination .disabled {
+            pointer-events: none;
+            color: gray !important;
+            cursor: not-allowed;
+        }
+    </style>
+}

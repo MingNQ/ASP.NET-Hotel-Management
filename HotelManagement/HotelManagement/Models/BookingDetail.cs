@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace HotelManagement.Models
 {
-    [Keyless]
     public class BookingDetail
     {
-        [Required]
-        public string? BookingID { get; set; }
+        [Key]
+        [ForeignKey("Booking")]
+        public string BookingID { get; set; }
         [Required]
         public string? CategoryID { get; set; }
         public int NumberRoom { get; set; }

@@ -19,6 +19,16 @@
     </div>
 </div>
 <!-- Breadcrumb Section End -->
+
+@{
+    if (ViewBag.Rooms.Count <= 0)
+    {
+        <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+            <h3>Oops! No Available Room!</h3>
+            <a type="button" class="btn btn-lg btn-outline-success mt-5" asp-controller="Room" asp-action="Index">Back</a>
+        </div>
+    }
+}
 <section class="rooms-section spad">
 <div class="container">
     <div class="row">
@@ -36,7 +46,15 @@
                     <div class="ri-text">
                         <h4>@room.Category.TypeName</h4>
                         <h3>@room.RoomID</h3>
-                        <a asp-controller="Booking" asp-action="Index" class="primary-btn">Book</a>
+                        <a asp-controller="Booking" asp-action="Index" 
+                                    asp-route-categoryId="@ViewBag.CategoryID" 
+                                    asp-route-roomId="@room.RoomID"
+                                    asp-route-dateCome="@ViewBag.DateCome"
+                                    asp-route-dateGo="@ViewBag.DateGo"
+                                    asp-route-numPeople="@ViewBag.NumPeople"
+                                    class="primary-btn">
+                                    Book
+                        </a>
                     </div>
                 </div>
             </div>
