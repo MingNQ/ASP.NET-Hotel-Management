@@ -21,6 +21,7 @@ namespace HotelManagement.Data
 		public DbSet<Service> Services { get; set; } = null!;
 		public DbSet<Rate> Rates { get; set; } = null!;
 		public DbSet<RoomService> RoomServices { get; set; } = null!;
+		public DbSet<BookingDetail> BookingDetails { get; set; } = null!;
 
 		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +38,7 @@ namespace HotelManagement.Data
 			modelBuilder.Entity<Service>().ToTable(nameof(Service));
 			modelBuilder.Entity<Rate>().ToTable(nameof(Rate));
 			modelBuilder.Entity<RoomService>().ToTable(nameof(RoomService));
+			modelBuilder.Entity<BookingDetail>().ToTable(nameof(BookingDetail)).HasNoKey();
 		}
 	}
 }

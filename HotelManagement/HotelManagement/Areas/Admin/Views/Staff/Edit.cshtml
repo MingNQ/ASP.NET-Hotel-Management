@@ -1,15 +1,28 @@
-﻿
-@{
-    ViewData["Title"] = "Create";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";  
+﻿@using HotelManagement.Models
+@using HotelManagement.Models.Common
+﻿@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-@model HotelManagement.Models.Customer
+@model Staff
 
 <div class="ms-2 mx-2">
-    <h1>Create New Customer</h1>
+    <h1>Edit Staff</h1>
     <div asp-validation-summary="All" class="text-danger"></div>
-    <form asp-action="Create" asp-route-navigate="@ViewBag.Navigate" method="post" class="mt-3">
+
+    <form asp-action="Edit" method="post" asp-route-idStaff="@Model.StaffID" class="mt-3">
+        <input type="hidden" asp-for="StaffID" />
+
+
+        <div class="form-group row mb-3">
+            <label asp-for="StaffID" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="StaffID" class="form-control" placeholder="Staff ID" value ="@ViewBag.StaffID" readonly=""/>
+            </div>
+            <span asp-validation-for="StaffID" class="text-danger"></span>
+        </div>
+
         <div class="form-group row" style="margin-top: 7px;">
             <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
@@ -29,11 +42,18 @@
         <div class="form-group row" style="margin-top: 7px;">
             <label asp-for="Gender" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <select asp-for="Gender" class="custom-select mr-sm-2">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
+                <label>
+                    <input type="radio" name="gender" value="male">
+                    <span>Male</span>
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="female">
+                    <span>Female</span>
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="other">
+                    <span>Other</span>
+                </label>
             </div>
             <span asp-validation-for="Gender" class="text-danger"></span>
         </div>
@@ -63,25 +83,23 @@
         </div>
 
         <div class="form-group row" style="margin-top: 7px;">
-            <label asp-for="Membership" class="col-sm-2 col-form-label"></label>
+            <label asp-for="Role" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <select asp-for="Membership" class="custom-select mr-sm-2">
-                    <option value="Bronze">Bronze</option>
-                    <option value="Silver">Silver</option>
-                    <option value="Gold">Gold</option>
-                    <option value="Diamond">Diamond</option>
-                </select>
+            <select id="Role" name="Role">
+                @foreach (var role in Enum.GetValues(typeof(Role)))
+                {
+                    <option value="@role">@role</option>
+                }
+            </select>
             </div>
-            <span asp-validation-for="Membership" class="text-danger"></span>
         </div>
 
         <div class="form-group row" style="margin-top: 10px;">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Create</button> |
+                <button type="submit" class="btn btn-primary">Edit</button> |
                 <a asp-action="Index" class="btn btn-secondary">Cancel</a>
             </div>
         </div>
 
     </form>
 </div>
-

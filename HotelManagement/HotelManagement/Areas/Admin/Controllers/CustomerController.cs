@@ -1,4 +1,4 @@
-﻿using HotelManagement.Data;
+using HotelManagement.Data;
 using HotelManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -52,8 +52,10 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         //Hien thi form tao moi khach hang
         [Route("Create")]
-        public IActionResult Create()
+        public IActionResult Create(bool navigate = false)
         {
+            ViewBag.Navigate = navigate;
+
             return View();
         }
 
@@ -61,7 +63,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [HttpPost]
         [Route("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("FirstName,LastName,Gender,Email,Phone,Address,Membership")] Customer customer)
+        public IActionResult Create([Bind("FirstName,LastName,Gender,Email,Phone,Address,Membership")] Customer customer, bool navigate = false)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +91,13 @@ namespace HotelManagement.Areas.Admin.Controllers
                 {
                     db.Add(customer);
                     db.SaveChanges();
+
+                    if (navigate)
+                    {
+                      return RedirectToAction("Create", "Rent");
+                    }
                     return RedirectToAction(nameof(Index));
+
                 }
                 catch (DbUpdateException ex)
                 {
@@ -100,9 +108,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             // Nếu có lỗi trong ModelState, trả lại view với các thông tin đã nhập
             return View(customer);
         }
-
-
-
+        
         [Route("Edit")]
         public IActionResult Edit(string id)
         {

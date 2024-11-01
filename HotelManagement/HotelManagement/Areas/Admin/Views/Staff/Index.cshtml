@@ -1,0 +1,68 @@
+﻿@using HotelManagement.Models
+@{
+    ViewData["Title"] = "Staff";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model IEnumerable<Staff>
+<h1>Staff List</h1>
+
+<form method="get" asp-action="Index" class="form-inline mb-3">
+    <div class="form-group">
+        <input type="text" name="searchPhone" class="form-control" placeholder="Enter phone number" value="@ViewData["searchPhone"]" />
+    </div>
+    <button type="submit" class="btn btn-primary ml-2">Search</button>
+    <a asp-action="Index" class="btn btn-secondary ml-2">Clear</a>
+</form>
+
+<!-- Hiển thị thông báo nếu không có kết quả -->
+@if (ViewData["NoResultsMessage"] != null)
+{
+    <div class="alert alert-warning">@ViewData["NoResultsMessage"]</div>
+}
+<div class="row">
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead clash="thead-light">
+                        <tr>
+                            <th>StaffID</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Address</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                            <tr>
+                                <td>@i.StaffID</td>
+                                <td>@i.FirstName</td>
+                                <td>@i.LastName</td>
+                                <td>@i.Address</td>
+                                <td>@i.Gender</td>
+                                <td>@i.Email</td>
+                                <td>@i.Phone</td>
+                                <td>@i.Role</td>
+                                <td>
+                                    <a asp-controller="Staff" asp-action="Edit" asp-route-idStaff="@i.StaffID" class="btn btn-primary">Edit</a>
+                                    <a asp-controller="Staff" asp-action="Delete" asp-route-idStaff="@i.StaffID" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="mb-4">
+        <a asp-area="Admin" asp-controller="Staff" asp-action="Create" class="btn btn-primary">Create New Staff</a>
+    </div>
+</div>

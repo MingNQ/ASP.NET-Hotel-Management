@@ -1,0 +1,188 @@
+﻿@model HotelManagement.Models.RentForm
+
+@{
+	ViewData["Title"] = "Create";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>RentForm</h4>
+<hr />
+
+<div class="row">
+	<div class="col">
+		<form asp-controller="Rent" asp-action="Create" method="post">
+			<div asp-validation-summary="All" class="text-danger"></div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="form-group">
+								<label asp-for="RentFormID" class="control-label" for="exampleFormControlReadonly"></label>
+								<input asp-for="RentFormID" class="form-control" type="text" id="exampleFormControlReadonly" value="@ViewBag.RentFormID" readonly="">
+							</div>
+							<div class="form-group">
+								<label asp-for="BookingID" class="control-label"></label>
+								<select asp-for="BookingID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.BookingList"></select>
+								<span asp-validation-for="BookingID" class="text-danger"></span>
+							</div>
+							<div class="form-group" id="simple-date1">
+								<label asp-for="DateCreate" for="simpleDataInput"></label>
+								<div class="input-group date">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+									</div>
+									<input type="text" class="form-control" asp-for="DateCreate" id="simpleDataInput" value="@DateTime.Now.ToShortDateString()">
+								</div>
+								<span asp-validation-for="DateCreate" class="text-danger"></span>
+							</div>
+							<div class="form-group" id="simple-date1">
+								<label asp-for="DateCheckIn" for="simpleDataInput"></label>
+								<div class="input-group date">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+									</div>
+									<input type="text" class="form-control" asp-for="DateCheckIn" id="simpleDataInput">
+								</div>
+								<span asp-validation-for="DateCheckIn" class="text-danger"></span>
+							</div>
+							<div class="form-group" id="simple-date1">
+								<label asp-for="DateCheckOut" for="simpleDataInput"></label>
+								<div class="input-group date">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+									</div>
+									<input type="text" class="form-control" asp-for="DateCheckOut" id="simpleDataInput">
+								</div>
+								<span asp-validation-for="DateCheckOut" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="Sale" class="control-label"></label>
+								<input id="discountDisplay" asp-for="Sale" class="form-control" />
+								<span asp-validation-for="Sale" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="form-group">
+								<label asp-for="StaffID" class="control-label">Staff Create</label>
+								<select asp-for="StaffID" class="select2-single form-control" id="select2Single" asp-items="@ViewBag.Staffs"></select>
+								<span asp-validation-for="StaffID" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="CustomerID" class="control-label">Customer</label>
+								<select id="customerSelect" asp-for="CustomerID" class="select2-single form-control" asp-items="@ViewBag.Customers">
+									<option value="" disabled selected hidden>Select a customer</option>
+								</select>
+								<span asp-validation-for="CustomerID" class="text-danger"></span>
+								<a asp-controller="Customer" asp-action="Create" asp-route-navigate="true">Not member yet? Create</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="form-group">
+								<label class="control-label">Category</label>
+								<select id="categorySelect" class="select2-single form-control" asp-items="@ViewBag.Categories">
+									<option value="" disabled selected hidden>Select Category</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label asp-for="RoomID" class="control-label">Room Vacant</label>
+								<select id="roomSelect" asp-for="RoomID" class="select2-single form-control">
+									<option value="" disabled selected hidden>Select Room</option>
+								</select>
+								<span asp-validation-for="RoomID" class="text-danger"></span>
+							</div>
+							<div>
+								<label class="control-label">Service</label>
+								@foreach (var service in ViewBag.Services)
+								{
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" name="SelectedServices" value="@service.ServiceID" id="@service.ServiceID">
+										<label class="form-check-label" for="@service.ServiceID">@service.ServiceName</label>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="d-grid gap-2 d-md-block mt-3 mb-5">
+				<input type="submit" class="btn btn-primary" value="Create" />
+				<a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Cancel</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Styles {
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css"))" rel="stylesheet" />
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/css/select2.min.css"))" rel="stylesheet" type="text/css">
+}
+
+@section Scripts {
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"))"></script>
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/js/select2.min.js"))"></script>
+	<script>
+		$(document).ready(function () {
+			$('#simple-date1 .input-group.date').datepicker({
+				format: 'mm/dd/yyyy',
+				todayBtn: 'linked',
+				todayHighlight: true,
+				autoclose: true,
+			});
+
+			
+		});
+
+		const customerDiscounts = @Html.Raw(Json.Serialize(ViewBag.CustomerMemberShip));
+		document.getElementById("customerSelect").addEventListener("change", function () {
+			const selectedCustomerId = this.value;
+			const memberShip = customerDiscounts[selectedCustomerId];
+			let discount = 0;
+			switch (memberShip) {
+				case 0:
+					discount = 0;
+					break;
+				case 1:
+					discount = 0.1;
+					break;
+				case 2:
+					discount = 0.15;
+					break;
+				case 3:
+					discount = 0.2;
+					break;
+			}
+
+			document.getElementById("discountDisplay").value = discount;
+		});
+
+		$('#categorySelect').change(function () {
+			const categoryId = $(this).val();
+			$.ajax({
+				url: '/Admin/Rent/GetRoomByCategory',
+				type: 'GET',
+				data: { categoryId: categoryId },
+				success: function (rooms) {
+					const roomSelect = $('#roomSelect');
+					roomSelect.empty().append('<option value="" disabled selected hidden>Select Room</option>');
+					$.each(rooms, function (index, room) {
+						roomSelect.append(`<option value="${room.roomID}">${room.roomName}</option>`);
+					});
+				},
+				error: function () {
+					alert('Failed to load rooms. Please try again.');
+				}
+			});
+		});
+
+	</script>
+}
