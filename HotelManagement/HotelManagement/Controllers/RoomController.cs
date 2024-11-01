@@ -30,8 +30,25 @@ namespace HotelManagement.Controllers
                 return NotFound();
             }
 
-            var room = db.Categories.Where(c => c.CategoryID == id).FirstOrDefault();
+            var room = db.Categories.Where(c => c.CategoryID == id).Include(c => c.Rooms).FirstOrDefault();
             ViewBag.Services = db.Services.ToList();
+
+            return View(room);
+        }
+
+        public IActionResult Preview(string roomId)
+        {
+            if (roomId == null)
+            {
+                return NotFound();
+            }
+
+            var room = db.Rooms.Where(r => r.RoomID == roomId).Include(r => r.Images).FirstOrDefault();
+
+            if (room == null)
+            {
+                return NotFound();
+            }
 
             return View(room);
         }

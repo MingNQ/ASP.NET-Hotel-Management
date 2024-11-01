@@ -178,6 +178,22 @@
                         </div>
                         <button type="submit">Check Availability</button>
                     </form>
+                    <div class="mt-5">
+                        @foreach(var room in Model.Rooms)
+                        {
+                            <a asp-controller="Room" asp-action="Preview" asp-route-roomId="@room.RoomID" class="card border-left-primary shadow h-100 py-2 stretched-link mb-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-uppercase" style="color:#dfa974">
+                                                @room.RoomID
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
