@@ -32,4 +32,23 @@
         <button type="submit" class="btn btn-danger">Delete</button>
         <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
     </form>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" id="alert" style="margin-top:10px">
+            @TempData["ErrorMessage"]
+        </div>
+    }
 </div>
+
+<script>
+    window.onload = function() {
+        var toast = document.getElementById("alert");
+        if (toast) {
+            toast.style.opacity = "1"; 
+
+            setTimeout(function() {
+                toast.style.opacity = "0";
+            }, 3000);
+        }
+    };
+</script>

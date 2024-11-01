@@ -18,8 +18,8 @@ namespace HotelManagement.Controllers
         private string GenerateBookingID()
         {
             string prefix = "BK";
-            var lastBooking = db.Bookings.OrderByDescending(x=>x.BookingID).FirstOrDefault();
-            if(lastBooking == null)
+            var lastBooking = db.Bookings.OrderByDescending(x => x.BookingID).FirstOrDefault();
+            if (lastBooking == null)
             {
                 return prefix + "00001";
             }
@@ -118,7 +118,7 @@ namespace HotelManagement.Controllers
         [Route("Edit")]
         public IActionResult Edit(string id)
         {
-            if(id == null || db.Bookings == null)
+            if (id == null || db.Bookings == null)
             {
                 return NotFound();
             }
@@ -143,7 +143,7 @@ namespace HotelManagement.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if(!BookingExists(booking.BookingID))
+                    if (!BookingExists(booking.BookingID))
                     {
                         return NotFound();
                     }
@@ -157,63 +157,55 @@ namespace HotelManagement.Controllers
             return View(booking);
         }
 
-        private bool BookingExists(string id) 
+        private bool BookingExists(string id)
         {
-            return(db.Bookings?.Any(x => x.BookingID == id)).GetValueOrDefault();
+            return (db.Bookings?.Any(x => x.BookingID == id)).GetValueOrDefault();
         }
         // Delete
         [Route("Delete")]
         public IActionResult Delete(string id)
         {
-            //if(id == null || db.Bookings == null)
-            //{
-            //    return NotFound();
-            //}
-            //var booking = db.Bookings.Find(id);
+            if (id == null || db.Bookings == null)
+            {
+                return NotFound();
+            }
+            var booking = db.Bookings.Include(b => b.RentForm).FirstOrDefault(x => x.BookingID == id);
 
-            //if(booking == null)
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            //if (booking.BookingID.Count() > 0)
             //{
-            //    return NotFound();
-            //}  
-            //if(booking.BookingID.Count() >0)
-            //{
-            //    return Content("Can not delete this rooms");    
-            //}    
-            //return View(booking);
-
-            //var booking = db.Bookings.Include(x => x.BookingDetail).FirstOrDefault(b => b.BookingID == id);
-            //if(booking == null)
-            //{
-            //    return NotFound();
+            //    return Content("Can not delete this rooms");
             //}
-            //return View(booking);
+            return View(booking);
+
         }
         [HttpPost]
         [Route("Delete")]
         [ValidateAntiForgeryToken]
-      
         public IActionResult DeleteConfirmed(string id)
         {
-            //if(db.Bookings == null)
-            //{
-            //    return Problem("Entity set 'Bookings' is null");
-            //}    
-            //var booking = db.Bookings?.Find(id);
-            //if (booking != null)
-            //{
-            //    db.Bookings.Remove(booking);
-            //}
-            //db.SaveChanges();
-            //return RedirectToAction(nameof(Index));
-            //var booking = db.Bookings.Include(x => x.BookingDetail).FirstOrDefault(b => b.BookingID == id);
-            //if (booking == null)
-            //{
-            //    return NotFound();
-            //}
-            //db.BookingDetails.RemoveRange(booking.BookingDetail);
-            //db.Bookings.Remove(booking);
-            //db.SaveChanges();
-            //return RedirectToAction(nameof(Index));
+            try
+            {
+                if (db.Bookings == null)
+                {
+                    return Problem("Entity set 'Bookings' is null");
+                }
+                var booking = db.Bookings?.Find(id);
+                if (booking != null)
+                {
+                    db.Bookings.Remove(booking);
+                }
+                db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Can not delete this Booking ID " + ex.Message;
+                return RedirectToAction("Delete",new {id});
+            }
         }
     }
 }
