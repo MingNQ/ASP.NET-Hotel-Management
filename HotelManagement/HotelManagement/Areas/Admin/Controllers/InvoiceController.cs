@@ -74,7 +74,10 @@ namespace HotelManagement.Areas.Admin.Controllers
             int newInvoiceNumber = lastInvoiceID != null? int.Parse(lastInvoiceID.Substring(3)) + 1: 1;
             string newInvoiceID = "INV" + newInvoiceNumber.ToString("D5");
             // Lấy danh sách BookingID
-            var bookings = db.Bookings.Select(b => new { b.BookingID }).ToList();
+            var bookings = db.Bookings.
+                Where(b => !db.Invoices.Any(i => i.BookingID == b.BookingID)).
+                Select(b => new { b.BookingID }).ToList();
+            
             ViewBag.BookingIDs = bookings;
             // Lấy danh sách StaffID và StaffName
             var staffList = db.Staffs
