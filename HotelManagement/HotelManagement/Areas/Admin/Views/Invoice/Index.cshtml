@@ -1,5 +1,7 @@
 ﻿@{
     var invoices = ViewBag.Invoices as IEnumerable<dynamic>;
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -13,6 +15,7 @@
             <th>Customer Name</th>
             <th>Staff Name</th>
             <th>Total Money</th>
+            <th>Status</th>
             <th>Function</th>
         </tr>
     </thead>
@@ -24,10 +27,11 @@
                 <tr>
                     <td>@invoice.InvoiceID</td>
                     <td>@invoice.BookingID</td>
-                    <td>@invoice.DatePayment.ToString("MM/dd/yyyy")</td>
+                    <td>@invoice.DatePayment?.ToString("MM/dd/yyyy")</td>
                     <td>@invoice.CustomerName</td>
                     <td>@invoice.StaffName</td>
                     <td>@invoice.TotalMoney.ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"))</td>
+                    <td>@invoice.Status</td>
                     <td>
                         <a asp-action="Details" asp-route-id="@invoice.InvoiceID"><abbr title="Details"><img src="/img/details.png" width="20" height="20" /></abbr></a>
                         <a asp-action="Delete" asp-route-id="@invoice.InvoiceID"><abbr title="Delete"><img src="/img/delete.png" width="20" height="20" /></abbr></a>
@@ -37,4 +41,21 @@
         }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@(currentPage - 1)">Previous</a>
+        </li>
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == currentPage ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+            </li>
+        }
+        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@(currentPage + 1)">Next</a>
+        </li>
+    </ul>
+</nav>
 <a asp-controller="Invoice" asp-action="Create" class="btn btn-primary">Create New Invoice</a>

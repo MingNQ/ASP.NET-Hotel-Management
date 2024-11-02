@@ -19,52 +19,59 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         [Route("")]
         [Route("Index")]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
+            int pageSize = 5;
+            var totalInvoices = db.Invoices.Count(); // Count total invoices for pagination
+
             var invoices = db.Invoices.Include(i => i.Booking).ThenInclude(b => b.Customer)
-                                    .Include(i => i.Booking).ThenInclude(b => b.RentForm).ThenInclude(rf => rf.Room).ThenInclude(r => r.Category)
-                                    .Include(i => i.Booking)
-                                    .ThenInclude(b => b.RentForm)
-                                    .ThenInclude(rf => rf.Room)
-                                    .ThenInclude(r => r.RoomServices)
-                                    .ThenInclude(rs => rs.Service) 
-                                    .Include(i => i.Staff)
-                                    .Include(i => i.Payment)
-                                    .Select(i => new
-                                    {
-                                        i.InvoiceID,
-                                        i.BookingID,
-                                        DatePayment = i.Payment.DatePayment,
-                                        CustomerName = i.Booking.Customer.FirstName + " " + i.Booking.Customer.LastName,
-                                        StaffName = i.Staff.FirstName + " " + i.Staff.LastName,
+                                      .Include(i => i.Booking).ThenInclude(b => b.RentForm).ThenInclude(rf => rf.Room).ThenInclude(r => r.Category)
+                                      .Include(i => i.Booking)
+                                      .ThenInclude(b => b.RentForm)
+                                      .ThenInclude(rf => rf.Room)
+                                      .ThenInclude(r => r.RoomServices)
+                                      .ThenInclude(rs => rs.Service)
+                                      .Include(i => i.Staff)
+                                      .Include(i => i.Payment)
+                                      .Select(i => new
+                                      {
+                                          i.InvoiceID,
+                                          i.BookingID,
+                                          DatePayment = i.Payment.DatePayment,
+                                          CustomerName = i.Booking.Customer.FirstName + " " + i.Booking.Customer.LastName,
+                                          StaffName = i.Staff.FirstName + " " + i.Staff.LastName,
+                                          Status = i.Payment.Status,
 
-                                        // Thông tin tính tổng tiền
-                                        DateCheckIn = i.Booking.RentForm.DateCheckIn,
-                                        DateCheckOut = i.Booking.RentForm.DateCheckOut,
-                                        CategoryPrice = i.Booking.RentForm.Room.Category.Price,
-                                        Deposit = i.Booking.Deposit,
-                                        Sale = i.Booking.RentForm.Sale,
-                                        TotalServicePrice = i.Booking.RentForm.Room.RoomServices.Sum(rs => rs.Service.Price)
-                                    })
-                                    .ToList()
-                                    .Select(i => new
-                                    {
-                                        i.InvoiceID,
-                                        i.BookingID,
-                                        i.DatePayment,
-                                        i.CustomerName,
-                                        i.StaffName,
+                                          DateCheckIn = i.Booking.RentForm.DateCheckIn,
+                                          DateCheckOut = i.Booking.RentForm.DateCheckOut,
+                                          CategoryPrice = i.Booking.RentForm.Room.Category.Price,
+                                          Deposit = i.Booking.Deposit,
+                                          Sale = i.Booking.RentForm.Sale,
+                                          TotalServicePrice = i.Booking.RentForm.Room.RoomServices.Sum(rs => rs.Service.Price)
+                                      })
+                                      .ToList()
+                                      .Select(i => new
+                                      {
+                                          i.InvoiceID,
+                                          i.BookingID,
+                                          i.DatePayment,
+                                          i.CustomerName,
+                                          i.StaffName,
+                                          i.Status,
+                                          TotalMoney = ((decimal)(i.DateCheckOut - i.DateCheckIn).TotalDays *
+                                                        (i.CategoryPrice + i.TotalServicePrice) * (1 - i.Sale) - i.Deposit)
+                                      })
+                                      .Skip((page - 1) * pageSize) // Skip items based on current page
+                                      .Take(pageSize) // Take only the items for the current page
+                                      .ToList();
 
-                                        // Tính tổng tiền
-                                        TotalMoney = ((decimal)(i.DateCheckOut - i.DateCheckIn).TotalDays *
-                                                      (i.CategoryPrice + i.TotalServicePrice) * (1 - i.Sale) - i.Deposit)
-                                    }).ToList();
-
-
-            // Truyền dữ liệu cho ViewBag
             ViewBag.Invoices = invoices;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalInvoices / pageSize);
+
             return View(invoices);
         }
+
 
         [HttpGet]
         [Route("Create")]
