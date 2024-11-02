@@ -49,7 +49,20 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
-            return View();
+            var lastService = db.Services.OrderByDescending(s => s.ServiceID).FirstOrDefault();
+            string newServiceID = "R0001";
+            if (lastService != null)
+            {
+                int lastNumber = int.Parse(lastService.ServiceID.Substring(1)) + 1;
+                newServiceID = "S" + lastNumber.ToString("D4");
+            }
+            //ViewBag.NewServiceID = newServiceID;
+            var service = new Service
+            {
+                ServiceID = newServiceID
+            };
+            //return View();
+            return View(service);
         }
 
         [HttpPost]
@@ -59,18 +72,12 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Service oldService = db.Services.Find(service.ServiceID);
-                if (oldService == null)
-                {
-                    db.Services.Add(service);
-                    db.SaveChanges();
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    ModelState.AddModelError("ServiceID", "ServiceID đã tồn tại.");
-                }
+                //service.ServiceID = ViewBag.NewServiceID;
+                db.Services.Add(service);
+                db.SaveChanges();
+                return RedirectToAction(nameof(Index));
             }
+            //ViewBag.NewServiceID = ViewBag.NewServiceID;
             return View(service);
         }
 
