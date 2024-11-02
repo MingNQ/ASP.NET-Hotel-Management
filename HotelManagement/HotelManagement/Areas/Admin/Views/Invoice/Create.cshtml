@@ -36,5 +36,14 @@
         </select>
     </div>
 
+    <div class="form-group">
+        <label>Payment Method</label>
+        <select name="PaymentMethod" class="form-control">
+            @foreach (var method in ViewBag.PaymentMethods)
+            {
+                <option value="@method">@method</option>
+            }
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">Create Invoice</button>
 </form>

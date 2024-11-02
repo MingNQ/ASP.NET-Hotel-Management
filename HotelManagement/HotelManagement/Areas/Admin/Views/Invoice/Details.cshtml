@@ -17,16 +17,16 @@
                 <dd class="col-sm-9">@ViewBag.Invoice.InvoiceID</dd>
 
                 <dt class="col-sm-3">Date Created</dt>
-                <dd class="col-sm-9">@ViewBag.Invoice.DateCreate.ToString("yyyy-MM-dd")</dd>
+                <dd class="col-sm-9">@ViewBag.Invoice.DateCreate.ToString("dd-MM-yyyy")</dd>
 
                 <dt class="col-sm-3">Booking ID</dt>
                 <dd class="col-sm-9">@ViewBag.Invoice.BookingID</dd>
 
                 <dt class="col-sm-3">Check-In Date</dt>
-                <dd class="col-sm-9">@ViewBag.Invoice.DateCheckIn.ToString("yyyy-MM-dd")</dd>
+                <dd class="col-sm-9">@ViewBag.Invoice.DateCheckIn.ToString("dd-MM-yyyy")</dd>
 
                 <dt class="col-sm-3">Check-Out Date</dt>
-                <dd class="col-sm-9">@ViewBag.Invoice.DateCheckOut.ToString("yyyy-MM-dd")</dd>
+                <dd class="col-sm-9">@ViewBag.Invoice.DateCheckOut.ToString("dd-MM-yyyy")</dd>
 
                 <dt class="col-sm-3">Staff Name</dt>
                 <dd class="col-sm-9">@ViewBag.Invoice.StaffName</dd>
@@ -115,6 +115,23 @@
 
                 <dt class="col-sm-3">Amount to Pay</dt>
                 <dd class="col-sm-9">@ViewBag.Invoice.TotalAmountToPay.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Payment Information</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Payment Method</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.PaymentMethod</dd>
+                <dt class="col-sm-3">Date of Payment</dt>
+                <dd class="col-sm-9">
+                    @ViewBag.Invoice.DatePayment?.ToString("dd-MM-yyyy")
+                </dd>
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-9">@ViewBag.Invoice.Status</dd>
             </dl>
         </div>
     </div>

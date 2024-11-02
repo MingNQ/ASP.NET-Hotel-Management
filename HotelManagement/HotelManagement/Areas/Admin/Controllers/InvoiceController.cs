@@ -29,11 +29,12 @@ namespace HotelManagement.Areas.Admin.Controllers
                                     .ThenInclude(r => r.RoomServices)
                                     .ThenInclude(rs => rs.Service) 
                                     .Include(i => i.Staff)
+                                    .Include(i => i.Payment)
                                     .Select(i => new
                                     {
                                         i.InvoiceID,
                                         i.BookingID,
-                                        i.DateCreate,
+                                        DatePayment = i.Payment.DatePayment,
                                         CustomerName = i.Booking.Customer.FirstName + " " + i.Booking.Customer.LastName,
                                         StaffName = i.Staff.FirstName + " " + i.Staff.LastName,
 
@@ -50,7 +51,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                                     {
                                         i.InvoiceID,
                                         i.BookingID,
-                                        i.DateCreate,
+                                        i.DatePayment,
                                         i.CustomerName,
                                         i.StaffName,
 
@@ -84,7 +85,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 })
                 .ToList();
             ViewBag.StaffList = staffList;
-
+            ViewBag.PaymentMethods = new List<string> { "Cash", "Credit Card", "Banking" };
             // Chuẩn bị dữ liệu cho form
             ViewBag.NewInvoiceID = newInvoiceID;
             ViewBag.DateCreate = DateTime.Now;
@@ -94,7 +95,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public IActionResult Create(string InvoiceID, DateTime DateCreate, string BookingID, string StaffID)
+        public IActionResult Create(string InvoiceID, DateTime DateCreate, string BookingID, string StaffID, string PaymentMethod)
         {
             if (ModelState.IsValid)
             {
@@ -109,9 +110,20 @@ namespace HotelManagement.Areas.Admin.Controllers
 
                 // Thêm hóa đơn mới vào cơ sở dữ liệu
                 db.Invoices.Add(newInvoice);
-                db.SaveChanges();
+                var lastPaymentID = db.Payments.OrderByDescending(p => p.PaymentID).Select(p => p.PaymentID).FirstOrDefault();
+                int newPaymentNumber = lastPaymentID != null ? int.Parse(lastPaymentID.Substring(1)) + 1 : 1;
+                string newPaymentID = "P" + newPaymentNumber.ToString("D4");
 
-                // Chuyển hướng về trang Index sau khi tạo thành công
+                var newPayment = new Payment
+                {
+                    PaymentID = newPaymentID,
+                    InvoiceID = InvoiceID,
+                    DatePayment = DateTime.Now,
+                    PaymentMethod = PaymentMethod,
+                    Status = "Done" // Có thể thay đổi trạng thái nếu cần
+                };
+                db.Payments.Add(newPayment);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -127,7 +139,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 })
                 .ToList();
             ViewBag.StaffList = staffList;
-
+            ViewBag.PaymentMethods = new List<string> { "Cash", "Credit Card", "Banking" };
             ViewBag.NewInvoiceID = InvoiceID;
             ViewBag.DateCreate = DateCreate;
 
@@ -147,7 +159,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                     .ThenInclude(r => r.Room)
                         .ThenInclude(r => r.Category)
                 .Include(i => i.Booking.RentForm.Room.RoomServices) 
-                .ThenInclude(rs => rs.Service) 
+                .ThenInclude(rs => rs.Service)
+                .Include(i => i.Payment)
                 .FirstOrDefault(i => i.InvoiceID == id);
 
             if (invoice == null)
@@ -191,14 +204,14 @@ namespace HotelManagement.Areas.Admin.Controllers
                 TotalServicePrice = totalServicePrice,
                 Sale = sale,
                 Deposit = deposit,
-                TotalAmountToPay = totalAmountToPay
+                TotalAmountToPay = totalAmountToPay,
+                PaymentMethod = invoice.Payment?.PaymentMethod,  
+                DatePayment = invoice.Payment?.DatePayment,
+                Status = invoice.Payment?.Status
             };
 
             return View(); // Trả về view để hiển thị
         }
-
-
-
 
         [Route("Delete")]
         public IActionResult Delete(string id)
