@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagement.Controllers
 {
-    public class BookingController : Controller
+    public class HomeBookingController : Controller
     {
         private HotelDbContext db;
 
-        public BookingController(HotelDbContext db)
+        public HomeBookingController(HotelDbContext db)
         {
             this.db = db;
         }
@@ -32,8 +32,15 @@ namespace HotelManagement.Controllers
 			}
 
 			ViewBag.Categories = new SelectList(db.Categories.ToList(), "CategoryID", "TypeName");
-            ViewBag.DateCome = dateCome;
-            ViewBag.DateGo = dateGo;
+            
+            if (dateCome < DateTime.Now && dateGo < DateTime.Now)
+            {
+                dateCome = DateTime.Now;
+                dateGo = DateTime.Now;
+            }
+
+            ViewBag.DateCome = dateCome.ToString("MM/dd/yyyy");
+            ViewBag.DateGo = dateGo.ToString("MM/dd/yyyy");
             ViewBag.NumPeople = numPeople;
 
 			return View();

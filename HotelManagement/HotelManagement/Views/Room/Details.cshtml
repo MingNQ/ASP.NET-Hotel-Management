@@ -1,7 +1,6 @@
 ﻿@model HotelManagement.Models.Category
 @{
 	ViewData["Tittle"] = "Room Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
  
 <!-- Breadcrumb Section Begin -->
@@ -40,7 +39,7 @@
                                     <i class="icon_star"></i>
                                     <i class="icon_star-half_alt"></i>
                                 </div>
-                                <a asp-controller="Booking" asp-action="Index" asp-route-categoryId="@Model.CategoryID">Booking Now</a>
+                                <a asp-controller="HomeBooking" asp-action="Index" asp-route-categoryId="@Model.CategoryID">Booking Now</a>
                             </div>
                         </div>
                         <h2>@string.Format("{0:N0} VND", Model.Price)<span>/Pernight</span></h2>
