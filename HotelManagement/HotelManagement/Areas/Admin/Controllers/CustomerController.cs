@@ -99,7 +99,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                     return RedirectToAction(nameof(Index));
 
                 }
-                catch (DbUpdateException ex)
+                catch (DbUpdateException)
                 {
                     // Xử lý ngoại lệ liên quan đến cơ sở dữ liệu
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, contact your system administrator.");
@@ -191,9 +191,8 @@ namespace HotelManagement.Areas.Admin.Controllers
 
             //kiem tra customer co ton tai o cac bang lien quan khong
             bool hasBookings = db.Bookings.Any(b => b.CustomerID == id);
-            bool hasRates = db.Rates.Any(r => r.CustomerID == id);
 
-            if (hasBookings || hasRates)
+            if (hasBookings)
             {
                 //thong bao neu co tham chieu o bang khac
                 TempData["DeleteErrorMessage"] = "This customer cannot be deleted because there is related data in other tables.";

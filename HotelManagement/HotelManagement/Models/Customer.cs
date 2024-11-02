@@ -9,7 +9,6 @@ namespace HotelManagement.Models
 		public Customer() 
 		{
 			Bookings = new HashSet<Booking>();
-			Rates = new HashSet<Rate>();
 		}
 
 		[Key]
@@ -43,6 +42,5 @@ namespace HotelManagement.Models
 		// Navigation properties
 		public virtual Account? Account { get; set; }		
 		public ICollection<Booking> Bookings { get; set; }
-		public ICollection<Rate> Rates { get; set; }
 	}
 }

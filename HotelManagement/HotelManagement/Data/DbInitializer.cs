@@ -366,10 +366,10 @@ namespace HotelManagement.Data
 		{
 			var rates = new Rate[] 
 			{
-				new Rate { RateID = "R0001", CustomerID = "CUS00001", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000")}, 
-				new Rate { RateID = "R0002", CustomerID = "CUS00002", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000")}, 
-				new Rate { RateID = "R0003", CustomerID = "CUS00003", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000")}, 
-				new Rate { RateID = "R0004", CustomerID = "CUS00004", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000")}, 
+				new Rate { RateID = "R0001", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000")}, 
+				new Rate { RateID = "R0002", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000")}, 
+				new Rate { RateID = "R0003", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000")}, 
+				new Rate { RateID = "R0004", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000")}, 
 			};
 
 			return rates;

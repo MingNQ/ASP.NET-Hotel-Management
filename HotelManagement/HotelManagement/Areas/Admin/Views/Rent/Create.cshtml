@@ -79,8 +79,9 @@
 									<option value="" disabled selected hidden>Select a customer</option>
 								</select>
 								<span asp-validation-for="CustomerID" class="text-danger"></span>
-								<a asp-controller="Customer" asp-action="Create" asp-route-navigate="true">Not member yet? Create</a>
 							</div>
+							<a asp-controller="Customer" asp-action="Create" asp-route-navigate="true">Not member yet? Create</a>
+
 						</div>
 					</div>
 
@@ -138,8 +139,6 @@
 				todayHighlight: true,
 				autoclose: true,
 			});
-
-			
 		});
 
 		const customerDiscounts = @Html.Raw(Json.Serialize(ViewBag.CustomerMemberShip));

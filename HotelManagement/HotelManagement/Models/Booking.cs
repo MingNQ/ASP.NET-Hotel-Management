@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelManagement.Models
 {
@@ -17,6 +17,6 @@ namespace HotelManagement.Models
 
 		// Navigation properties
 		public virtual Customer? Customer { get; set; } 
-		public virtual RentForm? RentForm { get; set; }
+		public virtual RentForm? RentForm { get; set; } 
 	}
 }

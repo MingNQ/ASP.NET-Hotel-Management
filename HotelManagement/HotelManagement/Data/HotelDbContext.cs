@@ -38,7 +38,7 @@ namespace HotelManagement.Data
 			modelBuilder.Entity<Service>().ToTable(nameof(Service));
 			modelBuilder.Entity<Rate>().ToTable(nameof(Rate));
 			modelBuilder.Entity<RoomService>().ToTable(nameof(RoomService));
-			modelBuilder.Entity<BookingDetail>().ToTable(nameof(BookingDetail)).HasNoKey();
+			modelBuilder.Entity<BookingDetail>().ToTable(nameof(BookingDetail));
 		}
 	}
 }
