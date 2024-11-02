@@ -1,0 +1,40 @@
+﻿@{
+    var invoices = ViewBag.Invoices as IEnumerable<dynamic>;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Invoices</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Invoice ID</th>
+            <th>Booking ID</th>
+            <th>Date Payment</th>
+            <th>Customer Name</th>
+            <th>Staff Name</th>
+            <th>Total Money</th>
+            <th>Function</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (invoices != null)
+        {
+            foreach (var invoice in invoices)
+            {
+                <tr>
+                    <td>@invoice.InvoiceID</td>
+                    <td>@invoice.BookingID</td>
+                    <td>@invoice.DatePayment.ToString("MM/dd/yyyy")</td>
+                    <td>@invoice.CustomerName</td>
+                    <td>@invoice.StaffName</td>
+                    <td>@invoice.TotalMoney.ToString("C0", System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"))</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@invoice.InvoiceID"><abbr title="Details"><img src="/img/details.png" width="20" height="20" /></abbr></a>
+                        <a asp-action="Delete" asp-route-id="@invoice.InvoiceID"><abbr title="Delete"><img src="/img/delete.png" width="20" height="20" /></abbr></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a asp-controller="Invoice" asp-action="Create" class="btn btn-primary">Create New Invoice</a>
