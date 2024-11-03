@@ -1,35 +1,90 @@
-﻿<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-action="Index" asp-controller="HomeAdmin">
         <div class="sidebar-brand-icon">
             <img src="@(Url.Content("~/TemplateLayout/AdminPage/img/logo/logo2.png"))">
         </div>
         <div class="sidebar-brand-text mx-3">Admin</div>
     </a>
+    <!-- Divider -->
     <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="Index">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+        <a class="tabA" href="@Url.Action("Index", "Admin")">
+            <span class="nav-link">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Home</span>
+            </span>
         </a>
     </li>
+
+    <!-- Divider -->
     <hr class="sidebar-divider">
+
+    <!-- Heading -->
     <div class="sidebar-heading">
-        Category
+        Hotel
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="tabA collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <span class="nav-link">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Rooms & Services</span>
+            </span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="@Url.Action("Index","Rooms")">Room</a>
+                <a class="collapse-item" href="@Url.Action("Index", "Categories")">Category</a>
+                <a class="collapse-item" href="@Url.Action("Index", "Services")">Service</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="tabA collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <span class="nav-link">
+                <i class="fa fa-sticky-note"></i>
+                <span>Booking & Rent</span>
+            </span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="@Url.Action("Index", "Booking")">Booking</a>
+                <a class="collapse-item" href="@Url.Action("Index", "Rent")">Rental</a>
+                <a class="collapse-item" href="@Url.Action("Index", "Invoice")">Invoices</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="tabA" href="@Url.Action("Index", "CheckRoomVacant")">
+            <span class="nav-link">
+                <i class="fas fa-calendar-check"></i>
+                <span>Check Room Vacant</span>
+            </span>
+        </a>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Management
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-columns"></i>
-            <span>Room Management</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="@Url.Action("Index", "Staff")">
             <i class="fas fa-users text-info"></i>
             <span>Staff Management</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="@Url.Action("Index", "Customer")">
             <i class="fas fa-users text-info"></i>
             <span>Customer Management</span>
         </a>
@@ -37,30 +92,20 @@
     
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
-        Examples
+        System
     </div>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
-           aria-controls="collapsePage">
-            <i class="fas fa-fw fa-columns"></i>
-            <span>Pages</span>
+    <li class="nav-item disabled">
+        <a class="nav-link" href="@Url.Action("Index", "Account")">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            <span>Account Management</span>
         </a>
-        <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Example Pages</h6>
-                <a class="collapse-item" href="login.html">Login</a>
-                <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
-            </div>
-        </div>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span>
+    <li class="nav-item disabled">
+        <a class="nav-link" href="@Url.Action("Index", "Home")">
+            <i class="fas fa-home" aria-hidden="true"></i>
+            <span>User Page View</span>
         </a>
     </li>
     <hr class="sidebar-divider">
-    <div class="version" id="version-ruangadmin"></div>
+    <div class="version" id="version-ruangadmin"></div> 
 </ul>

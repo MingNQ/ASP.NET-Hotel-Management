@@ -11,7 +11,9 @@ namespace HotelManagement.Areas.Admin.Controllers
 		[Route("Index")]
 		public IActionResult Index()
 		{
-			return View();
+            var userName = HttpContext.Session.GetString("Username");
+
+            return View();
 		}
 	}
 }

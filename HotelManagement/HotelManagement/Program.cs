@@ -1,4 +1,5 @@
 using HotelManagement.Data;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,23 +36,22 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
-//app.Use(async (context, next) =>
-//{
-//    if (context.Request.Path.StartsWithSegments("/admin") && string.IsNullOrEmpty(context.Session.GetString("Username")))
-//    {
-//        context.Response.Redirect("/account/login");
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/admin") && string.IsNullOrEmpty(context.Session.GetString("Username")))
+    {
+        context.Response.Redirect("/account/login");
 
-//        return;
-//    }
-//    await next.Invoke();
-//});
+        return;
+    }
+    await next.Invoke();
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

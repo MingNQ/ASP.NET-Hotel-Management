@@ -1,5 +1,6 @@
 ﻿using HotelManagement.Models;
 using HotelManagement.Models.Common;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagement.Data
@@ -81,7 +82,15 @@ namespace HotelManagement.Data
 				var rates = InitRate();
 				foreach (var rate in rates) context.Rates.Add(rate);
 				context.SaveChanges();
-			}
+
+				// BookingDetail
+				var bookingDetails = InitBookingDetails();
+                foreach (var bookingDetail in bookingDetails)
+                {
+                    var sql = "INSERT INTO BookingDetail (BookingID, CategoryID, NumberRoom) VALUES ({0}, {1}, {2})";
+                    context.Database.ExecuteSqlRaw(sql, bookingDetail.BookingID, bookingDetail.CategoryID, bookingDetail.NumberRoom);
+                }
+            }
 		}
 
 		#region Initial Model
@@ -92,10 +101,12 @@ namespace HotelManagement.Data
 		/// <returns></returns>
 		private static Account[] InitAccount()
 		{
+			var passwordHasher = new PasswordHasher<Account>();
+
 			var accounts = new Account[]
 			{
-				new Account { Username = "admin", Password = "admin123", Type = AccountType.Admin },
-				new Account { Username = "admin2", Password = "admin123", Type = AccountType.Admin },
+				new Account { Username = "admin", Password = passwordHasher.HashPassword(null, "123"), Type = AccountType.Admin, Active = true },
+				new Account { Username = "admin2", Password = passwordHasher.HashPassword(null, "123"), Type = AccountType.Admin, Active = false },
 			};
 
 			return accounts;
@@ -143,11 +154,11 @@ namespace HotelManagement.Data
 		{
 			var bookings = new Booking[]
 			{
-				new Booking { BookingID = "BK00001", CustomerID = "CUS00001", DateCome = DateTime.Parse("2022-01-09"), DateGo = DateTime.Parse("2022-01-12"), Deposit = 5000000 },
-				new Booking { BookingID = "BK00002", CustomerID = "CUS00002", DateCome = DateTime.Parse("2022-03-09"), DateGo = DateTime.Parse("2022-03-12"), Deposit = 0 },
-				new Booking { BookingID = "BK00003", CustomerID = "CUS00003", DateCome = DateTime.Parse("2022-04-09"), DateGo = DateTime.Parse("2022-04-12"), Deposit = 6000000 },
-				new Booking { BookingID = "BK00004", CustomerID = "CUS00004", DateCome = DateTime.Parse("2022-05-09"), DateGo = DateTime.Parse("2022-05-12"), Deposit = 4000000 },
-				new Booking { BookingID = "BK00005", CustomerID = "CUS00005", DateCome = DateTime.Parse("2022-02-09"), DateGo = DateTime.Parse("2022-02-12"), Deposit = 2000000 },
+				new Booking { BookingID = "BK00001", CustomerID = "CUS00001", NumberPeople = 2, DateCome = DateTime.Parse("2022-01-09"), DateGo = DateTime.Parse("2022-01-12"), Status = true, Deposit = 5000000 },
+				new Booking { BookingID = "BK00002", CustomerID = "CUS00002", NumberPeople = 3, DateCome = DateTime.Parse("2022-03-09"), DateGo = DateTime.Parse("2022-03-12"), Status = true, Deposit = 0 },
+				new Booking { BookingID = "BK00003", CustomerID = "CUS00003", NumberPeople = 4, DateCome = DateTime.Parse("2022-04-09"), DateGo = DateTime.Parse("2022-04-12"), Status = true, Deposit = 6000000 },
+				new Booking { BookingID = "BK00004", CustomerID = "CUS00004", NumberPeople = 2, DateCome = DateTime.Parse("2022-05-09"), DateGo = DateTime.Parse("2022-05-12"), Status = true, Deposit = 4000000 },
+				new Booking { BookingID = "BK00005", CustomerID = "CUS00005", NumberPeople = 5, DateCome = DateTime.Parse("2022-02-09"), DateGo = DateTime.Parse("2022-02-12"), Status = true, Deposit = 2000000 },
 			};
 
 			return bookings;
@@ -232,11 +243,11 @@ namespace HotelManagement.Data
 		{
 			var rentForms = new RentForm[]
 			{
-				new RentForm { RentFormID = "RF00001", BookingID = "BK00001", RoomID = "R201", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-01-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00002", BookingID = "BK00002", RoomID = "R302", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-02-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00003", BookingID = "BK00003", RoomID = "R202", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-03-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00004", BookingID = "BK00004", RoomID = "R401", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-04-12 00:00:00.000"), Sale = 0.1m },
-				new RentForm { RentFormID = "RF00005", BookingID = "BK00005", RoomID = "R103", DateCreate = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-05-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00001", BookingID = "BK00001", RoomID = "R201", StaffID = "S0001", CustomerID = "CUS00001", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-01-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00002", BookingID = "BK00002", RoomID = "R302", StaffID = "S0001", CustomerID = "CUS00002", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-19 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-02-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00003", BookingID = "BK00003", RoomID = "R202", StaffID = "S0003", CustomerID = "CUS00003", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-21 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-03-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00004", BookingID = "BK00004", RoomID = "R401", StaffID = "S0003", CustomerID = "CUS00004", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-01-30 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-04-12 00:00:00.000"), Sale = 0.1m },
+				new RentForm { RentFormID = "RF00005", BookingID = "BK00005", RoomID = "R103", StaffID = "S0003", CustomerID = "CUS00005", DateCreate = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckIn = DateTime.Parse("2022-02-09 00:00:00.000"), DateCheckOut = DateTime.Parse("2022-05-12 00:00:00.000"), Sale = 0.1m },
 			};
 
 			return rentForms;
@@ -358,10 +369,10 @@ namespace HotelManagement.Data
 		{
 			var rates = new Rate[] 
 			{
-				new Rate { RateID = "R0001", CustomerID = "CUS00001", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000")}, 
-				new Rate { RateID = "R0002", CustomerID = "CUS00002", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000")}, 
-				new Rate { RateID = "R0003", CustomerID = "CUS00003", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000")}, 
-				new Rate { RateID = "R0004", CustomerID = "CUS00004", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000")}, 
+				new Rate { RateID = "R0001", Username = "Brandon Kelley",	Email = "user1@gmail.com", Point = 5, Message = "After a construction project took longer than expected, my husband, my daughter and I\r\n                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our\r\n                            city, neighborhood and the types of housing options available and absolutely love our\r\n                            vacation at Sona Hotel.", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000")}, 
+				new Rate { RateID = "R0002", Username = "MingNQ",			Email = "user1@gmail.com", Point = 5, Message = "After a construction project took longer than expected, my husband, my daughter and I\r\n                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our\r\n                            city, neighborhood and the types of housing options available and absolutely love our\r\n                            vacation at Sona Hotel.", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000")}, 
+				new Rate { RateID = "R0003", Username = "Batmat",			Email = "user1@gmail.com", Point = 5, Message = "After a construction project took longer than expected, my husband, my daughter and I\r\n                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our\r\n                            city, neighborhood and the types of housing options available and absolutely love our\r\n                            vacation at Sona Hotel.", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000")}, 
+				new Rate { RateID = "R0004", Username = "Superman",			Email = "user1@gmail.com", Point = 5, Message = "After a construction project took longer than expected, my husband, my daughter and I\r\n                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our\r\n                            city, neighborhood and the types of housing options available and absolutely love our\r\n                            vacation at Sona Hotel.", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000")}, 
 			};
 
 			return rates;
@@ -394,10 +405,6 @@ namespace HotelManagement.Data
 				new RoomService { RoomID = "R201", ServiceID = "S0002" },
 				new RoomService { RoomID = "R201", ServiceID = "S0003" },
 				new RoomService { RoomID = "R201", ServiceID = "S0004" },
-
-				new RoomService { RoomID = "R202", ServiceID = "S0002" },
-				new RoomService { RoomID = "R202", ServiceID = "S0003" },
-				new RoomService { RoomID = "R202", ServiceID = "S0004" },
 
 				new RoomService { RoomID = "R202", ServiceID = "S0002" },
 				new RoomService { RoomID = "R202", ServiceID = "S0003" },
@@ -453,6 +460,20 @@ namespace HotelManagement.Data
 			};
 
 			return roomService;
+		}
+
+		public static BookingDetail[] InitBookingDetails()
+		{
+			var bookingDetails = new BookingDetail[]
+			{
+				new BookingDetail { BookingID = "BK00001", CategoryID = "Superior01", NumberRoom = 1 },
+				new BookingDetail { BookingID = "BK00002", CategoryID = "Deluxe02", NumberRoom = 1 },
+				new BookingDetail { BookingID = "BK00003", CategoryID = "Superior01", NumberRoom = 1 },
+				new BookingDetail { BookingID = "BK00004", CategoryID = "Suite01", NumberRoom = 1 },
+				new BookingDetail { BookingID = "BK00005", CategoryID = "Standard02", NumberRoom = 1 },
+			};
+
+			return bookingDetails;
 		}
 
 		#endregion

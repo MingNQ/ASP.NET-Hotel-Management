@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Tittle"] = "Room Available";
+}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Rooms Available</h2>
+                    <div class="bt-option">
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                        <span>Rooms Available</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+
+@{
+    if (ViewBag.Rooms.Count <= 0)
+    {
+        <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+            <h3>Oops! No Available Room!</h3>
+            <a type="button" class="btn btn-lg btn-outline-success mt-5" asp-controller="Room" asp-action="Index">Back</a>
+        </div>
+    }
+}
+<section class="rooms-section spad">
+<div class="container">
+    <div class="row">
+        @foreach (var room in ViewBag.Rooms)
+        {
+            string imageUrl = "";
+            foreach (var image in room.Images) 
+            {
+                imageUrl = image.ImageUrl;
+                break;
+            }
+            <div class="col-lg-4 col-md-6">
+                <div class="room-item">
+                    <img src="@imageUrl" alt="Room Image" style="height:220px">
+                    <div class="ri-text">
+                        <h4>@room.Category.TypeName</h4>
+                        <h3>@room.RoomID</h3>
+                        <a asp-controller="HomeBooking" asp-action="Index" 
+                                    asp-route-categoryId="@ViewBag.CategoryID" 
+                                    asp-route-roomId="@room.RoomID"
+                                    asp-route-dateCome="@ViewBag.DateCome"
+                                    asp-route-dateGo="@ViewBag.DateGo"
+                                    asp-route-numPeople="@ViewBag.NumPeople"
+                                    class="primary-btn">
+                                    Book
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+</section>

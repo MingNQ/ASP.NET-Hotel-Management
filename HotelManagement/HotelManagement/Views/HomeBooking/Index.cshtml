@@ -1,0 +1,181 @@
+﻿@model HotelManagement.ViewModels.BookingViewModel;
+@{
+	ViewData["Tittle"] = "Booking";
+}
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="breadcrumb-text">
+					<h2>Booking</h2>
+					<div class="bt-option">
+						<a asp-controller="Home" asp-action="Index">Home</a>
+						<span>Booking</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<form asp-controller="HomeBooking" asp-action="Book" asp-route-rid="@ViewBag.RoomID" method="post">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="card mb-4">
+							<div class="card-header">
+								<h4>Information</h4>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-6 mb-3">
+											<label for="">First Name</label>
+											<input asp-for="@Model.Customer.FirstName" type="text" class="form-control" placeholder="First name">
+											<span asp-validation-for="@Model.Customer.FirstName" class="text-danger"></span>
+										</div>
+										<div class="col-lg-6">
+											<label for="">Last Name</label>
+											<input asp-for="@Model.Customer.LastName" type="text" class="form-control" placeholder="Last name">
+											<span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group ">
+									<div class="row">
+										<label class="col-md-3 col-sm-3">Gender</label>
+										<div class="col-md-3 col-sm-3">
+											<select asp-for="@Model.Customer.Gender">
+												<option value="Male">Male</option>
+												<option value="Female">Female</option>
+												<option value="Other">Other</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="">Phone</label>
+									<input asp-for="@Model.Customer.Phone" type="text" class="form-control" placeholder="Phone Number">
+									<span asp-validation-for="@Model.Customer.Phone" class="text-danger"></span>
+								</div>
+								<div class="form-group ">
+									<label for="">Email</label>
+									<input asp-for="@Model.Customer.Email" type="email" class="form-control" placeholder="Email">
+									<span asp-validation-for="@Model.Customer.Email" class="text-danger"></span>
+								</div>
+								<div class="form-group ">
+									<label for="">Address</label>
+									<input asp-for="@Model.Customer.Address" type="text" class="form-control" placeholder="District, City...">
+									<span asp-validation-for="@Model.Customer.Address" class="text-danger"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="card">
+							<div class="card-header">
+								<h4>Room Information</h4>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="control-label">Category</label>
+									@if (ViewBag.Category != null)
+									{
+										<input name="cid" class="form-control" type="text" value="@ViewBag.Category.TypeName" readonly="">
+									} 
+									else
+									{
+										<select name="cid" id="categorySelect" class="select2-single form-control" asp-items="@ViewBag.Categories">
+											<option value="" disabled selected hidden>Select Category</option>
+										</select>
+									}
+								</div>
+								<div class="form-group">
+								@if(ViewBag.Room != null)
+								{
+										<label class="control-label">Room Vacant</label>
+										<input name="rid" class="form-control" type="text" value="@ViewBag.Room.RoomID" readonly="">
+								}
+								else
+								{
+									<label class="control-label">Room Vacant</label>
+									<select name="rid"  id="categorySelect" class="select2-single form-control" required asp-items="@ViewBag.Rooms">
+										<option value="" disabled selected hidden>Select Room</option>
+									</select>
+								}
+								</div>
+								<div class="form-group" id="simple-date1">
+									<label class="control-label">Date Come</label>
+									<div class="input-group date">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+										</div>
+										<input asp-for="@Model.Booking.DateCome" type="text" class="form-control" id="simpleDataInput" value="@ViewBag.DateCome">
+									</div>
+									<span class="text-danger"></span>
+								</div>
+								<div class="form-group" id="simple-date1">
+									<label class="control-label">Date Go</label>
+									<div class="input-group date">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+										</div>
+										<input asp-for="@Model.Booking.DateGo" type="text" class="form-control" id="simpleDataInput" value="@ViewBag.DateGo">
+									</div>
+									<span class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label for="touchSpin1">People</label>
+									<input asp-for="@Model.Booking.NumberPeople" id="touchSpin1" type="text" class="form-control" value="@ViewBag.NumPeople" >
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-lg btn-block btn-primary mt-3">Book</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+@section Styles {
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/fontawesome-free/css/all.min.css"))" rel="stylesheet" type="text/css">
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap/css/bootstrap.min.css"))" rel="stylesheet" type="text/css">
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/css/ruang-admin.min.css"))" rel="stylesheet">
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css"))" rel="stylesheet" />
+	<link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/css/select2.min.css"))" rel="stylesheet" type="text/css">
+	<link href="@(Url.Content("~/TemplateLayout/AdminPagevendor/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css"))" rel="stylesheet">
+}
+
+@section Scripts{
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/jquery/jquery.min.js"))"></script>
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap/js/bootstrap.bundle.min.js"))"></script>
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/jquery-easing/jquery.easing.min.js"))"></script>
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js"))"></script>
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"))"></script>
+	<script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/select2/dist/js/select2.min.js"))"></script>
+	<script>
+		$(document).ready(function () {
+			$('#simple-date1 .input-group.date').datepicker({
+				format: 'mm/dd/yyyy',
+				todayBtn: 'linked',
+				todayHighlight: true,
+				autoclose: true,
+			});
+
+			$('#touchSpin1').TouchSpin({
+				min: 1,
+				max: 100,
+				boostat: 5,
+				maxboostedstep: 10,
+				initval: 1
+			});
+		});
+	</script>
+}

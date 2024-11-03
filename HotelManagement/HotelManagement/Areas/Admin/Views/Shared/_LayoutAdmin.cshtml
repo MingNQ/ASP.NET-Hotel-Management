@@ -8,14 +8,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="@(Url.Content("~/TemplateLayout/AdminPage/img/logo/logo.png"))" rel="icon">
-    <title>RuangAdmin - Dashboard</title>
-    @* <link href="../TemplateLayout/AdminPage/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="../TemplateLayout/AdminPage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../TemplateLayout/AdminPage/css/ruang-admin.min.css" rel="stylesheet"> *@
+    <title>Hotel - Admin</title>
     <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/fontawesome-free/css/all.min.css"))" rel="stylesheet" type="text/css">
     <link href="@(Url.Content("~/TemplateLayout/AdminPage/vendor/bootstrap/css/bootstrap.min.css"))" rel="stylesheet" type="text/css">
     <link href="@(Url.Content("~/TemplateLayout/AdminPage/css/ruang-admin.min.css"))" rel="stylesheet">
+    @RenderSection("Styles", required:false)
+    <!-- Custom styles for this template-->
+    <style>
+        .tabA {
+            text-decoration: none !important;
+        }
+    </style>
 </head>
+
 
 <body id="page-top">
     <div id="wrapper">
@@ -25,7 +30,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <!-- TopBar -->
-                <partial name="TopBar"/>
+                @await Component.InvokeAsync("TopBar")
                 <!-- Topbar -->
                 <!-- Container Fluid-->
                 <div class="container-fluid" id="container-wrapper">
@@ -50,6 +55,7 @@
     <script src="@(Url.Content("~/TemplateLayout/AdminPage/js/ruang-admin.min.js"))"></script>
     <script src="@(Url.Content("~/TemplateLayout/AdminPage/vendor/chart.js/Chart.min.js"))"></script>
     <script src="@(Url.Content("~/TemplateLayout/AdminPage/js/demo/chart-area-demo.js"))"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>

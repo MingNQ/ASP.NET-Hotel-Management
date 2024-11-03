@@ -3,7 +3,6 @@
 	public enum AccountType
 	{
 		Admin,
-		User, 
 		Staff
 	}
 }

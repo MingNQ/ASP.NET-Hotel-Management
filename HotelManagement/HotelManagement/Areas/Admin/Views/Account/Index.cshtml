@@ -1,0 +1,71 @@
+﻿@using HotelManagement.Models
+@{
+    ViewData["Title"] = "Account";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model IEnumerable<Account>
+
+<div class="card">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Simple Tables</h6>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                    <th>No.</th>
+                    <th>Staff</th>
+                    <th>Username</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var acc in Model)
+                {
+                    string staffName = acc.Staff != null ? acc.Staff.FirstName + " " + acc.Staff.LastName : "";
+                    <tr>
+                        <td>@acc.AccountID</td>
+                        <td>@staffName</td>
+                        <td>@acc.Username</td>
+                        <td>@acc.Type</td>
+                        @if (acc.Active)
+                        {
+                            <td><span class="badge badge-success">Active</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="badge badge-danger">Disable</span></td>
+                        }
+                        <td>
+                            <form asp-controller="Account" asp-action="ActiveAccount" asp-route-id="@acc.AccountID">
+                                <button type="submit" name="action" value="active" class="btn btn-sm btn-primary">Active</button>
+                                <button type="submit" name="action" value="disable" class="btn btn-sm btn-danger">Disable</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row ml-2 mt-2">
+    <div class="col-sm-12 col-md-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+            <ul class="pagination">
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="paginate_button page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-page="@i">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

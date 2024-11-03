@@ -1,0 +1,88 @@
+﻿@model HotelManagement.Models.Booking
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">
+            Create new Booking
+        </h2>
+    </div>
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <form asp-controller="Booking" asp-action="Create" method="post" class="mt-3">
+            @Html.AntiForgeryToken()
+            <!-- Booking ID -->
+            <div class="form-group row" style="margin-top:7px">
+                <label asp-for="BookingID" class="col-sm-2 col-form-label">Booking ID</label>
+                <div class="col-sm-8">
+                    <input asp-for="BookingID" class="form-control" placeholder="Booking ID" value="@ViewBag.NewBookingID" readonly/>
+                </div>
+                <span asp-validation-for="BookingID" class="text-danger col-sm-2"></span>
+            </div>
+
+            <!-- Customer ID -->
+            <div class="form-group row" style="margin-top:7px">
+                <label asp-for="CustomerID" class="col-sm-2 col-form-label">Customer ID</label>
+                <div class="col-sm-8">
+                    <select asp-for="CustomerID" class="form-control" asp-items="@ViewBag.CustomerList">
+                        <option value="">--Select CustomerID--</option>
+                    </select>
+                    
+                </div>
+                <span asp-validation-for="CustomerID" class="text-danger col-sm-2"></span>
+            </div>
+
+            <!-- DateCome -->
+            <div class="form-group row" style="margin-top:7px">
+                <label asp-for="DateCome" class="col-sm-2 col-form-label">Date Come</label>
+                <div class="col-sm-8">
+                    <input asp-for="DateCome" type="date" class="form-control" />
+                </div>
+                <span asp-validation-for="DateCome" class="text-danger col-sm-2"></span>
+            </div>
+
+            <!-- DateGo -->
+            <div class="form-group row" style="margin-top:7px">
+                <label asp-for="DateGo" class="col-sm-2 col-form-label">Date Go</label>
+                <div class="col-sm-8">
+                    <input asp-for="DateGo" type="date" class="form-control" />
+                </div>
+                <span asp-validation-for="DateGo" class="text-danger col-sm-2"></span>
+            </div>
+
+            <!-- NumberPeople -->
+            <div class="form-group row" style="margin-top:7px">
+                <label asp-for="NumberPeople" class="col-sm-2 col-form-label">Number of People</label>
+                <div class="col-sm-8">
+                    <input asp-for="NumberPeople" type="number" min="1" class="form-control" placeholder="Number of People" />
+                </div>
+                <span asp-validation-for="NumberPeople" class="text-danger col-sm-2"></span>
+            </div>
+
+            <!-- Deposit -->
+            <div style="margin-top: 7px" class="form-group row">
+                <label asp-for="Deposit" class="col-sm-2 col-form-label">Deposit</label>
+                <div class="col-sm-8">
+                    <input asp-for="Deposit" class="form-control" placeholder="Deposit" />
+                </div>
+                <span asp-validation-for="Deposit" class="text-danger col-sm-2"></span>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group row" style="margin-top:7px; align-items: center;">
+                <label asp-for="Status" class="col-sm-2 col-form-label">Status</label>
+                <div class="col-sm-8 d-flex align-items-center">
+                    <input asp-for="Status" type="checkbox" class="form-check-input" style="transform: scale(1.5); margin-left: 10px;" />
+                </div>
+                <span asp-validation-for="Status" class="text-danger col-sm-2"></span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="d-grid gap-2 d-md-flex mt-lg-5 mb-lg-5">
+    <button type="submit" class="btn btn-primary mr-5">Create</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+</div>

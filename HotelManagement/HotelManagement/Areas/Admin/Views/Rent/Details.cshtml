@@ -1,0 +1,100 @@
+﻿@model HotelManagement.Models.RentForm
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>RentForm</h4>
+    <hr />
+    <dl class="row">
+        <div class="col">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.RentFormID):
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.RentFormID)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.BookingID):
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.BookingID)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.RoomID):
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.RoomID)
+            </dd>
+            <dt class="col-sm-3">
+                Staff Create:
+            </dt>
+            <dd class="col-sm-9">
+                @Model.Staff?.FirstName @Model.Staff?.LastName
+            </dd>
+        </div>
+        <div class="col">
+            <dt class="col-sm-3">
+                Customer:
+            </dt>
+            <dd class="col-sm-9">
+                @Model.Customer?.FirstName @Model.Customer?.LastName
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DateCreate):
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.DateCreate)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DateCheckIn):
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.DateCheckIn)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DateCheckOut):
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.DateCheckOut)
+            </dd>
+        </div>
+    </dl>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                    <th>Room</th>
+                    <th>Category</th>
+                    <th>Service</th>
+                    <th>Sale</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.RoomID)</td>
+                    <td>@Html.DisplayFor(model => model.Room.Category.TypeName)</td>
+                    <td>
+                        @foreach (var roomService in ViewBag.RoomServices)
+                        {
+                            <p>@roomService.Service.ServiceName</p>
+                        }
+                    </td>
+                    <td>@Model.Sale.ToString("p2")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="d-grid gap-2 d-md-block mt-3 mb-5">
+    <a class="btn btn-primary" asp-controller="Rent" asp-action="Edit" asp-route-id="@Model.RentFormID">Edit</a>
+    <a class="btn btn-secondary" style="margin-left: 20px" asp-action="Index">Back To List</a>
+</div>
