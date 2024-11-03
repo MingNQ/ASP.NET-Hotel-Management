@@ -3,6 +3,7 @@ using System.Linq;
 using HotelManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using HotelManagement.Models.Common;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -250,6 +251,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Delete")]
         public IActionResult Delete(string id)
         {
+            // Check role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             var invoice = db.Invoices.Include(i => i.Booking)
                                       .ThenInclude(b => b.Customer)
                                       .Include(i => i.Staff)

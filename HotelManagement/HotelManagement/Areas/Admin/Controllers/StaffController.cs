@@ -21,11 +21,10 @@ namespace HotelManagement.Areas.Admin.Controllers
             db = db1;
         }
 
-
         [HttpGet]
         [Route("")]
         [Route("index")]
-        public IActionResult Index(string searchPhone)
+        public IActionResult Index(string searchPhone, int page = 1)
         {
             var staff = db.Staffs.AsQueryable();
 
@@ -41,8 +40,19 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 ViewData["NoResultsMessage"] = $"No customer found with phone number: {searchPhone}";
             }
-            TempData["Message"] = "This is Staff Account!";
+
             ViewData["searchPhone"] = searchPhone;
+
+            // Pagination
+            int items = 5;
+            int total = db.Accounts.Count();
+            int totalPages = (int)Math.Ceiling((double)total / items);
+            int pageSkip = (page - 1) * items;
+
+            staffList = staffList.Skip(pageSkip).Take(items).ToList();
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
             return View(staffList);
         }
 
@@ -56,6 +66,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            // Check Rol
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             string staffID = "";
             while (true)
             {
@@ -82,17 +100,26 @@ namespace HotelManagement.Areas.Admin.Controllers
                 while (true)
                 {
                     Account account = Generate.GenerateAccount(fullName, staff.Role != Role.Manager ? AccountType.Staff : AccountType.Admin);
+                    string tmpPassword = Generate._account[account.Username];
 
                     if (!db.Accounts.Any(a => a.Username == account.Username))
                     {
                         db.Accounts.Add(account);
                         staff.Account = account;
+                        TempData["Username"] = account.Username;
+                        TempData["Password"] = tmpPassword;
+                        TempData["StaffID"] = staff.StaffID;
+                        tmpPassword = "";
                         break;
                     }
                 }
 
                 db.Staffs.Add(staff);
                 db.SaveChanges();
+
+                TempData["SuccessMessage"] = "Staff created successfully!";
+                
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -103,6 +130,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Edit")]
         public IActionResult Edit(string idStaff)
         {
+            // Check Role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             if (idStaff == null || db.Staffs == null)
             {
                 return NotFound();
@@ -160,6 +195,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Delete")]
         public IActionResult Delete(string idStaff)
         {
+            // Check Role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             if (idStaff == null || db.Staffs == null)
             {
                 return NotFound();

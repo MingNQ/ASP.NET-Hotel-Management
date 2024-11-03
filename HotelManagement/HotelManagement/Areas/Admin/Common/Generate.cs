@@ -20,7 +20,7 @@ namespace HotelManagement.Areas.Admin.Common
         {
             // Generate username
             List<string> names = new List<string>();
-            foreach (string n in _name.Split(" "))
+            foreach (string n in _name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 names.Add(n);
             }

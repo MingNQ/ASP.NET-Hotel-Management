@@ -1,5 +1,6 @@
 ﻿using HotelManagement.Data;
 using HotelManagement.Models;
+using HotelManagement.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,6 +50,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
+            // Check role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             var lastService = db.Services.OrderByDescending(s => s.ServiceID).FirstOrDefault();
             string newServiceID = "R0001";
             if (lastService != null)
@@ -84,6 +93,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Edit")]
         public IActionResult Edit(string id)
         {
+            // Check role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             if (id == null || db.Services == null)
             {
                 return NotFound();
@@ -131,6 +148,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Delete")]
         public IActionResult Delete(string id)
         {
+            // Check role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             if (id == null || db.Categories == null)
             {
                 return NotFound();

@@ -1,74 +1,119 @@
 ﻿@using HotelManagement.Models
 @{
-    ViewData["Title"] = "Staff";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	ViewData["Title"] = "Staff";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 @model IEnumerable<Staff>
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
-    </div>
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+		 aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: block; padding-right: 15px">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">You have successfully created Staff ID: @TempData["StaffID"]</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					This is Account infomation:
+					<ul>
+						<li><span class="text-black">Username: @TempData["Username"]</span></li>
+						<li><span class="text-black">Password: @TempData["Password"]</span></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
 }
+
 <h1>Staff List</h1>
 
 <form method="get" asp-action="Index" class="form-inline mb-3">
-    <div class="form-group">
-        <input type="text" name="searchPhone" class="form-control" placeholder="Enter phone number" value="@ViewData["searchPhone"]" />
-    </div>
-    <button type="submit" class="btn btn-primary ml-2">Search</button>
-    <a asp-action="Index" class="btn btn-secondary ml-2">Clear</a>
+	<div class="form-group">
+		<input type="text" name="searchPhone" class="form-control" placeholder="Enter phone number" value="@ViewData["searchPhone"]" />
+	</div>
+	<button type="submit" class="btn btn-primary ml-2">Search</button>
+	<a asp-action="Index" class="btn btn-secondary ml-2">Clear</a>
 </form>
 
 <!-- Hiển thị thông báo nếu không có kết quả -->
 @if (ViewData["NoResultsMessage"] != null)
 {
-    <div class="alert alert-warning">@ViewData["NoResultsMessage"]</div>
+	<div class="alert alert-warning">@ViewData["NoResultsMessage"]</div>
 }
 <div class="row">
+	<div class="card mb-4">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table align-items-center table-flush">
+					<thead clash="thead-light">
+						<tr>
+							<th>StaffID</th>
+							<th>FirstName</th>
+							<th>LastName</th>
+							<th>Address</th>
+							<th>Gender</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Role</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var i in Model)
+						{
+							<tr>
+								<td>@i.StaffID</td>
+								<td>@i.FirstName</td>
+								<td>@i.LastName</td>
+								<td>@i.Address</td>
+								<td>@i.Gender</td>
+								<td>@i.Email</td>
+								<td>@i.Phone</td>
+								<td>@i.Role</td>
+								<td>
+									<a asp-controller="Staff" asp-action="Edit" asp-route-idStaff="@i.StaffID" class="btn btn-primary">Edit</a>
+									<a asp-controller="Staff" asp-action="Delete" asp-route-idStaff="@i.StaffID" class="btn btn-danger">Delete</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="mb-4">
+		<a asp-area="Admin" asp-controller="Staff" asp-action="Create" class="btn btn-primary">Create New Staff</a>
+	</div>
 
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                    <thead clash="thead-light">
-                        <tr>
-                            <th>StaffID</th>
-                            <th>FirstName</th>
-                            <th>LastName</th>
-                            <th>Address</th>
-                            <th>Gender</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Role</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var i in Model)
-                        {
-                            <tr>
-                                <td>@i.StaffID</td>
-                                <td>@i.FirstName</td>
-                                <td>@i.LastName</td>
-                                <td>@i.Address</td>
-                                <td>@i.Gender</td>
-                                <td>@i.Email</td>
-                                <td>@i.Phone</td>
-                                <td>@i.Role</td>
-                                <td>
-                                    <a asp-controller="Staff" asp-action="Edit" asp-route-idStaff="@i.StaffID" class="btn btn-primary">Edit</a>
-                                    <a asp-controller="Staff" asp-action="Delete" asp-route-idStaff="@i.StaffID" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="mb-4">
-        <a asp-area="Admin" asp-controller="Staff" asp-action="Create" class="btn btn-primary">Create New Staff</a>
-    </div>
+	<div class="col-sm-12 col-md-7">
+		<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+			<ul class="pagination">
+				@for (int i = 1; i <= ViewBag.TotalPages; i++)
+				{
+					<li class="paginate_button page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+						<a class="page-link"
+						   asp-action="Index"
+						   asp-route-page="@i">
+							@i
+						</a>
+					</li>
+				}
+			</ul>
+		</div>
+	</div>
 </div>
+
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$('#exampleModalCenter').modal('show');
+		});
+	</script>
+}

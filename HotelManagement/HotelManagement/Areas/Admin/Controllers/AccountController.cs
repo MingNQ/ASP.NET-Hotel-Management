@@ -20,16 +20,24 @@ namespace HotelManagement.Areas.Admin.Controllers
 
 		[Route("")]
 		[Route("Index")]
-		public IActionResult Index()
+		public IActionResult Index(int page = 1)
 		{
 			var roleString = HttpContext.Session.GetString("Role");
-			if (!Enum.TryParse(roleString, out AccountType role) && role == AccountType.Admin)
+			if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
 			{
-				// Người dùng có quyền Admin
+				// Not permission
 				return RedirectToAction("AccessDenied", "Account");
 			}
 
-			var accounts = db.Accounts.Include(a => a.Staff).ToList();
+			// Pagination
+            int items = 7;
+            int total = db.Accounts.Count();
+            int totalPage = (int)Math.Ceiling((double)total / items);
+            int pageSkip = (page - 1) * items;
+			ViewBag.CurrentPage = page;
+			ViewBag.TotalPages = totalPage;
+
+			var accounts = db.Accounts.Include(a => a.Staff).Skip(pageSkip).Take(items).ToList();
 			return View(accounts);
 		}
 
@@ -136,6 +144,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             return RedirectToAction("Login", "Account");
 		}
 
+		[Route("AccessDenied")]
         public IActionResult AccessDenied()
         {
             return View();

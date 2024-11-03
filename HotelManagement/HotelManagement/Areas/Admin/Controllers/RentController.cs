@@ -101,13 +101,12 @@ namespace HotelManagement.Areas.Admin.Controllers
                 Membership = c.Membership
             }).ToList();
 
-
 			// Generate RentForm ID
-			string rentFormID = "RF000001";
+			string rentFormID = "RF00001";
 
 			while (true)
 			{
-				int numberID = (int)new Random().NextInt64(1000000);
+				int numberID = (int)new Random().NextInt64(100000);
 				rentFormID = "RF" + numberID.ToString("D5");
 
 				if (!ExistRentform(rentFormID))
@@ -234,7 +233,15 @@ namespace HotelManagement.Areas.Admin.Controllers
 		[Route("Edit")]
         public IActionResult Edit(string id)
         {
-			if (id == null)
+            // Check role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
+            if (id == null)
 			{
 				return NotFound();
 			}
@@ -357,6 +364,14 @@ namespace HotelManagement.Areas.Admin.Controllers
 		[Route("Delete")]
 		public IActionResult Delete(string id)
 		{
+            // Check role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             if (id == null)
             {
                 return NotFound();

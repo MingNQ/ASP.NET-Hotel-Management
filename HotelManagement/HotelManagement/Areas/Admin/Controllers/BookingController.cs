@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using HotelManagement.Data;
 using HotelManagement.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using HotelManagement.Models.Common;
 
 namespace HotelManagement.Controllers
 {
@@ -141,6 +142,14 @@ namespace HotelManagement.Controllers
         [Route("Edit")]
         public IActionResult Edit(string id)
         {
+            // Check role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             if (id == null || db.Bookings == null)
             {
                 return NotFound();
@@ -192,6 +201,14 @@ namespace HotelManagement.Controllers
         [Route("Delete")]
         public IActionResult Delete(string id)
         {
+            // Check role
+            var roleString = HttpContext.Session.GetString("Role");
+            if (Enum.TryParse(roleString, out AccountType role) && role != AccountType.Admin)
+            {
+                // Not permission
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             if (id == null || db.Bookings == null)
             {
                 return NotFound();
