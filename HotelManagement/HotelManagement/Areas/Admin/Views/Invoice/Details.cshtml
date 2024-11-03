@@ -135,7 +135,14 @@
             </dl>
         </div>
     </div>
-</div>
-<div class="text-end mt-4">
-    <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+    <div class="d-grid gap-2 d-md-flex mb-lg-5">
+        @if (ViewBag.Invoice.Status == "Pending")
+        {
+            <form asp-controller="Invoice" asp-action="Pay" asp-route-invoiceID="@ViewBag.Invoice.InvoiceID" method="post">
+                <button type="submit" class="btn btn-primary mr-5">Pay</button>
+            </form>
+        }
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
 </div>

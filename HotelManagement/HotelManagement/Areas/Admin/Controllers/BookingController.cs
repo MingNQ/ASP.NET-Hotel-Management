@@ -228,7 +228,7 @@ namespace HotelManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 TempData["ErrorMessage"] = "Can Not Delete this Booking ID ";
                 return RedirectToAction("Delete",new {id});

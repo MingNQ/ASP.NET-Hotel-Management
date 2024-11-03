@@ -9,13 +9,13 @@ namespace HotelManagement.Models
 
 		public string? BookingID { get; set; }
 
-		[Required]
+		[Required(ErrorMessage ="Room is not null!")]
 		public string? RoomID { get; set; }
 
-		[Required]
+		[Required(ErrorMessage ="Staff is not null!")]
 		public string? StaffID { get; set; }
 
-		[Required]
+		[Required(ErrorMessage ="Customer must be selected")]
 		public string? CustomerID { get; set; }
 
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]

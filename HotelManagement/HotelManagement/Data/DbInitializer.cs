@@ -1,5 +1,6 @@
 ﻿using HotelManagement.Models;
 using HotelManagement.Models.Common;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagement.Data
@@ -100,10 +101,12 @@ namespace HotelManagement.Data
 		/// <returns></returns>
 		private static Account[] InitAccount()
 		{
+			var passwordHasher = new PasswordHasher<Account>();
+
 			var accounts = new Account[]
 			{
-				new Account { Username = "admin", Password = "admin123", Type = AccountType.Admin },
-				new Account { Username = "admin2", Password = "admin123", Type = AccountType.Admin },
+				new Account { Username = "admin", Password = passwordHasher.HashPassword(null, "123"), Type = AccountType.Admin, Active = true },
+				new Account { Username = "admin2", Password = passwordHasher.HashPassword(null, "123"), Type = AccountType.Admin, Active = false },
 			};
 
 			return accounts;
@@ -366,10 +369,10 @@ namespace HotelManagement.Data
 		{
 			var rates = new Rate[] 
 			{
-				new Rate { RateID = "R0001", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000")}, 
-				new Rate { RateID = "R0002", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000")}, 
-				new Rate { RateID = "R0003", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000")}, 
-				new Rate { RateID = "R0004", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000")}, 
+				new Rate { RateID = "R0001", Username = "Brandon Kelley",	Email = "user1@gmail.com", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000")}, 
+				new Rate { RateID = "R0002", Username = "MingNQ",			Email = "user1@gmail.com", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000")}, 
+				new Rate { RateID = "R0003", Username = "Batmat",			Email = "user1@gmail.com", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000")}, 
+				new Rate { RateID = "R0004", Username = "Superman",			Email = "user1@gmail.com", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000")}, 
 			};
 
 			return rates;

@@ -130,7 +130,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                     InvoiceID = InvoiceID,
                     DatePayment = DateTime.Now,
                     PaymentMethod = PaymentMethod,
-                    Status = "Done" // Có thể thay đổi trạng thái nếu cần
+                    Status = "Pending" // Có thể thay đổi trạng thái nếu cần
                 };
                 db.Payments.Add(newPayment);
                 db.SaveChanges();
@@ -138,9 +138,6 @@ namespace HotelManagement.Areas.Admin.Controllers
             }
 
             // Nếu dữ liệu không hợp lệ, nạp lại form với thông tin đã nhập
-            var bookings = db.Bookings.Select(b => new { b.BookingID }).ToList();
-            ViewBag.BookingIDs = bookings;
-
             var staffList = db.Staffs
                 .Select(s => new
                 {
@@ -152,6 +149,16 @@ namespace HotelManagement.Areas.Admin.Controllers
             ViewBag.PaymentMethods = new List<string> { "Cash", "Credit Card", "Banking" };
             ViewBag.NewInvoiceID = InvoiceID;
             ViewBag.DateCreate = DateCreate;
+
+            if (string.IsNullOrEmpty(BookingID))
+            {
+                ViewBag.ErrorMessage = "Don't have any Booking";
+
+                return View();
+            }
+
+            var bookings = db.Bookings.Select(b => new { b.BookingID }).ToList();
+            ViewBag.BookingIDs = bookings;
 
             return View();
         }
@@ -221,6 +228,23 @@ namespace HotelManagement.Areas.Admin.Controllers
             };
 
             return View(); // Trả về view để hiển thị
+        }
+
+        [HttpPost, ActionName("Pay")]
+        [Route("Pay")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Pay(string invoiceID)
+        {
+            var payment = db.Payments.Where(p => p.InvoiceID == invoiceID).FirstOrDefault();
+
+            if (payment != null)
+            {
+                payment.Status = "Done";
+                db.Entry(payment).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         [Route("Delete")]

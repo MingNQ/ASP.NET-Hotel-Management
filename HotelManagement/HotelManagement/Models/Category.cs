@@ -10,7 +10,10 @@ namespace HotelManagement.Models
 		}
 
 		[Key]
-		public string CategoryID { get; set; } 
+		public string CategoryID { get; set; }
+
+		[Required(ErrorMessage ="Type name is required")]
+		[RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Type Name can only contain letters")]
 		public string? TypeName { get; set; }
 		public decimal Capacity { get; set; }
 		public decimal Price { get; set; }

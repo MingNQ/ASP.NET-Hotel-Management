@@ -1,5 +1,7 @@
-﻿using HotelManagement.Data;
+﻿using HotelManagement.Areas.Admin.Common;
+using HotelManagement.Data;
 using HotelManagement.Models;
+using HotelManagement.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -39,16 +41,16 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 ViewData["NoResultsMessage"] = $"No customer found with phone number: {searchPhone}";
             }
-
+            TempData["Message"] = "This is Staff Account!";
             ViewData["searchPhone"] = searchPhone;
             return View(staffList);
         }
+
         public IActionResult Index()
         {
             var lst = db.Staffs.Include(m => m.Account).ToList();
             return View(lst);
         }
-
 
         [Route("Create")]
         [HttpGet]
@@ -75,6 +77,20 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                string fullName = staff.FirstName + " " + staff.LastName;
+                
+                while (true)
+                {
+                    Account account = Generate.GenerateAccount(fullName, staff.Role != Role.Manager ? AccountType.Staff : AccountType.Admin);
+
+                    if (!db.Accounts.Any(a => a.Username == account.Username))
+                    {
+                        db.Accounts.Add(account);
+                        staff.Account = account;
+                        break;
+                    }
+                }
+
                 db.Staffs.Add(staff);
                 db.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -83,8 +99,6 @@ namespace HotelManagement.Areas.Admin.Controllers
             ViewBag.StaffID = staff.StaffID;
             return View();
         }
-
-
 
         [Route("Edit")]
         public IActionResult Edit(string idStaff)

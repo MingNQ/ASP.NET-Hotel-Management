@@ -30,7 +30,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <!-- TopBar -->
-                <partial name="TopBar"/>
+                @await Component.InvokeAsync("TopBar")
                 <!-- Topbar -->
                 <!-- Container Fluid-->
                 <div class="container-fluid" id="container-wrapper">

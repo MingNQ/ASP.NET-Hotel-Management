@@ -5,6 +5,12 @@
 }
 
 @model IEnumerable<Staff>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
 <h1>Staff List</h1>
 
 <form method="get" asp-action="Index" class="form-inline mb-3">

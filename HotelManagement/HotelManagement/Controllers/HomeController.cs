@@ -18,6 +18,30 @@ namespace HotelManagement.Controllers
 
         public IActionResult Index()
         {
+            var previewRoom = db.Categories.ToList();
+            var rooms = new List<Category>();
+            Dictionary<string, bool> map = new Dictionary<string, bool>();
+
+            // Get list preview Room
+            foreach (var room in previewRoom)
+            {
+                string currId = room.CategoryID.Substring(0, room.CategoryID.Length - 2);
+                map[currId] = true;
+            }
+
+            foreach (var room in previewRoom)
+            {
+                string currId = room.CategoryID.Substring(0, room.CategoryID.Length - 2);
+                
+                if (map[currId] == true)
+                {
+                    rooms.Add(room);
+                    map[currId] = false;
+                }
+            }
+
+
+            ViewBag.Rooms = rooms;
             return View();
         }
 

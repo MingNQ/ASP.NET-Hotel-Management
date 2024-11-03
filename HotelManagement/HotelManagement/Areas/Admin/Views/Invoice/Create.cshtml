@@ -18,12 +18,20 @@
 
     <div class="form-group">
         <label>Booking ID</label>
-        <select name="BookingID" class="form-control">
-            @foreach (var booking in ViewBag.BookingIDs)
-            {
-                <option value="@booking.BookingID">@booking.BookingID</option>
-            }
-        </select>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <p class="text-danger">@ViewBag.ErrorMessage</p>
+            <a class="link-primary" href="@Url.Action("Create", "Booking")">Create Booking</a>
+        }
+        else
+        {
+            <select name="BookingID" class="form-control">
+                @foreach (var booking in ViewBag.BookingIDs)
+                {
+                    <option value="@booking.BookingID">@booking.BookingID</option>
+                }
+            </select>
+        }
     </div>
 
     <div class="form-group">
@@ -45,5 +53,15 @@
             }
         </select>
     </div>
+    <div class="form-group">
+        <label>Status</label>
+        <select name="PaymentMethod" class="form-control">
+            @foreach (var method in ViewBag.PaymentMethods)
+            {
+                <option value="@method">@method</option>
+            }
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">Create Invoice</button>
+    <a class="btn btn-secondary mr-2" href="@Url.Action("Index", "Invoice")">Cancel</a>
 </form>

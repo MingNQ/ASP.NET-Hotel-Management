@@ -164,26 +164,26 @@
     <div class="container-fluid">
         <div class="hp-room-items">
             <div class="row">
-                @for (int i = 0; i < 4; i++) 
+                @{ int i = 0; }
+                @foreach (var room in ViewBag.Rooms) 
                 {
+                    i++;
+                    int capacity = int.Parse(room.CategoryID.ToString().Substring(room.CategoryID.ToString().Length - 2));
+                    string price = string.Format("{0:N0} VND", room.Price);
                     <div class="col-lg-3 col-md-6">
-                        <div class="hp-room-item set-bg" data-setbg="../TemPlateLayout/MainWebPage/img/room/room-b@(i + 1).jpg">
+                        <div class="hp-room-item set-bg" data-setbg="../TemPlateLayout/MainWebPage/img/room/room-b@(i).jpg">
                             <div class="hr-text">
-                                <h3>Double Room</h3>
-                                <h2>199$<span>/Pernight</span></h2>
+                                <h3>@room.TypeName</h3>
+                                <h2>@price<span>/Pernight</span></h2>
                                 <table>
                                     <tbody>
                                         <tr>
                                             <td class="r-o">Size:</td>
-                                            <td>30 ft</td>
+                                            <td>@room.Capacity ft</td>
                                         </tr>
                                         <tr>
                                             <td class="r-o">Capacity:</td>
-                                            <td>Max persion 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Bed:</td>
-                                            <td>King Beds</td>
+                                            <td>Max person @(capacity + 1)</td>
                                         </tr>
                                         <tr>
                                             <td class="r-o">Services:</td>

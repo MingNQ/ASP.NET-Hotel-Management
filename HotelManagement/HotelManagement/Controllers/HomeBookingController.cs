@@ -61,6 +61,7 @@ namespace HotelManagement.Controllers
 			// Generate Customer ID
 			string customerID = "";
 			string bookingID = "";
+            string rentFormID = GenerateID("RF");
 
 			while (true)
 			{
@@ -107,6 +108,19 @@ namespace HotelManagement.Controllers
                         CategoryID = room.CategoryID,
                         NumberRoom = 1
                     });
+                    db.Add(new RentForm
+                    {
+                        RentFormID = rentFormID,
+                        BookingID = bookingID,
+                        StaffID = "S0001",
+                        RoomID = rid,
+                        CustomerID = customerID,
+                        DateCreate = DateTime.Now,
+                        DateCheckIn = model.Booking.DateCome,
+                        DateCheckOut = model.Booking.DateGo,
+                        Sale = 0
+                    });
+
                     db.Customers.Add(model.Customer);
                     db.SaveChanges();
 
@@ -139,9 +153,12 @@ namespace HotelManagement.Controllers
                 case "BK":
 					id = idBase + new Random().NextInt64(100000).ToString("d5");
                     break;
-			}
+                case "RF":
+                    id = idBase + new Random().NextInt64(100000).ToString("d5");
+                    break;
+            }
 
-			return id;
+            return id;
         }
 	}
 }

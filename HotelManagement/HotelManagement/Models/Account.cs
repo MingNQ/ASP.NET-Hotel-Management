@@ -9,7 +9,6 @@ namespace HotelManagement.Models
 	{
 		public Account()
 		{
-			Staffs = new HashSet<Staff>();
 			Customers = new HashSet<Customer>();
 		}
 		public int AccountID { get; set; }
@@ -19,13 +18,13 @@ namespace HotelManagement.Models
 		public string? Username { get; set; }
 
 		[Required]
-		[MaxLength(50)]
 		public string? Password { get; set; }
 
 		public AccountType Type { get; set; }
+		public bool Active { get; set; }
 
 		// Navigation properties
-		public virtual ICollection<Staff> Staffs { get; set; }
+		public virtual Staff? Staff { get; set; }
 		public virtual ICollection<Customer> Customers { get; set; }
 	}
 }

@@ -7,6 +7,7 @@ namespace HotelManagement.Models
 		[Key]
 		public string BookingID { get; set; }
 
+		[Required(ErrorMessage="CustomerID is required!")]
 		public string? CustomerID { get; set; }
 
 		public DateTime DateCome { get; set; }

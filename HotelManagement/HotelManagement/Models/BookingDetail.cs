@@ -8,7 +8,7 @@ namespace HotelManagement.Models
         [Key]
         [ForeignKey("Booking")]
         public string BookingID { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Category is Required")]
         public string? CategoryID { get; set; }
         public int NumberRoom { get; set; }
 
