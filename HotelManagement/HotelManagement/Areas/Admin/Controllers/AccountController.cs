@@ -49,7 +49,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 
             if (id == null)
 			{
-                return View("Index", accounts);
+                return RedirectToAction("Index", accounts);
             }
 			var account = db.Accounts.Where(a => a.AccountID == id).FirstOrDefault();
 			if (account != null)
@@ -65,7 +65,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 					throw;
 				}
 			}
-            return View("Index", accounts);
+            return RedirectToAction("Index", accounts);
         }
 
 		[HttpGet]

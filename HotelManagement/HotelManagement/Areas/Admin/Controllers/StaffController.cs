@@ -225,13 +225,12 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 db.Staffs.Remove(staff);
             }
-            db.SaveChanges();
             if (db.Invoices.Any(i => i.StaffID == idStaff) || db.RentForms.Any(r => r.StaffID == idStaff))
             {
                 return Content("Error! Can't delete staff!");
             }
-
-            return RedirectToAction(nameof(Index));
+			db.SaveChanges();
+			return RedirectToAction(nameof(Index));
         }
     }
 }

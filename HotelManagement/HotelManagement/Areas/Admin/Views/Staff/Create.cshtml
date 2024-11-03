@@ -40,15 +40,15 @@
 			<label asp-for="Gender" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-10">
 				<label>
-					<input type="radio" name="gender" value="male">
+					<input asp-for="Gender" type="radio" name="gender" value="male">
 					<span>Male</span>
 				</label>
 				<label>
-					<input type="radio" name="gender" value="female">
+					<input asp-for="Gender" type="radio" name="gender" value="female">
 					<span>Female</span>
 				</label>
 				<label>
-					<input type="radio" name="gender" value="other">
+					<input asp-for="Gender" type="radio" name="gender" value="other">
 					<span>Other</span>
 				</label>
 			</div>
@@ -82,7 +82,7 @@
 		<div class="form-group row" style="margin-top: 7px;">
 			<label asp-for="Role" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-10">
-				<select id="Role" name="Role">
+				<select id="Role" name="Role" asp-for="Role">
 					@foreach (var role in Enum.GetValues(typeof(Role)))
 					{
 						<option value="@role">@role</option>
