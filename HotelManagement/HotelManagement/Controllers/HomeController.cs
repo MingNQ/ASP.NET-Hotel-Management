@@ -40,7 +40,7 @@ namespace HotelManagement.Controllers
                 }
             }
 
-
+            ViewBag.Rates = db.Rates.ToList();
             ViewBag.Rooms = rooms;
             return View();
         }

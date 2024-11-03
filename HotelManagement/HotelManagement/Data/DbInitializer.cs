@@ -369,10 +369,10 @@ namespace HotelManagement.Data
 		{
 			var rates = new Rate[] 
 			{
-				new Rate { RateID = "R0001", Username = "Brandon Kelley",	Email = "user1@gmail.com", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000")}, 
-				new Rate { RateID = "R0002", Username = "MingNQ",			Email = "user1@gmail.com", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000")}, 
-				new Rate { RateID = "R0003", Username = "Batmat",			Email = "user1@gmail.com", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000")}, 
-				new Rate { RateID = "R0004", Username = "Superman",			Email = "user1@gmail.com", Point = 5, Message = "", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000")}, 
+				new Rate { RateID = "R0001", Username = "Brandon Kelley",	Email = "user1@gmail.com", Point = 5, Message = "After a construction project took longer than expected, my husband, my daughter and I\r\n                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our\r\n                            city, neighborhood and the types of housing options available and absolutely love our\r\n                            vacation at Sona Hotel.", DateCreate = DateTime.Parse("2022-01-09 00:00:00.000")}, 
+				new Rate { RateID = "R0002", Username = "MingNQ",			Email = "user1@gmail.com", Point = 5, Message = "After a construction project took longer than expected, my husband, my daughter and I\r\n                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our\r\n                            city, neighborhood and the types of housing options available and absolutely love our\r\n                            vacation at Sona Hotel.", DateCreate = DateTime.Parse("2022-01-19 00:00:00.000")}, 
+				new Rate { RateID = "R0003", Username = "Batmat",			Email = "user1@gmail.com", Point = 5, Message = "After a construction project took longer than expected, my husband, my daughter and I\r\n                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our\r\n                            city, neighborhood and the types of housing options available and absolutely love our\r\n                            vacation at Sona Hotel.", DateCreate = DateTime.Parse("2022-01-21 00:00:00.000")}, 
+				new Rate { RateID = "R0004", Username = "Superman",			Email = "user1@gmail.com", Point = 5, Message = "After a construction project took longer than expected, my husband, my daughter and I\r\n                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our\r\n                            city, neighborhood and the types of housing options available and absolutely love our\r\n                            vacation at Sona Hotel.", DateCreate = DateTime.Parse("2022-01-30 00:00:00.000")}, 
 			};
 
 			return rates;
