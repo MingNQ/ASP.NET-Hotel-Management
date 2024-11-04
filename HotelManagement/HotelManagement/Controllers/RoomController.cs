@@ -46,7 +46,7 @@ namespace HotelManagement.Controllers
 
             var room = db.Categories.Where(c => c.CategoryID == id).Include(c => c.Rooms).FirstOrDefault();
             ViewBag.Services = db.Services.ToList();
-
+            ViewBag.Rates = db.Rates.ToList();
             return View(room);
         }
 
@@ -55,8 +55,9 @@ namespace HotelManagement.Controllers
         {
             if (dateCome >= dateGo)
             {
-                ModelState.AddModelError("", "Ngày đến phải nhỏ hơn ngày đi.");
-                return View();
+                TempData["Error"] = "Date Check-in/ Check-out is not valid!";
+
+                return RedirectToAction(nameof(Index), "Home");
             }
 
             var unavailableRoomIds = db.RentForms
