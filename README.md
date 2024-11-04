@@ -1,5 +1,5 @@
 # ASP.NET-Hotel-Management
-Dự án quản lý khách sạn sử dụng ASP.NET Core MVC
+## Project - Hotel Management using ASP.NET Core MVC (.NET 6)
 
 Link to Project: https://github.com/MingNQ/ASP.NET-Hotel-Management
 -
